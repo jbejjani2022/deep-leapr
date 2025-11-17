@@ -7,25 +7,37 @@ Implementation of the Text Regression Domain abstraction.
 from typing import Any, Optional, List
 import math
 import random
+import statistics
+import string
+import unicodedata
+from collections import Counter, defaultdict
+import itertools
+
+import numpy as np
 
 from trainer.random_forest import RandomForestTrainer
 
 from . import Domain
 from text_sample import TextSample, load_text_data
 from feature_engine import Feature
-from prompt_builder import load_prompt_template, format_text_api_description
+from prompt_builder import (
+    load_prompt_template,
+    format_text_api_description,
+    format_text_api_description_plus,
+)
 
 DataPoint = TextSample
 
 
 class TextRegression(Domain):
-    def __init__(self):
+    def __init__(self, use_rich_prompt: bool = False):
         self._split_prompt_template = load_prompt_template(
             "prompts/text_regression_split.txt"
         )
         self._funsearch_prompt_template = load_prompt_template(
             "prompts/text_regression_funsearch.txt"
         )
+        self._use_rich_prompt = use_rich_prompt
 
     def domain_name(self) -> str:
         return "text_regression"
@@ -41,7 +53,11 @@ class TextRegression(Domain):
         examples: list[Any],
         split_context: Optional[str],
     ) -> str:
-        api = format_text_api_description()
+        api = (
+            format_text_api_description_plus()
+            if self._use_rich_prompt
+            else format_text_api_description()
+        )
 
         def format_sample_basic(sample: TextSample) -> str:
             text_preview = (
@@ -63,7 +79,11 @@ class TextRegression(Domain):
         n_output_features: int,
         existing_features_with_importances: list[tuple[Feature, float]],
     ) -> str:
-        api = format_text_api_description()
+        api = (
+            format_text_api_description_plus()
+            if self._use_rich_prompt
+            else format_text_api_description()
+        )
 
         def format_features_with_importances(f: Feature, importance: float) -> str:
             return f"Feature:\n{f.code}\nImportance: {importance:.3f}\n---\n"
@@ -89,18 +109,18 @@ class TextRegression(Domain):
         if not datapoints:
             return 0.0
 
-        # Return mean of target values for regression
+        # Return median of target values for regression (optimal for MAE)
         targets = [dp.target for dp in datapoints]
-        return sum(targets) / len(targets)
+        return float(statistics.median(targets))
 
     def leaf_error(self, datapoints: list[DataPoint]) -> float:
         n = len(datapoints)
         if n <= 1:
             return 0.0
 
-        pred = self.leaf_prediction(datapoints)
+        center = self.leaf_prediction(datapoints)
         # Mean absolute error from the leaf prediction
-        return sum(abs(dp.target - pred) for dp in datapoints) / n
+        return sum(abs(dp.target - center) for dp in datapoints) / n
 
     def code_execution_namespace(self) -> dict[str, Any]:
         import re
@@ -111,6 +131,14 @@ class TextRegression(Domain):
             "re": re,
             "len": len,
             "str": str,
+            "statistics": statistics,
+            "string": string,
+            "unicodedata": unicodedata,
+            "Counter": Counter,
+            "defaultdict": defaultdict,
+            "itertools": itertools,
+            "np": np,
+            "numpy": np,
             "TextSample": TextSample,
         }
 
@@ -120,6 +148,7 @@ class TextRegression(Domain):
         feature: Feature,
         min_side_ratio: float,
     ) -> tuple[Optional[Feature], float, list[DataPoint], list[DataPoint], float]:
+        # Splits are scored by weighted MAE so they stay aligned with the model's loss.
         try:
             rows = []
             for sample in examples:
@@ -160,11 +189,11 @@ class TextRegression(Domain):
             left_targets = targets[:n_left]
             right_targets = targets[n_left:]
             
-            left_mean = sum(left_targets) / n_left
-            right_mean = sum(right_targets) / n_right
-            
-            mae_left = sum(abs(t - left_mean) for t in left_targets) / n_left
-            mae_right = sum(abs(t - right_mean) for t in right_targets) / n_right
+            left_center = statistics.median(left_targets)
+            right_center = statistics.median(right_targets)
+
+            mae_left = sum(abs(t - left_center) for t in left_targets) / n_left
+            mae_right = sum(abs(t - right_center) for t in right_targets) / n_right
             
             # Weighted average MAE
             obj = (mae_left * n_left + mae_right * n_right) / n

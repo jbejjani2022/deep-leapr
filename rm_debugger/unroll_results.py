@@ -33,17 +33,20 @@ def main():
     # Create unrolled dataframe
     unrolled_rows = []
     
-    for _, row in df.iterrows():
+    for idx, row in df.iterrows():
+        conversation_id = int(idx)
         # Add chosen text and score
         unrolled_rows.append({
             'text': row['chosen'],
-            'rm_helpful_score': row['chosen_score']
+            'rm_helpful_score': row['chosen_score'],
+            'conversation_id': conversation_id,
         })
         
         # Add rejected text and score
         unrolled_rows.append({
             'text': row['rejected'],
-            'rm_helpful_score': row['rejected_score']
+            'rm_helpful_score': row['rejected_score'],
+            'conversation_id': conversation_id,
         })
     
     unrolled_df = pd.DataFrame(unrolled_rows)

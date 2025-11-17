@@ -138,6 +138,45 @@ def feature(text: str) -> float:
 """
 
 
+def format_text_api_description_plus() -> str:
+    """Format an enriched text processing API description."""
+    base = format_text_api_description().strip()
+    extras = """
+# Additional Text Processing Utilities
+
+In addition to everything listed above, you may also use these modules:
+
+## statistics
+- statistics.mean(data), statistics.median(data), statistics.pstdev(data)
+
+## collections
+- Counter(iterable): count tokens quickly
+- defaultdict(int): build sparse frequency maps
+
+## itertools
+- itertools.islice(iterable, n): take subsequences
+- itertools.pairwise(words): iterate over adjacent word pairs
+
+## string / unicodedata
+- string.punctuation, string.ascii_letters
+- unicodedata.category(char): inspect Unicode categories (e.g., punctuation vs. letter)
+
+## numpy (np)
+- np.array(list_of_numbers), np.percentile(array, q)
+- np.diff(array): differences between consecutive values
+
+## Example Feature Function
+def feature(text: str) -> float:
+    "Median sentence length measured in words"
+    sentences = re.split(r'[.!?]+', text)
+    lengths = [len(s.split()) for s in sentences if s.split()]
+    if not lengths:
+        return 0.0
+    return float(statistics.median(lengths))
+"""
+    return f"{base}\n\n{extras.strip()}\n"
+
+
 def format_database(database: List[Tuple[str, float]], max_samples: int) -> str:
     """Format the database of features for the prompt."""
     SCORE_POWER = 2

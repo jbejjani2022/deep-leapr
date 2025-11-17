@@ -29,22 +29,61 @@ logger = logging.getLogger(__name__)
 
 # FIXME: trocar pro split ser só train/validation
 # FIXME: nao passar test set pros learners, e usar apenas para report os final numbers
-def split_dataset(positions, val_ratio=0.2, eval_ratio=0.1, random_state=42):
+def split_dataset(
+    positions,
+    val_ratio=0.2,
+    eval_ratio=0.1,
+    random_state=42,
+    groups=None,
+):
     """Split dataset into train/val/eval with deterministic results."""
-    from sklearn.model_selection import train_test_split
+    from sklearn.model_selection import train_test_split, GroupShuffleSplit
 
-    # First split: train vs (val+eval)
-    train_pos, temp_pos = train_test_split(
-        positions, test_size=(val_ratio + eval_ratio), random_state=random_state
+    if not positions:
+        return [], [], []
+
+    if groups is None:
+        # First split: train vs (val+eval)
+        train_pos, temp_pos = train_test_split(
+            positions, test_size=(val_ratio + eval_ratio), random_state=random_state
+        )
+
+        # Second split: val vs eval
+        val_pos, eval_pos = train_test_split(
+            temp_pos,
+            test_size=eval_ratio / (val_ratio + eval_ratio),
+            random_state=random_state,
+        )
+        return train_pos, val_pos, eval_pos
+
+    if len(groups) != len(positions):
+        raise ValueError("groups must have the same length as positions")
+
+    def pick(items, indices):
+        return [items[i] for i in indices]
+
+    gss = GroupShuffleSplit(
+        n_splits=1,
+        test_size=(val_ratio + eval_ratio),
+        random_state=random_state,
     )
+    train_idx, temp_idx = next(gss.split(positions, groups=groups))
 
-    # Second split: val vs eval
-    val_pos, eval_pos = train_test_split(
-        temp_pos,
+    temp_positions = pick(positions, temp_idx)
+    temp_groups = pick(groups, temp_idx)
+
+    gss_temp = GroupShuffleSplit(
+        n_splits=1,
         test_size=eval_ratio / (val_ratio + eval_ratio),
         random_state=random_state,
     )
+    val_idx_rel, eval_idx_rel = next(
+        gss_temp.split(temp_positions, groups=temp_groups)
+    )
 
+    train_pos = pick(positions, train_idx)
+    val_pos = pick(temp_positions, val_idx_rel)
+    eval_pos = pick(temp_positions, eval_idx_rel)
     return train_pos, val_pos, eval_pos
 
 
@@ -56,10 +95,14 @@ def main(cfg: DictConfig):
     domain_config = cfg.get("domain", {})
     domain_name = None
 
+    use_rich_prompt = False
     if isinstance(domain_config, (dict, DictConfig)):
         domain_name = domain_config.get("domain_name", "chess")
+        use_rich_prompt = domain_config.get("use_rich_prompt", False)
     else:
         domain_name = domain_config
+
+    groups = None
 
     if domain_name == "chess":
         logger.info(f"Loading chess dataset from {cfg.dataset}")
@@ -98,14 +141,16 @@ def main(cfg: DictConfig):
     elif domain_name == "text_regression":
         dataset_name = cfg.get("dataset", "rm_helpful")
         logger.info(f"Loading {dataset_name} dataset for regression")
-
-        domain = TextRegression()
+        domain = TextRegression(use_rich_prompt=use_rich_prompt)
         all_samples, _ = load_text_data(dataset_name, task_type="regression")
 
         # Apply size limit consistently with chess approach
         if len(all_samples) > cfg.max_size:
             all_samples = random.sample(all_samples, cfg.max_size)
             random.shuffle(all_samples)
+
+        if dataset_name == "rm_helpful":
+            groups = [sample.metadata["conversation_id"] for sample in all_samples]
 
     elif domain_name == "pairwise_text_classification":
         dataset_name = cfg.get("dataset", "hh_rlhf_pairwise")
@@ -133,6 +178,7 @@ def main(cfg: DictConfig):
         val_ratio=cfg.val_ratio,
         eval_ratio=cfg.eval_ratio,
         random_state=cfg.random_state,
+        groups=groups,
     )
 
     logger.info(

@@ -10,7 +10,7 @@ You have access to the following API from text processing libraries:
 # Task
 Generate {num_features} new text feature functions in Python that:
 
-1. Help us predict numeric target values from text, with samples before and after the optimal split point having the lowest possible variance in their target values.
+1. Help us predict numeric target values from text, keeping the mean absolute deviation (MAE) within each side of the split as low as possible (i.e., make each subgroup tightly clustered around its typical value).
 2. Return a float value given a text string.
 3. Handle edge cases gracefully - won't crash on unusual texts
 

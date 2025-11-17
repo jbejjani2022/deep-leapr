@@ -249,6 +249,7 @@ def load_rm_helpful_data(
         for _, row in df.iterrows():
             text = str(row["text"]).strip()
             target = float(row["rm_helpful_score"])
+            conversation_id = int(row["conversation_id"])
             
             # Skip empty texts
             if not text or len(text) < 10:
@@ -257,6 +258,7 @@ def load_rm_helpful_data(
             metadata = {
                 "dataset": "rm_helpful",
                 "text_id": len(samples),
+                "conversation_id": conversation_id,
                 "task_type": task_type,
             }
             sample = TextSample(text, target, metadata)

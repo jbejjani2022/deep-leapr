@@ -1,2 +1,3 @@
 domain_name: text_regression
+use_rich_prompt: true
 

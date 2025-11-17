@@ -43,6 +43,7 @@ def main(cfg: DictConfig):
 
     # Load data based on domain
     domain_name = cfg.get("domain", {}).get("domain_name", "chess")
+    groups = None
     if domain_name == "image_classification":
         all_positions, *_ = load_image_data(cfg.dataset)  # returns list[ImageSample]
         if len(all_positions) > cfg.max_size:
@@ -55,6 +56,8 @@ def main(cfg: DictConfig):
         all_positions, *_ = load_text_data(cfg.dataset, task_type="regression")  # returns list[TextSample]
         if len(all_positions) > cfg.max_size:
             all_positions = all_positions[: cfg.max_size]
+        if cfg.dataset == "rm_helpful":
+            groups = [sample.metadata["conversation_id"] for sample in all_positions]
     elif domain_name == "pairwise_text_classification":
         all_positions, *_ = load_text_data(cfg.dataset, task_type="pairwise_classification")  # returns list[TextPairSample]
         if len(all_positions) > cfg.max_size:
@@ -73,6 +76,7 @@ def main(cfg: DictConfig):
         val_ratio=cfg.val_ratio,
         eval_ratio=cfg.eval_ratio,
         random_state=cfg.random_state,
+        groups=groups,
     )
 
     logger.info(
