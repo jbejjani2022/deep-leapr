@@ -15,3 +15,4 @@ torch
 accelerate
 transformers
 datasets
+shap

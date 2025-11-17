@@ -40,6 +40,7 @@ def expand_model_name(name: str) -> str:
 def ensure_dirs() -> None:
     Path("results/features").mkdir(parents=True, exist_ok=True)
     Path("results/evals").mkdir(parents=True, exist_ok=True)
+    Path("results/shap").mkdir(parents=True, exist_ok=True)
 
 
 def format_basename(method: str, domain_dataset: str, model: str) -> str:
@@ -185,6 +186,35 @@ def combine_features(domain, model) -> None:
     print(f"Combined features from {len(matching_files)} files into {output_file}")
 
 
+def launch_interpret(learner: str, domain_raw: str, model: str, dry_run: bool) -> int:
+    """Launch SHAP interpretation analysis."""
+    from interpret import generate_shap_report
+    
+    domain, dataset = parse_domain_dataset(domain_raw)
+    base = format_basename(learner, domain_raw, model)
+    model_path = Path("results/models") / f"{base}.pkl"
+    
+    if not model_path.exists():
+        print(
+            f"error: Model checkpoint not found: {model_path}\n"
+            f"This model has not been trained yet. Please run --train first.",
+            file=sys.stderr
+        )
+        return 4
+    
+    if dry_run:
+        print(f"Would run SHAP interpretation on {model_path}")
+        return 0
+    
+    try:
+        report_path = generate_shap_report(learner, domain_raw, model)
+        print(f"SHAP interpretation report saved to {report_path}")
+        return 0
+    except Exception as e:
+        print(f"error: SHAP interpretation failed: {e}", file=sys.stderr)
+        return 5
+
+
 def main() -> int:
     p = argparse.ArgumentParser(description="Simpel launcher for LeaPR jobs.")
     mode = p.add_mutually_exclusive_group(required=True)
@@ -192,6 +222,7 @@ def main() -> int:
     mode.add_argument("--train", action="store_true")
     mode.add_argument("--combine", action="store_true")
     mode.add_argument("--raw", action="store_true")
+    mode.add_argument("--interpret", action="store_true")
     p.add_argument("--learner", required=False, choices=["did3", "funsearch", "combo"])
     p.add_argument(
         "--domain", required=True, help="e.g. chess or image_classification_mnist"
@@ -211,6 +242,10 @@ def main() -> int:
         return combine_features(args.domain, args.model)
     elif args.raw:
         return launch_raw(args.domain, args.dry_run)
+    elif args.interpret:
+        assert args.learner in ("did3", "funsearch", "combo"), "Learner must be specified"
+        assert args.model, "Model must be specified"
+        return launch_interpret(args.learner, args.domain, args.model, args.dry_run)
     else:
         return launch_train(args.learner, args.domain, args.model, args.dry_run)
 
