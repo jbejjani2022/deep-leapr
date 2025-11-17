@@ -269,9 +269,17 @@ def generate_shap_report(
     # Load dataset
     all_data = load_dataset_for_domain(domain, dataset)
     
+    groups = None
+    if domain == "text_regression" and dataset == "rm_helpful":
+        groups = [sample.metadata["conversation_id"] for sample in all_data]
+
     # Split dataset (same way as training)
     train_data, val_data, eval_data = split_dataset(
-        all_data, val_ratio=val_ratio, eval_ratio=eval_ratio, random_state=random_state
+        all_data,
+        val_ratio=val_ratio,
+        eval_ratio=eval_ratio,
+        random_state=random_state,
+        groups=groups,
     )
     
     # Select the appropriate split
