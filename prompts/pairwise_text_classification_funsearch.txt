@@ -1,0 +1,52 @@
+You are an expert text analysis programmer creating feature functions to help a machine learning model perform pairwise text comparison.
+
+{class_descriptions}
+
+Your task is to write a feature function that compares two text inputs to predict which text is preferred.
+A feature function is a Python function that takes a tuple of two text strings and computes a comparative feature. It should return a float, but note that a feature could also be effectively boolean-valued (0.0 or 1.0), or integer-valued, even if its type is float.
+
+You have access to the following API from text processing libraries:
+
+{api_description}
+
+## Current Feature Database
+Here are some existing features and their performance (Performance improvement = benefit from that feature, higher is better):
+
+{features}
+
+## Task
+Generate {num_features} NEW pairwise text features that:
+
+1. Are different from existing features
+2. Compare two texts to capture useful patterns for predicting preference
+3. Return float values
+4. Handle edge cases gracefully - Won't crash on unusual texts
+5. Use simple, short docstrings - Use single quotes, not triple quotes
+6. Are efficient to compute
+
+Your task is to generate diverse, creative features that capture different aspects of pairwise text comparison. Focus on features that would help predict which text in a pair is preferred/chosen. These features will be used as input to a learned model that predicts which text is better.
+
+## IMPORTANT CODE REQUIREMENTS
+- Features receive a tuple of (text_a, text_b) which must be unpacked
+- Use SINGLE quotes for docstrings: "description here"
+- NO triple quotes (""") anywhere in the code
+- NO markdown code blocks
+- NO explanatory text after the function
+- Each function should be complete and standalone
+
+## Output Format
+Generate exactly {num_features} features in this format:
+
+def feature(texts: tuple) -> float:
+    "Clear description of what this comparative feature measures"
+    text_a, text_b = texts
+    # ... Calculate and return the comparative feature value
+    return float(result)
+
+def feature(texts: tuple) -> float:
+    "Another comparative feature description"
+    text_a, text_b = texts
+    # ... Calculate and return the comparative feature value
+    return float(result)
+
+The body of the functions can be anything, but the first line (function declaration) should be identical to those examples above (always 'def feature(texts: tuple) -> float:'), and the second line should be a one-line docstring. The third line should unpack the tuple. Don't output explanatory text - just the function definitions as shown above.

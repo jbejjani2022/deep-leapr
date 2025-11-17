@@ -7,7 +7,7 @@ import argparse, shlex, subprocess, sys
 from pathlib import Path
 
 
-KNOWN_DOMAINS = ["chess", "image_classification", "text_classification"]
+KNOWN_DOMAINS = ["chess", "image_classification", "text_classification", "text_regression", "pairwise_text_classification"]
 
 
 def parse_domain_dataset(raw: str) -> tuple[str, str | None]:
@@ -68,7 +68,7 @@ def launch_leapr(learner: str, domain_raw: str, model: str, dry_run: bool) -> in
         f"learner.model={model_full}",
         f"+output={base}",
     ]
-    if domain in ("image_classification", "text_classification"):
+    if domain in ("image_classification", "text_classification", "text_regression", "pairwise_text_classification"):
         if not dataset:
             print(
                 f"error: domain '{domain}' requires a dataset suffix in '--domain'",
@@ -117,19 +117,26 @@ def launch_train(learner: str, domain_raw: str, model: str, dry_run: bool) -> in
             "trainer=random_forest",
             f"trainer.features_spec.file={features_path}",
         ]
-    elif domain in ("image_classification", "text_classification"):
+    elif domain in ("image_classification", "text_classification", "text_regression", "pairwise_text_classification"):
         if not dataset:
             print(
                 f"error: domain '{domain}' requires a dataset suffix in '--domain'",
                 file=sys.stderr,
             )
             return 2
+        
+        # Determine task type based on domain
+        if domain == "text_regression":
+            task_type = "regression"
+        else:
+            task_type = "classification"
+        
         cmd = [
             "python",
             "train.py",
             f"domain={domain}",
             f"+trainer.domain_name={domain}",
-            "+trainer.task_type=classification",
+            f"+trainer.task_type={task_type}",
             f"dataset={dataset}",
             "trainer=random_forest",
             f"trainer.features_spec.file={features_path}",

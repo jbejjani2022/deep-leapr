@@ -30,13 +30,13 @@ def generate_features(
     model: str,
     prompt: str,
 ) -> list[str]:
-    """Generate new chess features using an LLM."""
+    """Generate new features using an LLM."""
     print('Prompt:')
     print('###' * 20)
     print(prompt)
     print('###' * 20)
 
-    logger.info(f"Generating discriminant chess features using model {model}")
+    logger.info(f"Generating features using model {model}")
 
     try:
         llm = load_llm(model)

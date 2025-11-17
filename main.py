@@ -17,6 +17,8 @@ from text_sample import load_text_data
 from domain.chess import Chess
 from domain.image_classification import ImageClassification
 from domain.text_classification import TextClassification
+from domain.text_regression import TextRegression
+from domain.pairwise_text_classification import PairwiseTextClassification
 
 
 logging.basicConfig(
@@ -85,6 +87,32 @@ def main(cfg: DictConfig):
 
         domain = TextClassification()
         all_samples, class_descriptions = load_text_data(dataset_name)
+
+        domain.set_class_descriptions(class_descriptions)
+
+        # Apply size limit consistently with chess approach
+        if len(all_samples) > cfg.max_size:
+            all_samples = random.sample(all_samples, cfg.max_size)
+            random.shuffle(all_samples)
+
+    elif domain_name == "text_regression":
+        dataset_name = cfg.get("dataset", "rm_helpful")
+        logger.info(f"Loading {dataset_name} dataset for regression")
+
+        domain = TextRegression()
+        all_samples, _ = load_text_data(dataset_name, task_type="regression")
+
+        # Apply size limit consistently with chess approach
+        if len(all_samples) > cfg.max_size:
+            all_samples = random.sample(all_samples, cfg.max_size)
+            random.shuffle(all_samples)
+
+    elif domain_name == "pairwise_text_classification":
+        dataset_name = cfg.get("dataset", "hh_rlhf_pairwise")
+        logger.info(f"Loading {dataset_name} dataset for pairwise classification")
+
+        domain = PairwiseTextClassification()
+        all_samples, class_descriptions = load_text_data(dataset_name, task_type="pairwise_classification")
 
         domain.set_class_descriptions(class_descriptions)
 

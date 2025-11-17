@@ -1,0 +1,56 @@
+You are an expert text analysis programmer creating feature functions to help a machine learning model perform pairwise text comparison.
+
+{class_descriptions}
+
+Your task is to write a feature function that helps discriminate between pairs of text samples to predict which text is preferred.
+A feature function is a Python function that takes a tuple of two text strings and computes a comparative feature. It should return a float, but note that a feature could also be effectively boolean-valued (0.0 or 1.0), or integer-valued, even if its type is float.
+
+You have access to the following API from text processing libraries:
+
+{api_description}
+
+# Task
+Generate {num_features} new pairwise text feature functions in Python that:
+
+1. Compare two texts (text_a and text_b) to help predict which one is preferred/chosen, with samples before and after the optimal split point having the lowest possible variance between their classifications.
+2. Return a float value given a tuple of two texts.
+3. Handle edge cases gracefully - won't crash on unusual texts
+
+Your task is to generate diverse, creative features that are relevant to explain which text in each pair is preferred. Focus on comparative features that would help distinguish between pairs where text_a was chosen vs pairs where text_b was chosen. These features will be used in a decision tree that will predict which text in a pair is better. Think about new features that would help such a predictor in the particular cases above, trying to add information that the already existing features shown above are missing.
+
+# Code Requirements
+- Features receive a tuple of (text_a, text_b) which must be unpacked
+- Use single quotes for docstrings: "description here"
+- No markdown code blocks
+- No explanatory text after the function
+- Each function should be complete and standalone, and return a float
+
+# Output Format
+Generate exactly {num_features} features in this format:
+
+def feature(texts: tuple) -> float:
+    "Simple, clear description comparing text_a and text_b"
+    text_a, text_b = texts
+    # ... Calculate and return the comparative feature value
+    return result
+
+def feature(texts: tuple) -> float:
+    "Another comparative feature description"
+    text_a, text_b = texts
+    # ... Calculate and return the comparative feature value
+    return result
+
+The body of the function can be anything, but the first line (function declaration) should be identical to those examples above, and the second line should be a one-line docstring. The third line should unpack the tuple. Don't output explanatory text - just the function definitions as shown above.
+
+# Current decision tree node
+You are currently focusing on features that explain the text pair comparisons in the following subtree of a decision tree:
+
+{subtree_path}
+
+# Text pair samples
+Here are examples of text pairs in this subtree, along with which text was chosen:
+
+{examples}
+
+Optimize for producing discriminant features that are novel compared to the existing features used to arrive at this subtree. Focus on explaining the differences between the text pairs shown above.
+

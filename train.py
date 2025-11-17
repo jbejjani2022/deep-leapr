@@ -51,6 +51,14 @@ def main(cfg: DictConfig):
         all_positions, *_ = load_text_data(cfg.dataset)  # returns list[TextSample]
         if len(all_positions) > cfg.max_size:
             all_positions = all_positions[: cfg.max_size]
+    elif domain_name == "text_regression":
+        all_positions, *_ = load_text_data(cfg.dataset, task_type="regression")  # returns list[TextSample]
+        if len(all_positions) > cfg.max_size:
+            all_positions = all_positions[: cfg.max_size]
+    elif domain_name == "pairwise_text_classification":
+        all_positions, *_ = load_text_data(cfg.dataset, task_type="pairwise_classification")  # returns list[TextPairSample]
+        if len(all_positions) > cfg.max_size:
+            all_positions = all_positions[: cfg.max_size]
     else:
         all_positions = load_chess_data(
             [cfg.dataset], cfg.max_size

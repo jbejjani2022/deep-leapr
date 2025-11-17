@@ -124,6 +124,20 @@ def prepare_supervised_data(
         data_points = [s.text for s in samples]
         targets = [s.target for s in samples]
 
+    elif domain_name == "text_regression":
+        from domain.text_regression import TextRegression
+
+        domain = TextRegression()
+        data_points = [s.text for s in samples]
+        targets = [s.target for s in samples]
+
+    elif domain_name == "pairwise_text_classification":
+        from domain.pairwise_text_classification import PairwiseTextClassification
+
+        domain = PairwiseTextClassification()
+        data_points = [s.as_tuple() for s in samples]
+        targets = [s.target for s in samples]
+
     else:
         from domain.chess import Chess
 

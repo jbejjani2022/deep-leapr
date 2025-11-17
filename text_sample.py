@@ -28,6 +28,34 @@ class TextSample:
         )
 
 
+class TextPairSample:
+    """Sample containing two texts for pairwise comparison."""
+    
+    def __init__(
+        self,
+        text_a: str,
+        text_b: str,
+        target: int,
+        metadata: Optional[dict] = None,
+    ):
+        self.text_a = text_a
+        self.text_b = text_b
+        self.target = target  # 0 if text_a was chosen, 1 if text_b was chosen
+        self.metadata = metadata or {}
+    
+    def as_tuple(self) -> tuple:
+        """Return (text_a, text_b) tuple for feature execution."""
+        return (self.text_a, self.text_b)
+    
+    def __str__(self):
+        dataset_name = self.metadata.get("dataset", "Unknown")
+        chosen = "text_a" if self.target == 0 else "text_b"
+        return (
+            f"TextPair: A={self.text_a[:30]}..., B={self.text_b[:30]}..., "
+            f"Chosen: {chosen}, Dataset: {dataset_name}"
+        )
+
+
 def load_ai_human_data(
     task_type: str = "classification",
 ) -> tuple[List[TextSample], List[str]]:
@@ -196,8 +224,127 @@ def load_ghostbuster_data(
     return samples, class_descriptions
 
 
+def load_rm_helpful_data(
+    task_type: str = "regression",
+) -> tuple[List[TextSample], List[str]]:
+    """Load reward model helpfulness score dataset."""
+
+    logger.info(f"Loading RM helpful dataset")
+
+    data_dir = Path("./data")
+    csv_file = data_dir / "rm_eval_results_unrolled.csv"
+
+    if not csv_file.exists():
+        raise FileNotFoundError(
+            f"Dataset not found at {csv_file}. "
+            f"Please ensure the file exists."
+        )
+
+    samples = []
+    try:
+        import pandas as pd
+
+        df = pd.read_csv(csv_file)
+
+        for _, row in df.iterrows():
+            text = str(row["text"]).strip()
+            target = float(row["rm_helpful_score"])
+            
+            # Skip empty texts
+            if not text or len(text) < 10:
+                continue
+
+            metadata = {
+                "dataset": "rm_helpful",
+                "text_id": len(samples),
+                "task_type": task_type,
+            }
+            sample = TextSample(text, target, metadata)
+            samples.append(sample)
+
+    except Exception as e:
+        raise RuntimeError(f"Error loading {csv_file}: {e}")
+
+    logger.info(f"Successfully loaded {len(samples)} samples")
+    
+    # Calculate statistics for regression targets
+    if samples:
+        targets = [s.target for s in samples]
+        mean_target = sum(targets) / len(targets)
+        min_target = min(targets)
+        max_target = max(targets)
+        logger.info(
+            f"Target statistics: mean={mean_target:.3f}, min={min_target:.3f}, max={max_target:.3f}"
+        )
+
+    # No class descriptions for regression
+    return samples, None
+
+
+def load_hh_rlhf_pairwise_data(
+    task_type: str = "pairwise_classification",
+) -> tuple[List[TextPairSample], List[str]]:
+    """Load HH-RLHF pairwise comparison dataset."""
+
+    logger.info(f"Loading HH-RLHF pairwise comparison dataset")
+
+    data_dir = Path("./data")
+    csv_file = data_dir / "hh_rlhf_helpful_base_test.csv"
+
+    if not csv_file.exists():
+        raise FileNotFoundError(
+            f"Dataset not found at {csv_file}. "
+            f"Please run download_hh_rlhf.py to create it."
+        )
+
+    samples = []
+    try:
+        import pandas as pd
+
+        df = pd.read_csv(csv_file)
+
+        for _, row in df.iterrows():
+            text_a = str(row["text_a"]).strip()
+            text_b = str(row["text_b"]).strip()
+            target = int(row["chosen"])  # 0 or 1
+            
+            # Skip empty texts
+            if not text_a or len(text_a) < 10 or not text_b or len(text_b) < 10:
+                continue
+
+            metadata = {
+                "dataset": "hh_rlhf_pairwise",
+                "pair_id": len(samples),
+                "task_type": task_type,
+            }
+            sample = TextPairSample(text_a, text_b, target, metadata)
+            samples.append(sample)
+
+    except Exception as e:
+        raise RuntimeError(f"Error loading {csv_file}: {e}")
+
+    logger.info(f"Successfully loaded {len(samples)} pairwise samples")
+    
+    # Calculate label distribution
+    if samples:
+        label_counts = {0: 0, 1: 0}
+        for s in samples:
+            label_counts[s.target] += 1
+        logger.info(
+            f"Label distribution: text_a chosen={label_counts[0]}, text_b chosen={label_counts[1]}"
+        )
+
+    class_descriptions = [
+        "0: text_a was chosen as more helpful",
+        "1: text_b was chosen as more helpful",
+    ]
+    return samples, class_descriptions
+
+
 TEXT_DATASETS = {
     "ghostbuster": load_ghostbuster_data,
+    "rm_helpful": load_rm_helpful_data,
+    "hh_rlhf_pairwise": load_hh_rlhf_pairwise_data,
 }
 
 
