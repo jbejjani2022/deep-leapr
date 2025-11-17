@@ -1,10 +1,19 @@
 # LeaPR: Learned Programmatic Representation models
 
+**This is a fork of the original [LeaPR repository](https://github.com/neurosymbolic-learning/leapr) with extensions.**
+
 This repository contains the implementation corresponding to the following paper:
 
 [Programmatic Representation Learning with Language Models](https://arxiv.org/abs/2510.14825)
 
 LeaPR models are neural network-free machine learning models: they combine *feature functions* represented as (LLM-synthesized) Python functions with *decision tree* predictors learned on top of those features. These models can be trained for any supervised learning task.
+
+## Key Additions in This Fork
+
+- **Text Regression Domain**: New domain for regression tasks on text data, with support for training on the [Anthropic HH-RLHF dataset](https://huggingface.co/datasets/Anthropic/hh-rlhf) for reward model debugging experiments
+- **Pairwise Text Classification Domain**: Support for pairwise comparison tasks
+- **SHAP Analysis**: Added `--interpret` flag and `interpret.py` script for computing SHAP values to analyze feature importance in trained models
+- **Evaluation Scripts**: New scripts in `rm_debugger/` for evaluating models on the HH-RLHF test set and comparing against neural reward models
 
 ![Overview of Learned Programmatic Representation Models: training can take any supervised learning dataset and output a set of features implemented as Python functions.](img/fig1.png)
 
@@ -48,56 +57,105 @@ All LLM calls use provider APIs, and you should have your API keys in the approp
 
 ### Datasets
 
-For **chess**, you can download the data we use from Lichess using the `download.py` script we provide. Note that the full datasets are large (80+ GB), even though we don't load them fully.
+This repository supports five domains:
 
-```sh
-[leapr/] $ python download.py all
-```
+**1. Chess** - Board evaluation and move prediction
+- Download data from Lichess using `python download.py all` (80+ GB)
+- Also downloads Stockfish engine for ground-truth move evaluation
 
-This will also download the Stockfish engine, which will be used to calculate the ground-truth moves in the move accuracy evaluation.
+**2. Image Classification** - Image categorization tasks
+- Datasets downloaded automatically from HuggingFace when needed
 
-For **image classification**, the datasets are downloaded when needed using huggingface, so you don't need to do anything.
+**3. Text Classification** - Binary/multi-class text classification
+- **Ghostbuster**: Clone from [ghostbuster-data](https://github.com/vivek3141/ghostbuster-data/), then run `python create_ghostbuster_datasets.py`
+- **AI vs Human Text**: Download from [Kaggle](https://www.kaggle.com/datasets/shanegerami/ai-vs-human-text/data) and place `AI_Human.csv` in `data/`
 
-For **text classification**, you can download Ghostbuster with:
+**4. Text Regression** - Predicting continuous values from text
+- **Anthropic HH-RLHF** (for reward model debugging): Download using `python rm_debugger/download_hh_rlhf.py`
+- Creates `data/hh_rlhf_helpful_base_test.csv` with conversation-response pairs and reward scores
+- Use domain config: `text_regression` with dataset: `rm_helpful`
 
-``` sh
-[leapr/] (venv) $ cd data
-[leapr/data/] (venv) $ git clone https://github.com/vivek3141/ghostbuster-data/
-...
-[leapr/data/] (venv) $ cd ..
-[leapr/] (venv) $ python create_ghostbuster_datasets.py
-```
-
-You can also use this [AI vs Human Text](https://www.kaggle.com/datasets/shanegerami/ai-vs-human-text/data) Kaggle competition dataset (not used in the paper, but LeaPR also quickly saturates validation performance here). Download and extract `AI_Human.csv` and place it at `data/AI_Human.csv`
+**5. Pairwise Text Classification** - Comparing two text samples
+- **Anthropic HH-RLHF** (pairwise format): Same download as above
+- Use domain config: `pairwise_text_classification` with dataset: `hh_rlhf_pairwise`
 
 ## Running LeaPR
 
 The main LeaPR algorithms are implemented in `representation/did3.py` and `representation/f2.py`. We use Hydra for configuration, so all experiments read from files in `config/`.
 
-To run the experiment pipeline in the paper, the easiest way is to either use or refer to the `Makefile`. It has targets specifically for each of the following steps:
+### Basic Workflow
 
-1. Running the representation learning algorithms (did3 and f2). These are the `results/features/%.json` targets. The Makefile itself simply runs `launch.py` for this, which has a simple interface to run LeaPR models:
+**1. Learn features** using representation learning algorithms (DID3 or FunSearch):
 
-``` sh
-[leapr/] (venv) $ python launch.py --leapr --learner $(method) --domain $(domain_dataset) --model $(model)
+```sh
+python launch.py --leapr --learner did3 --domain text_regression_rm_helpful --model gpt-4o-mini
 ```
 
-This will result in a simple JSON file containing only the set of learned **features**. You can look at existing files in the `results/features/` directory, as well as features resulting from our experiments.
+This generates a JSON file in `results/features/` containing the learned feature functions.
 
-2. Training random forests using the features learned in the previous step, and evaluating them on the task they were trained for (e.g., classification or regression). These are the `results/evals/%.json` targets in the Makefile, and simply trigger `launch.py` with different arguments:
+**2. Train a random forest** on the learned features:
 
-``` sh
-[leapr/] (venv) $ python launch.py --train --learner $(method) --domain $(domain_dataset) --model $(model)
+```sh
+python launch.py --train --learner did3 --domain text_regression_rm_helpful --model gpt-4o-mini
 ```
 
-`launch.py` will assume that the features for that combination of method/dataset/model have already been generated (this will not call LLMs - it's a purely offline step, so the LLM name here is only used to know what feature file to look for).
+This trains a model and saves it to `results/models/`, with evaluation metrics in `results/evals/`.
 
-3. (Chess-specific) Evaluate a given learned board evaluation function on the task of predicting the next move in a game. These are the `results/evals/chess/%.json` targets. This will call the `evaluation.py` script pointing to an already trained (Transformer or random forest) model.
+**3. Analyze feature importance** using SHAP:
 
-## Looking at existing learned features
+```sh
+python launch.py --interpret --learner did3 --domain text_regression_rm_helpful --model gpt-4o-mini
+```
 
-See the `results/features/` directory for features learned in the experiments in the paper. There are some features learned with Claude 4 Sonnet that we did not complete in time to include in the paper, but they are interesting as well and generally perform competitively (though some are overly ambitious and sometimes slow to run in chess).
+This computes SHAP values and saves a detailed report to `results/shap/` showing which features are most important for predictions.
 
-## Running in other custom domains
+### Reward Model Debugging Experiment
 
-More instructions here soon. Feel free to open a Github issue if you're interested in this but this hasn't been written yet.
+For the HH-RLHF reward model debugging experiment:
+
+```sh
+# 1. Download dataset
+python rm_debugger/download_hh_rlhf.py
+
+# 2. Learn features and train model
+python launch.py --leapr --learner did3 --domain text_regression_rm_helpful --model gpt-4o-mini
+python launch.py --train --learner did3 --domain text_regression_rm_helpful --model gpt-4o-mini
+
+# 3. Evaluate on test set
+python rm_debugger/eval_checkpoint.py  # Update MODEL_CHECKPOINT path in script
+
+# 4. Analyze feature importance
+python launch.py --interpret --learner did3 --domain text_regression_rm_helpful --model gpt-4o-mini
+```
+
+The evaluation script compares the decision tree model's accuracy against a neural reward model baseline on the HH-RLHF test set.
+
+## Available Domains
+
+This fork includes the following domains (see `domain/` and `config/domain/`):
+
+- `chess` - Board position evaluation (regression)
+- `image_classification` - Image categorization tasks
+- `text_classification` - Text categorization (e.g., AI vs human text detection)
+- `text_regression` - Continuous value prediction from text (e.g., reward modeling)
+- `pairwise_text_classification` - Pairwise text comparison tasks
+
+Each domain defines:
+- Data loading and preprocessing
+- Feature execution namespace (available Python libraries/functions)
+- Prompt templates for LLM feature generation
+- Evaluation metrics appropriate for the task
+
+## Looking at Learned Features
+
+See `results/features/` for feature sets from various experiments. Each JSON file contains Python functions that can be inspected to understand what patterns the model learned.
+
+## Running in Custom Domains
+
+To add a new domain:
+1. Create a domain class in `domain/` implementing the `Domain` interface
+2. Add a config file in `config/domain/`
+3. Create prompt templates in `prompts/`
+4. Update data loaders as needed
+
+See existing domains for examples.
