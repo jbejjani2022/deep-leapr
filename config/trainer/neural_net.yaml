@@ -21,5 +21,5 @@ trainer:
   num_classes: 10
 
 job:
-  wandb_entity: socratic
-  wandb_project: real-pros
+  wandb_entity: KURE-Spring-25
+  wandb_project: leapr
