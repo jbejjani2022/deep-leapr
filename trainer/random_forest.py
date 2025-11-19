@@ -27,6 +27,7 @@ class RandomForestTrainer(Trainer):
         features_spec: Any,
         task_type: str = "regression",
         domain_name: str = "chess",
+        domain_kwargs: Optional[dict[str, Any]] = None,
         n_estimators: int = 100,
         random_state: int = 42,
         max_depth: int = 5,
@@ -52,6 +53,7 @@ class RandomForestTrainer(Trainer):
 
         self.task_type = task_type
         self.domain_name = domain_name
+        self.domain_kwargs = domain_kwargs or None
         self.n_estimators = n_estimators
         self.random_state = random_state
         self.max_depth = max_depth
@@ -70,7 +72,11 @@ class RandomForestTrainer(Trainer):
         )
 
         X_train, y_train, X_valid, y_valid = prepare_train_valid_split(
-            self.features, train_positions, valid_positions, self.domain_name
+            self.features,
+            train_positions,
+            valid_positions,
+            self.domain_name,
+            self.domain_kwargs,
         )
 
         if self.task_type == "classification":
@@ -104,7 +110,10 @@ class RandomForestTrainer(Trainer):
         eval_metrics = None
         if eval_positions is not None:
             X_test, y_test = prepare_supervised_data(
-                self.features, eval_positions, self.domain_name
+                self.features,
+                eval_positions,
+                self.domain_name,
+                domain_kwargs=self.domain_kwargs,
             )
             eval_metrics = evaluate_fn(model, X_test, y_test)
 

@@ -1,3 +1,2 @@
 domain_name: text_regression
-use_rich_prompt: true
-
+api_level: expert  # Options: basic, plus, expert

@@ -95,10 +95,10 @@ def main(cfg: DictConfig):
     domain_config = cfg.get("domain", {})
     domain_name = None
 
-    use_rich_prompt = False
+    api_level = "basic"
     if isinstance(domain_config, (dict, DictConfig)):
         domain_name = domain_config.get("domain_name", "chess")
-        use_rich_prompt = domain_config.get("use_rich_prompt", False)
+        api_level = domain_config.get("api_level", "basic")
     else:
         domain_name = domain_config
 
@@ -141,7 +141,7 @@ def main(cfg: DictConfig):
     elif domain_name == "text_regression":
         dataset_name = cfg.get("dataset", "rm_helpful")
         logger.info(f"Loading {dataset_name} dataset for regression")
-        domain = TextRegression(use_rich_prompt=use_rich_prompt)
+        domain = TextRegression(api_level=api_level)
         all_samples, _ = load_text_data(dataset_name, task_type="regression")
 
         # Apply size limit consistently with chess approach

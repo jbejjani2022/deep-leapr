@@ -55,6 +55,20 @@ Use `requirements.txt` to start a virtual environment and install dependencies:
 
 All LLM calls use provider APIs, and you should have your API keys in the appropriate environment variables. Currently, the implementation only supports OpenAI and Anthropic models, but we use langchain to run models, so it should be very easy to add other providers. If you want to run with other models, install the appropriate langchain vendor package and add a case for your new provider in `llm_generator.py`.
 
+### NLP Libraries for Expert Text API
+
+For advanced text analysis features (expert API level), use the provided setup script to download required NLP models:
+
+```sh
+bash setup_nlp_libraries.sh
+```
+
+These libraries enable advanced linguistic features:
+- **spaCy**: Part-of-speech tagging, dependency parsing, named entity recognition
+- **NLTK**: VADER sentiment analysis
+- **TextBlob**: Sentiment polarity and subjectivity
+- **Textstat**: Readability metrics (Flesch scores, etc.)
+
 ### Datasets
 
 This repository supports five domains:
@@ -74,6 +88,7 @@ This repository supports five domains:
 - **Anthropic HH-RLHF** (for reward model debugging): Download using `python rm_debugger/download_hh_rlhf.py`
 - Creates `data/hh_rlhf_helpful_base_test.csv` with conversation-response pairs and reward scores
 - Use domain config: `text_regression` with dataset: `rm_helpful`
+- **API Levels**: Text regression supports three API levels for feature generation (see below)
 
 **5. Pairwise Text Classification** - Comparing two text samples
 - **Anthropic HH-RLHF** (pairwise format): Same download as above
@@ -145,6 +160,86 @@ Each domain defines:
 - Feature execution namespace (available Python libraries/functions)
 - Prompt templates for LLM feature generation
 - Evaluation metrics appropriate for the task
+
+### Text Regression API Levels
+
+The text regression domain supports three API levels that control which libraries and features are exposed to the LLM for feature generation. Configure via `config/domain/text_regression.yaml`:
+
+#### Basic API (`api_level: basic`)
+Simple text processing with Python built-ins and regex:
+- String methods (`.split()`, `.lower()`, `.count()`, etc.)
+- Regular expressions (`re` module)
+- Basic text statistics (word count, character count, etc.)
+
+Example feature:
+```python
+def feature(text: str) -> float:
+    "Average word length"
+    words = text.split()
+    if not words:
+        return 0.0
+    return sum(len(word) for word in words) / len(words)
+```
+
+#### Plus API (`api_level: plus`)
+Adds statistical and data processing utilities:
+- **statistics**: `mean()`, `median()`, `pstdev()`
+- **collections**: `Counter()`, `defaultdict()`
+- **itertools**: `islice()`, `pairwise()`
+- **numpy**: Array operations, `percentile()`, `diff()`
+- **string/unicodedata**: Character category inspection
+
+Example feature:
+```python
+def feature(text: str) -> float:
+    "Median sentence length in words"
+    import statistics
+    sentences = re.split(r'[.!?]+', text)
+    lengths = [len(s.split()) for s in sentences if s.split()]
+    return float(statistics.median(lengths)) if lengths else 0.0
+```
+
+#### Expert API (`api_level: expert`)
+Advanced NLP libraries for linguistic analysis (requires additional setup, see above):
+- **spaCy**: Part-of-speech tagging, dependency parsing, named entity recognition, lemmatization
+- **NLTK**: VADER sentiment analysis (compound, positive, negative, neutral scores)
+- **TextBlob**: Sentiment polarity and subjectivity scores
+- **Textstat**: Readability metrics (Flesch Reading Ease, Flesch-Kincaid Grade, SMOG Index, etc.)
+
+Example features:
+```python
+def feature(text: str) -> float:
+    "Ratio of verbs to nouns"
+    import spacy
+    nlp = spacy.load('en_core_web_sm')
+    doc = nlp(text)
+    verb_count = sum(1 for token in doc if token.pos_ == 'VERB')
+    noun_count = sum(1 for token in doc if token.pos_ == 'NOUN')
+    return float(verb_count) / (noun_count + 1)
+
+def feature(text: str) -> float:
+    "VADER sentiment compound score"
+    from nltk.sentiment import SentimentIntensityAnalyzer
+    sia = SentimentIntensityAnalyzer()
+    return float(sia.polarity_scores(text)['compound'])
+
+def feature(text: str) -> float:
+    "Flesch Reading Ease score"
+    import textstat
+    return float(textstat.flesch_reading_ease(text))
+```
+
+The expert API enables the LLM to generate sophisticated linguistic features capturing:
+- Syntactic complexity (POS patterns, dependency structures)
+- Semantic richness (named entities, lexical diversity)
+- Pragmatic patterns (sentiment, politeness, certainty markers)
+- Text readability and formality
+
+**Configuration**: Edit `config/domain/text_regression.yaml`:
+```yaml
+domain_name: text_regression
+api_level: expert  # Options: basic, plus, expert
+```
 
 ## Looking at Learned Features
 

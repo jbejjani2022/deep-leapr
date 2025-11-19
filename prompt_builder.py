@@ -177,6 +177,136 @@ def feature(text: str) -> float:
     return f"{base}\n\n{extras.strip()}\n"
 
 
+def format_text_api_description_expert() -> str:
+    """Format an expert-level text processing API with advanced NLP libraries."""
+    base = format_text_api_description_plus().strip()
+    expert_extras = """
+# NLP Libraries
+
+In addition to everything listed above, you have access to NLP libraries for linguistic analysis:
+
+## spaCy - Advanced Linguistic Analysis
+
+The spaCy English model is **pre-loaded and available as `nlp`**. You can use it directly without calling `spacy.load()`.
+
+### Processing Text
+```python
+# nlp is already loaded - you can just use it directly
+doc = nlp(text)  # Process text once, then access all linguistic features
+```
+
+### Token-Level Features
+Each token in doc has the following attributes:
+- token.text: The actual text
+- token.pos_: Part-of-speech tag (NOUN, VERB, ADJ, ADV, PRON, DET, ADP, etc.)
+- token.tag_: Detailed POS tag (NN, VBZ, JJ, etc.)
+- token.dep_: Dependency relation (nsubj, dobj, prep, etc.)
+- token.lemma_: Lemmatized form (e.g., "running" -> "run")
+- token.is_stop: True if token is a stopword
+- token.is_alpha: True if token is alphabetic
+- token.is_punct: True if token is punctuation
+- token.head: The syntactic head of this token
+- token.children: Iterator over syntactic children
+
+### Sentence-Level Features
+- doc.sents: Iterator over sentences
+- len(list(doc.sents)): Count sentences
+
+### Named Entities
+- doc.ents: Tuple of named entities
+- ent.text: Entity text
+- ent.label_: Entity type (PERSON, ORG, GPE, DATE, MONEY, etc.)
+
+### Common Patterns
+```python
+# Count specific POS tags
+verb_count = sum(1 for token in doc if token.pos_ == 'VERB')
+noun_count = sum(1 for token in doc if token.pos_ == 'NOUN')
+adj_count = sum(1 for token in doc if token.pos_ == 'ADJ')
+
+# POS ratios
+verb_ratio = verb_count / len(doc) if len(doc) > 0 else 0.0
+
+# Lexical diversity with lemmas
+unique_lemmas = len(set(token.lemma_.lower() for token in doc if token.is_alpha))
+lexical_diversity = unique_lemmas / len(doc) if len(doc) > 0 else 0.0
+
+# Dependency tree depth
+def get_tree_depth(token):
+    if not list(token.children):
+        return 0
+    return 1 + max(get_tree_depth(child) for child in token.children)
+max_depth = max(get_tree_depth(sent.root) for sent in doc.sents) if list(doc.sents) else 0
+
+# Named entity density
+entity_count = len(doc.ents)
+entity_density = entity_count / len(doc) if len(doc) > 0 else 0.0
+```
+
+## NLTK - Sentiment Analysis
+
+The VADER sentiment analyzer is **pre-loaded and available as `sia`**. You can use it directly for sentiment analysis.
+
+### VADER Sentiment
+```python
+# sia (SentimentIntensityAnalyzer) is already loaded
+scores = sia.polarity_scores(text)
+# Returns: {'neg': 0.0, 'neu': 0.5, 'pos': 0.5, 'compound': 0.8}
+```
+
+- scores['compound']: Overall sentiment (-1.0 to 1.0, negative to positive)
+- scores['pos']: Positive sentiment proportion (0.0 to 1.0)
+- scores['neg']: Negative sentiment proportion (0.0 to 1.0)
+- scores['neu']: Neutral sentiment proportion (0.0 to 1.0)
+
+## TextBlob - Simple Sentiment and Subjectivity
+
+TextBlob provides easy sentiment analysis with polarity and subjectivity scores.
+
+```python
+from textblob import TextBlob
+blob = TextBlob(text)
+
+# Sentiment
+polarity = blob.sentiment.polarity  # -1.0 (negative) to 1.0 (positive)
+subjectivity = blob.sentiment.subjectivity  # 0.0 (objective) to 1.0 (subjective)
+```
+
+## Textstat - Readability Metrics
+
+Textstat provides various readability scores.
+
+```python
+import textstat
+
+# Readability scores
+flesch_reading_ease = textstat.flesch_reading_ease(text)  # Higher = easier
+flesch_kincaid_grade = textstat.flesch_kincaid_grade(text)  # US grade level
+smog_index = textstat.smog_index(text)  # Years of education needed
+automated_readability_index = textstat.automated_readability_index(text)
+```
+
+## Example Feature Function
+def feature(text: str) -> float:
+    "Type-token ratio using lemmas (lexical diversity)"
+    doc = nlp(text)
+    if len(doc) == 0:
+        return 0.0
+    lemmas = [token.lemma_.lower() for token in doc if token.is_alpha]
+    if not lemmas:
+        return 0.0
+    unique_lemmas = len(set(lemmas))
+    return float(unique_lemmas) / len(lemmas)
+
+## Reminder
+
+1. **Pre-loaded Models**: `nlp` (spaCy) and `sia` (VADER) are already loaded - you can use them directly
+   - DON'T: `nlp = spacy.load('en_core_web_sm')`
+   - DO: `doc = nlp(text)
+"""
+    return f"{base}\n\n{expert_extras.strip()}\n"
+
+
 def format_database(database: List[Tuple[str, float]], max_samples: int) -> str:
     """Format the database of features for the prompt."""
     SCORE_POWER = 2

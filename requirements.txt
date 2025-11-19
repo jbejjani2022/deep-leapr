@@ -16,3 +16,9 @@ accelerate
 transformers
 datasets
 shap
+
+# NLP libraries for expert text API
+spacy>=3.0.0
+nltk>=3.8.0
+textblob>=0.17.0
+textstat>=0.7.0

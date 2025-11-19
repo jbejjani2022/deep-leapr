@@ -5,7 +5,7 @@ import random
 import os
 import multiprocessing
 from concurrent.futures import ProcessPoolExecutor
-from typing import Any
+from typing import Any, Optional
 from itertools import repeat
 import warnings
 
@@ -86,7 +86,7 @@ def execute_feature(feature_code: str, data: Any, domain=None) -> list[float]:
     except Exception as e:
         if SILENCE_FEATURE_ERRORS:
             return [FEATURE_ERROR_VALUE]
-        logger.debug(f"Error executing feature: {e}")  # Changed from error to debug
+        logger.error(f"Error executing feature: {e}")
         raise
 
 
@@ -102,6 +102,7 @@ def prepare_supervised_data(
     features: list[str],
     samples: list,
     domain_name: str = "chess",
+    domain_kwargs: Optional[dict[str, Any]] = None,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Prepare training data for supervised learning (classification or regression)."""
     if not samples:
@@ -109,6 +110,9 @@ def prepare_supervised_data(
 
     logger.info("Computing features in parallel...")
     max_workers = os.cpu_count() or 1
+
+    if domain_kwargs is None:
+        domain_kwargs = {}
 
     if domain_name == "image_classification":
         from domain.image_classification import ImageClassification
@@ -127,7 +131,7 @@ def prepare_supervised_data(
     elif domain_name == "text_regression":
         from domain.text_regression import TextRegression
 
-        domain = TextRegression()
+        domain = TextRegression(**domain_kwargs)
         data_points = [s.text for s in samples]
         targets = [s.target for s in samples]
 
@@ -196,8 +200,11 @@ def check_feature_worker(code: str, validation_inputs: list, domain) -> None:
     if SILENCE_FEATURE_ERRORS:
         warnings.simplefilter('ignore')
     else:
-        # Turns numpy warnings (NaNs, overflow etc) into exceptions.
-        warnings.simplefilter('error')
+        # Only turn specific numpy warnings into exceptions, not all warnings
+        # This prevents issues with libraries like textstat that may emit warnings
+        warnings.filterwarnings('error', category=RuntimeWarning, module='numpy')
+        warnings.filterwarnings('ignore', category=DeprecationWarning)
+        warnings.filterwarnings('ignore', category=FutureWarning)
 
     feature = Feature(code, domain)
 

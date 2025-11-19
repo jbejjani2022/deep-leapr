@@ -9,7 +9,8 @@ import logging
 import random
 import datetime
 import multiprocessing as mp
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, TimeoutError
+from concurrent.futures.process import BrokenProcessPool
 from functools import cached_property
 from typing import Any, Generator, Optional
 
@@ -183,6 +184,8 @@ class DynamicID3:
         n_proposals: int = 10,
         n_examples: int = 10,
         min_side_ratio: float = 0.0,
+        max_feature_test_examples: int = 64,
+        feature_timeout_s: float = 30.0,
     ):
         self._model = model
         self._max_nodes = max_nodes
@@ -191,6 +194,8 @@ class DynamicID3:
         self._n_proposals = n_proposals
         self._min_side_ratio = min_side_ratio
         self._n_examples = n_examples
+        self._max_feature_test_examples = max_feature_test_examples
+        self._feature_timeout_s = feature_timeout_s
 
     def learn_features(
         self,
@@ -360,7 +365,7 @@ class DynamicID3:
         n_examples: int,
         n_proposals: int,
         feature_test_set: list[Any],
-        timeout_s: float = 10,
+        timeout_s: Optional[float] = None,
     ) -> list[Feature]:
         """
         Call LLM to produce k candidate features for splitting the given leaf.
@@ -378,21 +383,78 @@ class DynamicID3:
         )
 
         proposals: list[str] = generate_features(self._model, prompt)
-        validation_input_data = [domain.input_of(x) for x in feature_test_set]
+        if not feature_test_set:
+            validation_input_data = []
+        else:
+            if len(feature_test_set) > self._max_feature_test_examples:
+                sampled_test_set = random.sample(
+                    feature_test_set, self._max_feature_test_examples
+                )
+            else:
+                sampled_test_set = feature_test_set
+            validation_input_data = [domain.input_of(x) for x in sampled_test_set]
         tested_features = []
 
-        for code in proposals:
-            # Test feature on all positions in the "test set" to make sure it doesn't crash.
-            try:
-                ctx = mp.get_context("spawn")
-                with ProcessPoolExecutor(max_workers=1, mp_context=ctx) as ex:
-                    fut = ex.submit(check_feature_worker, code,
-                                    validation_input_data, domain)
-                    fut.result(timeout=timeout_s)
+        timeout = timeout_s if timeout_s is not None else self._feature_timeout_s
+
+        ctx = mp.get_context("spawn")
+        executor: Optional[ProcessPoolExecutor] = ProcessPoolExecutor(
+            max_workers=1, mp_context=ctx
+        )
+
+        def _shutdown_executor():
+            nonlocal executor
+            if executor is not None:
+                executor.shutdown(wait=False, cancel_futures=True)
+                executor = None
+
+        try:
+            for code in proposals:
+                if executor is None:
+                    executor = ProcessPoolExecutor(max_workers=1, mp_context=ctx)
+
+                try:
+                    fut = executor.submit(
+                        check_feature_worker, code, validation_input_data, domain
+                    )
+                    fut.result(timeout=timeout)
                     feature = Feature(code, domain)
                     tested_features.append(feature)
-            except Exception as e:
-                print(f"Error executing feature:\n{code}: {e}")
+                except BrokenProcessPool:
+                    _shutdown_executor()
+                    executor = ProcessPoolExecutor(max_workers=1, mp_context=ctx)
+                    # Retry once with a fresh worker; if it still fails we'll log below.
+                    try:
+                        fut = executor.submit(
+                            check_feature_worker, code, validation_input_data, domain
+                        )
+                        fut.result(timeout=timeout)
+                        feature = Feature(code, domain)
+                        tested_features.append(feature)
+                        continue
+                    except Exception as e:  # Fall through to unified logging
+                        _shutdown_executor()
+                        executor = None
+                        import traceback
+
+                        print(f"Error executing feature:\n{code}")
+                        print(f"Exception type: {type(e).__name__}")
+                        print(f"Exception message: {str(e)}")
+                        print(f"Traceback:\n{traceback.format_exc()}")
+                except Exception as e:
+                    import traceback
+
+                    if isinstance(e, TimeoutError):
+                        logger.warning(
+                            "Feature execution timed out after %.1f seconds", timeout
+                        )
+                        _shutdown_executor()
+                    print(f"Error executing feature:\n{code}")
+                    print(f"Exception type: {type(e).__name__}")
+                    print(f"Exception message: {str(e)}")
+                    print(f"Traceback:\n{traceback.format_exc()}")
+        finally:
+            _shutdown_executor()
 
         for f in tested_features:
             logger.info(f"Working feature:\n{f.code}")

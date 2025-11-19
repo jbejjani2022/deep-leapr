@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import logging
 import math
+from typing import Any, Optional
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
 from sklearn.metrics import (
@@ -53,10 +54,14 @@ def prepare_train_valid_split(
     train_positions: list,
     valid_positions: list,
     domain_name: str = "chess",
+    domain_kwargs: Optional[dict[str, Any]] = None,
 ):
     """Prepare training and validation data splits."""
     X, y = prepare_supervised_data(
-        features, train_positions + valid_positions, domain_name
+        features,
+        train_positions + valid_positions,
+        domain_name,
+        domain_kwargs=domain_kwargs,
     )
     X_train, y_train = X[: len(train_positions)], y[: len(train_positions)]
     X_valid, y_valid = X[len(train_positions) :], y[len(train_positions) :]

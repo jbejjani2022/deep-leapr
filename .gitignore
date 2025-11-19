@@ -4,3 +4,4 @@ outputs/
 wandb/
 slurm/
 .env
+results/models/
