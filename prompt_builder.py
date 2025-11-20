@@ -1,12 +1,19 @@
 import random
 from typing import List, Tuple
+from pathlib import Path
 
 from chess_position import ChessPosition
 
 
+_PROMPT_ROOT = Path(__file__).parent
+
+
 def load_prompt_template(prompt_path: str) -> str:
     """Load the prompt template from a file."""
-    with open(prompt_path, "r") as f:
+    prompt_file = Path(prompt_path)
+    if not prompt_file.is_absolute():
+        prompt_file = _PROMPT_ROOT / prompt_file
+    with open(prompt_file, "r") as f:
         return f.read()
 
 

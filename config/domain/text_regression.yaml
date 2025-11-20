@@ -1,2 +1,4 @@
 domain_name: text_regression
 api_level: expert  # Options: basic, plus, expert
+domain_kwargs:
+  api_level: ${..api_level}

@@ -4,3 +4,8 @@ n_estimators: 100
 random_state: 42
 max_depth: 30
 min_samples_leaf: 20
+
+task_type: regression
+
+domain_name: ${domain.domain_name}
+domain_kwargs: ${domain.domain_kwargs}

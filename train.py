@@ -84,7 +84,26 @@ def main(cfg: DictConfig):
         f"{len(validation_positions)} val, {len(evaluation_positions)} eval"
     )
 
-    trainer_instance = hydra.utils.instantiate(cfg.trainer)
+    trainer_cfg = cfg.trainer
+    domain_cfg = cfg.get("domain", {})
+    default_domain_name = domain_cfg.get("domain_name", "chess")
+    default_domain_kwargs = domain_cfg.get("domain_kwargs") or {}
+
+    if not trainer_cfg.get("domain_name"):
+        trainer_cfg.domain_name = default_domain_name
+    if not trainer_cfg.get("domain_kwargs"):
+        trainer_cfg.domain_kwargs = default_domain_kwargs
+
+    resolved_domain_kwargs = OmegaConf.to_container(
+        trainer_cfg.domain_kwargs, resolve=True
+    )
+    logger.info(
+        "Trainer domain context -> name: %s, kwargs: %s",
+        trainer_cfg.domain_name,
+        resolved_domain_kwargs,
+    )
+
+    trainer_instance = hydra.utils.instantiate(trainer_cfg)
 
     result = trainer_instance.train(
         training_positions,

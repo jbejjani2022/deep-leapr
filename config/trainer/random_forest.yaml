@@ -5,6 +5,11 @@ random_state: 42
 max_depth: 30
 min_samples_leaf: 10
 
+task_type: regression
+
+domain_name: ${domain.domain_name}
+domain_kwargs: ${domain.domain_kwargs}
+
 features_spec:
     file: results/did3-1-gpt-5-mini.json
     key: null
