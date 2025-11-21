@@ -35,7 +35,7 @@ def load_model_and_features(
         model: Model name (e.g., 'gpt-4o-mini')
         
     Returns:
-        Tuple of (model, features_list, model_path, features_path)
+        Tuple of (model, features_list, model_path, features_path, feature_metadata)
         
     Raises:
         FileNotFoundError: If model or features file doesn't exist
@@ -80,21 +80,25 @@ def load_model_and_features(
     
     # Load features
     logger.info(f"Loading features from {features_path}")
+    feature_metadata = {}
     with open(features_path, "r") as f:
         data = json.load(f)
         if "used_features" in data:
             features = data["used_features"]
+            feature_metadata = {
+                k: v for k, v in data.items() if k != "used_features"
+            }
         elif isinstance(data, list):
             features = data
         else:
             raise ValueError(f"Invalid features file format in {features_path}")
     
     logger.info(f"Loaded model with {len(features)} features")
-    return actual_model, features, model_path, features_path
+    return actual_model, features, model_path, features_path, feature_metadata
 
 
 def load_dataset_for_domain(
-    domain: str, dataset: Optional[str], max_size: int = 100000
+    domain: str, dataset: Optional[str], max_size: int = 100000, api_level: str = "basic"
 ) -> List[Any]:
     """Load dataset based on domain type.
     
@@ -102,6 +106,7 @@ def load_dataset_for_domain(
         domain: Domain name (e.g., 'chess', 'text_classification')
         dataset: Dataset name (required for non-chess domains)
         max_size: Maximum dataset size to load
+        api_level: API level for text domains
         
     Returns:
         List of data samples
@@ -150,6 +155,7 @@ def compute_shap_analysis(
     data_samples: List[Any],
     domain_name: str,
     split_name: str = "validation",
+    api_level: str = "basic",
 ) -> Dict[str, Any]:
     """Compute SHAP values and feature importance statistics.
     
@@ -159,12 +165,15 @@ def compute_shap_analysis(
         data_samples: List of data samples to analyze
         domain_name: Name of the domain for feature extraction
         split_name: Name of the data split being analyzed
+        api_level: API level for feature execution
         
     Returns:
         Dictionary containing SHAP analysis results
     """
     logger.info(f"Preparing feature matrix for {len(data_samples)} samples...")
-    X, y = prepare_supervised_data(features, data_samples, domain_name)
+    
+    domain_kwargs = {"api_level": api_level}
+    X, y = prepare_supervised_data(features, data_samples, domain_name, domain_kwargs=domain_kwargs)
     
     if len(X) == 0:
         raise ValueError(f"No valid samples in dataset split '{split_name}'")
@@ -259,15 +268,46 @@ def generate_shap_report(
     
     # Load model and features
     try:
-        rf_model, features, model_path, features_path = load_model_and_features(
+        rf_model, features, model_path, features_path, feature_metadata = load_model_and_features(
             learner, domain_dataset, model
         )
     except (FileNotFoundError, TypeError) as e:
         logger.error(str(e))
         raise
     
+    # Determine API level
+    api_level = "basic"
+    metadata_block = feature_metadata.get("metadata")
+    if isinstance(metadata_block, dict) and "api_level" in metadata_block:
+        api_level = metadata_block["api_level"]
+    else:
+        # Heuristic detection for legacy checkpoints without metadata
+        expert_keywords = ["textstat", "nlp(", "nlp.", "sia.", "TextBlob", "spacy"]
+        for feature_code in features:
+            if any(keyword in feature_code for keyword in expert_keywords):
+                api_level = "expert"
+                logger.info("Detected expert features in legacy checkpoint; upgrading API level to 'expert'")
+                break
+    
+    logger.info(f"Using API level: {api_level}")
+    
+    # Setup expert libraries if needed
+    if api_level == "expert":
+        from domain.text_regression import (
+            TEXTSTAT_AVAILABLE, SPACY_AVAILABLE, 
+            NLTK_SENTIMENT_AVAILABLE, TEXTBLOB_AVAILABLE
+        )
+        missing = []
+        if not TEXTSTAT_AVAILABLE: missing.append("textstat")
+        if not SPACY_AVAILABLE: missing.append("spacy")
+        if not NLTK_SENTIMENT_AVAILABLE: missing.append("nltk")
+        if not TEXTBLOB_AVAILABLE: missing.append("textblob")
+        
+        if missing:
+            logger.warning(f"Expert API level requires missing libraries: {', '.join(missing)}")
+
     # Load dataset
-    all_data = load_dataset_for_domain(domain, dataset)
+    all_data = load_dataset_for_domain(domain, dataset, api_level=api_level)
     
     groups = None
     if domain == "text_regression" and dataset == "rm_helpful":
@@ -297,7 +337,7 @@ def generate_shap_report(
     
     # Compute SHAP analysis
     shap_results = compute_shap_analysis(
-        rf_model, features, analysis_data, domain, split
+        rf_model, features, analysis_data, domain, split, api_level=api_level
     )
     
     # Construct full report
@@ -306,6 +346,7 @@ def generate_shap_report(
             "learner": learner,
             "domain": domain_dataset,
             "model": model,
+            "api_level": api_level,
             "checkpoint_path": str(model_path),
             "features_path": str(features_path),
             "analysis_date": datetime.now().isoformat(),
