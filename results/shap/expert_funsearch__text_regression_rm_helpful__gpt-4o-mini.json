@@ -1,0 +1,3873 @@
+{
+  "model_info": {
+    "learner": "funsearch",
+    "domain": "text_regression_rm_helpful",
+    "model": "gpt-4o-mini",
+    "api_level": "expert",
+    "checkpoint_path": "results/models/funsearch__text_regression_rm_helpful__gpt-4o-mini.pkl",
+    "features_path": "results/features/funsearch__text_regression_rm_helpful__gpt-4o-mini.json",
+    "analysis_date": "2025-11-20T19:19:10.135850"
+  },
+  "dataset_info": {
+    "split": "validation",
+    "num_samples": 236,
+    "feature_matrix_shape": [
+      236,
+      296
+    ]
+  },
+  "feature_importance": [
+    {
+      "feature_index": 202,
+      "feature_name": "feature_202",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of non-stopwords in the text\"\n    doc = nlp(text)\n    non_stopword_count = sum(1 for token in doc if not token.is_stop and token.is_alpha)\n    return float(non_stopword_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.19342293637317923,
+        "mean_shap": 0.03969892327248846,
+        "std_shap": 0.22725443821924168,
+        "min_shap": -0.706408494509574,
+        "max_shap": 0.3888175432613816
+      },
+      "rank": 1
+    },
+    {
+      "feature_index": 47,
+      "feature_name": "feature_47",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique lemmas in the text\"\n    doc = nlp(text)\n    lemmas = {token.lemma_.lower() for token in doc if token.is_alpha}\n    return float(len(lemmas))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.17628976933508625,
+        "mean_shap": 0.005588170052603387,
+        "std_shap": 0.20639317748586833,
+        "min_shap": -0.27147648760065024,
+        "max_shap": 0.6306643214463626
+      },
+      "rank": 2
+    },
+    {
+      "feature_index": 155,
+      "feature_name": "feature_155",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of commas in the text\"\n    return float(text.count(','))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.12179897031127405,
+        "mean_shap": 0.0077711562884760655,
+        "std_shap": 0.13046904409087437,
+        "min_shap": -0.23136990913435526,
+        "max_shap": 0.20503493423597405
+      },
+      "rank": 3
+    },
+    {
+      "feature_index": 56,
+      "feature_name": "feature_56",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words with 5 or more characters\"\n    words = text.split()\n    long_word_count = sum(1 for word in words if len(word) >= 5)\n    return float(long_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.10923931045247642,
+        "mean_shap": 0.005755421539505011,
+        "std_shap": 0.11773046750998192,
+        "min_shap": -0.21352773876268583,
+        "max_shap": 0.2521480232282831
+      },
+      "rank": 4
+    },
+    {
+      "feature_index": 15,
+      "feature_name": "feature_15",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of nouns in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'NOUN'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.10757168608033515,
+        "mean_shap": -0.001468656497137043,
+        "std_shap": 0.1417717366978108,
+        "min_shap": -0.2255165784744402,
+        "max_shap": 0.44190155347118343
+      },
+      "rank": 5
+    },
+    {
+      "feature_index": 0,
+      "feature_name": "feature_0",
+      "feature_code": "def feature(text: str) -> float:\n    'Proportion of uppercase letters in the text'\n    if len(text) == 0:\n        return 0.0\n    uppercase_count = sum(1 for c in text if c.isupper())\n    return float(uppercase_count) / len(text)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.09584487560445631,
+        "mean_shap": 0.02209449134415079,
+        "std_shap": 0.11733739956044915,
+        "min_shap": -0.15938452112673462,
+        "max_shap": 0.3921205131254699
+      },
+      "rank": 6
+    },
+    {
+      "feature_index": 28,
+      "feature_name": "feature_28",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of content words (nouns, verbs, adjectives, adverbs) to total words\"\n    doc = nlp(text)\n    content_word_count = sum(1 for token in doc if token.pos_ in {'NOUN', 'VERB', 'ADJ', 'ADV'})\n    return float(content_word_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.08014009021169449,
+        "mean_shap": -0.004100159883395334,
+        "std_shap": 0.09447018573942796,
+        "min_shap": -0.19629545211803964,
+        "max_shap": 0.2894269748452557
+      },
+      "rank": 7
+    },
+    {
+      "feature_index": 219,
+      "feature_name": "feature_219",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of uppercase words to total words\"\n    words = text.split()\n    if not words:\n        return 0.0\n    uppercase_count = sum(1 for word in words if word.isupper())\n    return float(uppercase_count) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.05630300149891712,
+        "mean_shap": 0.0029422304118339442,
+        "std_shap": 0.06563384585897662,
+        "min_shap": -0.1605617268232643,
+        "max_shap": 0.10448955652844898
+      },
+      "rank": 8
+    },
+    {
+      "feature_index": 240,
+      "feature_name": "feature_240",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of uppercase words to total words\"\n    words = text.split()\n    uppercase_count = sum(1 for word in words if word.isupper())\n    return float(uppercase_count) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.05601416341453929,
+        "mean_shap": 0.003327573880088883,
+        "std_shap": 0.0652387018037178,
+        "min_shap": -0.16787578174096143,
+        "max_shap": 0.10604820933359643
+      },
+      "rank": 9
+    },
+    {
+      "feature_index": 107,
+      "feature_name": "feature_107",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of sentences that are questions\"\n    sentence_count = text.count('.') + text.count('!') + text.count('?')\n    question_count = text.count('?')\n    return float(question_count) / sentence_count if sentence_count > 0 else 0.0\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.04801885727681475,
+        "mean_shap": -0.006679210906775496,
+        "std_shap": 0.0544393501480164,
+        "min_shap": -0.15002444404649332,
+        "max_shap": 0.07941930719919106
+      },
+      "rank": 10
+    },
+    {
+      "feature_index": 109,
+      "feature_name": "feature_109",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of words that are stopwords\"\n    words = text.split()\n    if not words:\n        return 0.0\n    stopword_count = sum(1 for word in words if nlp(word)[0].is_stop)\n    return float(stopword_count) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.041072696726478786,
+        "mean_shap": 0.0014650080402752942,
+        "std_shap": 0.055372856389658574,
+        "min_shap": -0.08068316161714532,
+        "max_shap": 0.22922368642029903
+      },
+      "rank": 11
+    },
+    {
+      "feature_index": 186,
+      "feature_name": "feature_186",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentence fragments (absence of punctuation)\"\n    sentences = re.split(r'[.!?]+', text)\n    fragment_count = sum(1 for s in sentences if len(s.split()) < 3)\n    return float(fragment_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.022409170376958474,
+        "mean_shap": 2.848224848638294e-05,
+        "std_shap": 0.05539195570531301,
+        "min_shap": -0.39571373174134916,
+        "max_shap": 0.028642794526864492
+      },
+      "rank": 12
+    },
+    {
+      "feature_index": 97,
+      "feature_name": "feature_97",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of negations in the text\"\n    negations = ['not', 'no', 'never', 'none']\n    return float(sum(text.count(neg) for neg in negations))\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.019049168159178054,
+        "mean_shap": -0.004357376344833215,
+        "std_shap": 0.022613181302741682,
+        "min_shap": -0.07701391742887571,
+        "max_shap": 0.02613155021825016
+      },
+      "rank": 13
+    },
+    {
+      "feature_index": 71,
+      "feature_name": "feature_71",
+      "feature_code": "def feature(text: str) -> float:\n    \"Punctuation density in the text\"\n    punctuation_count = sum(1 for c in text if not c.isalnum() and not c.isspace())\n    return punctuation_count / len(text) if len(text) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.01777986077090768,
+        "mean_shap": 0.0023800582939527983,
+        "std_shap": 0.02354849378677011,
+        "min_shap": -0.0810099884330501,
+        "max_shap": 0.0473774538160541
+      },
+      "rank": 14
+    },
+    {
+      "feature_index": 163,
+      "feature_name": "feature_163",
+      "feature_code": "def feature(text: str) -> float:\n    \"Named entity density in the text\"\n    doc = nlp(text)\n    entity_count = len(doc.ents)\n    return float(entity_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.01771530473793969,
+        "mean_shap": 0.00013140580565695726,
+        "std_shap": 0.02768601781295355,
+        "min_shap": -0.040238794138174896,
+        "max_shap": 0.1301497103695543
+      },
+      "rank": 15
+    },
+    {
+      "feature_index": 221,
+      "feature_name": "feature_221",
+      "feature_code": "def feature(text: str) -> float:\n    \"Punctuation density in the text\"\n    total_chars = len(text)\n    if total_chars == 0:\n        return 0.0\n    punctuation_count = sum(1 for c in text if not c.isalnum() and not c.isspace())\n    return float(punctuation_count) / total_chars\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.016294973404749984,
+        "mean_shap": 0.001493950216026772,
+        "std_shap": 0.021643269002717624,
+        "min_shap": -0.06749217867272936,
+        "max_shap": 0.039782730348201366
+      },
+      "rank": 16
+    },
+    {
+      "feature_index": 260,
+      "feature_name": "feature_260",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of punctuation characters to total characters\"\n    punctuation_count = sum(1 for char in text if not char.isalnum() and not char.isspace())\n    return float(punctuation_count) / len(text) if len(text) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.015960004121631285,
+        "mean_shap": 0.0017342398861811077,
+        "std_shap": 0.021499589954991814,
+        "min_shap": -0.07552076443844373,
+        "max_shap": 0.04218320664682544
+      },
+      "rank": 17
+    },
+    {
+      "feature_index": 53,
+      "feature_name": "feature_53",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences with negation words\"\n    negation_words = {'not', 'no', 'never', 'none', 'nobody', 'nothing'}\n    sentences = re.split(r'[.!?]+', text)\n    negation_sentence_count = sum(1 for s in sentences if any(neg in s.lower() for neg in negation_words))\n    return float(negation_sentence_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.015947424742957243,
+        "mean_shap": -0.0019330342548135799,
+        "std_shap": 0.018442310161285898,
+        "min_shap": -0.04337869118369644,
+        "max_shap": 0.03937577820220431
+      },
+      "rank": 18
+    },
+    {
+      "feature_index": 287,
+      "feature_name": "feature_287",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of punctuation to total characters\"\n    punctuation_count = sum(1 for c in text if not c.isalnum() and not c.isspace())\n    return (punctuation_count / len(text)) if len(text) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.015694898705632346,
+        "mean_shap": 0.0020866914223570334,
+        "std_shap": 0.021027594911318864,
+        "min_shap": -0.06988128741232608,
+        "max_shap": 0.0423795432956814
+      },
+      "rank": 19
+    },
+    {
+      "feature_index": 206,
+      "feature_name": "feature_206",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of punctuation to total characters\"\n    if len(text) == 0:\n        return 0.0\n    punctuation_count = sum(1 for c in text if not c.isalnum() and not c.isspace())\n    return float(punctuation_count) / len(text)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.015429625995852417,
+        "mean_shap": 0.0016286148791555678,
+        "std_shap": 0.020668653724105875,
+        "min_shap": -0.07009731902542646,
+        "max_shap": 0.04127570590960495
+      },
+      "rank": 20
+    },
+    {
+      "feature_index": 294,
+      "feature_name": "feature_294",
+      "feature_code": "def feature(text: str) -> float:\n    \"Lexical richness calculated as unique noun ratio\"\n    doc = nlp(text)\n    nouns = [token.lemma_.lower() for token in doc if token.pos_ == 'NOUN']\n    unique_nouns = len(set(nouns))\n    return float(unique_nouns) / len(nouns) if nouns else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.01540336398954925,
+        "mean_shap": 0.00038672354144384663,
+        "std_shap": 0.018601843028869487,
+        "min_shap": -0.05001881189892302,
+        "max_shap": 0.043362592281129944
+      },
+      "rank": 21
+    },
+    {
+      "feature_index": 156,
+      "feature_name": "feature_156",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of punctuation in the text\"\n    punctuation_count = sum(1 for c in text if not c.isalnum() and not c.isspace())\n    return float(punctuation_count) / len(text) if len(text) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.01539978022563287,
+        "mean_shap": 0.0016842644280825787,
+        "std_shap": 0.021014404757185873,
+        "min_shap": -0.07909655046520678,
+        "max_shap": 0.04173627026255714
+      },
+      "rank": 22
+    },
+    {
+      "feature_index": 136,
+      "feature_name": "feature_136",
+      "feature_code": "def feature(text: str) -> float:\n    \"Named entity density in the text\"\n    doc = nlp(text)\n    entity_count = len(doc.ents)\n    return entity_count / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.015026762503929581,
+        "mean_shap": 0.00014725977313217632,
+        "std_shap": 0.023181702717373638,
+        "min_shap": -0.03526980853285732,
+        "max_shap": 0.10500365496121432
+      },
+      "rank": 23
+    },
+    {
+      "feature_index": 152,
+      "feature_name": "feature_152",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words that are longer than the average word length\"\n    words = text.split()\n    average_length = sum(len(word) for word in words) / len(words) if words else 0\n    long_word_count = sum(1 for word in words if len(word) > average_length)\n    return float(long_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.014679463151971118,
+        "mean_shap": -0.0011687206564953887,
+        "std_shap": 0.02017028597845883,
+        "min_shap": -0.03163599140104185,
+        "max_shap": 0.062240085429680216
+      },
+      "rank": 24
+    },
+    {
+      "feature_index": 280,
+      "feature_name": "feature_280",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of punctuation characters to total characters\"\n    punctuation_count = sum(1 for c in text if not c.isalnum() and not c.isspace())\n    return float(punctuation_count) / len(text) if text else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.014451313563370451,
+        "mean_shap": 0.0013225706228062741,
+        "std_shap": 0.019523475482911033,
+        "min_shap": -0.06352085429799123,
+        "max_shap": 0.035231752430321506
+      },
+      "rank": 25
+    },
+    {
+      "feature_index": 55,
+      "feature_name": "feature_55",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length in characters\"\n    sentences = re.split(r'[.!?]+', text)\n    if not sentences:\n        return 0.0\n    total_length = sum(len(s) for s in sentences)\n    return float(total_length) / len(sentences)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.012037161410167276,
+        "mean_shap": 0.0018401897157813566,
+        "std_shap": 0.01654326284506087,
+        "min_shap": -0.056852816067100076,
+        "max_shap": 0.03293532741062879
+      },
+      "rank": 26
+    },
+    {
+      "feature_index": 89,
+      "feature_name": "feature_89",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of long words (7 or more characters) in the text\"\n    words = text.split()\n    long_word_count = sum(1 for word in words if len(word) >= 7)\n    return float(long_word_count) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.01120546373464613,
+        "mean_shap": -0.0009309403198723037,
+        "std_shap": 0.015369816111974317,
+        "min_shap": -0.024146003267007266,
+        "max_shap": 0.078845525157177
+      },
+      "rank": 27
+    },
+    {
+      "feature_index": 115,
+      "feature_name": "feature_115",
+      "feature_code": "def feature(text: str) -> float:\n    \"Standard deviation of sentence lengths\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.split()]\n    return float(statistics.pstdev(lengths)) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.011086968899993601,
+        "mean_shap": 0.0014616722318515107,
+        "std_shap": 0.01327980483816958,
+        "min_shap": -0.03496166657501979,
+        "max_shap": 0.030586807320289566
+      },
+      "rank": 28
+    },
+    {
+      "feature_index": 293,
+      "feature_name": "feature_293",
+      "feature_code": "def feature(text: str) -> float:\n    \"Sum of lengths of all words in the text\"\n    words = text.split()\n    return float(sum(len(word) for word in words)) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.011066654439276626,
+        "mean_shap": -0.0004559138363516361,
+        "std_shap": 0.014097914814056667,
+        "min_shap": -0.019636504084063713,
+        "max_shap": 0.04459921128276571
+      },
+      "rank": 29
+    },
+    {
+      "feature_index": 214,
+      "feature_name": "feature_214",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of quotes in the text\"\n    quote_count = text.count('\"') + text.count(\"'\")\n    return float(quote_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.011058352255916693,
+        "mean_shap": 0.001963115179153031,
+        "std_shap": 0.014712312266565875,
+        "min_shap": -0.08233946407084455,
+        "max_shap": 0.022684191937932818
+      },
+      "rank": 30
+    },
+    {
+      "feature_index": 275,
+      "feature_name": "feature_275",
+      "feature_code": "def feature(text: str) -> float:\n    \"Readability index using the Dale-Chall formula\"\n    import textstat\n    return float(textstat.dale_chall_readability_score(text))\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.010197981891640277,
+        "mean_shap": -0.0011771295556294626,
+        "std_shap": 0.013174299101790892,
+        "min_shap": -0.01808243814784348,
+        "max_shap": 0.04802068987621878
+      },
+      "rank": 31
+    },
+    {
+      "feature_index": 182,
+      "feature_name": "feature_182",
+      "feature_code": "def feature(text: str) -> float:\n    \"Sentiment score from TextBlob\"\n    from textblob import TextBlob\n    blob = TextBlob(text)\n    return float(blob.sentiment.polarity)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.010076024365050968,
+        "mean_shap": -0.000305664545517152,
+        "std_shap": 0.012055508577442281,
+        "min_shap": -0.03517584089561703,
+        "max_shap": 0.03170175706393411
+      },
+      "rank": 32
+    },
+    {
+      "feature_index": 225,
+      "feature_name": "feature_225",
+      "feature_code": "def feature(text: str) -> float:\n    \"Frequency of the most common character in the text\"\n    if not text:\n        return 0.0\n    most_common_char_count = Counter(text).most_common(1)[0][1]\n    return float(most_common_char_count) / len(text)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.009998978840714727,
+        "mean_shap": -0.00022937339345188482,
+        "std_shap": 0.012411961215529297,
+        "min_shap": -0.04241247446873132,
+        "max_shap": 0.02955167217456329
+      },
+      "rank": 33
+    },
+    {
+      "feature_index": 93,
+      "feature_name": "feature_93",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of capitalized words to total words\"\n    words = text.split()\n    capitalized_count = sum(1 for word in words if word.istitle())\n    return float(capitalized_count) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.009659201416962854,
+        "mean_shap": 0.001128316203479538,
+        "std_shap": 0.011958220685657306,
+        "min_shap": -0.02794667474418645,
+        "max_shap": 0.032119013161599756
+      },
+      "rank": 34
+    },
+    {
+      "feature_index": 29,
+      "feature_name": "feature_29",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentiment polarity of the text using TextBlob\"\n    from textblob import TextBlob\n    sentiment = TextBlob(text).sentiment\n    return float(sentiment.polarity)\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.009576164783862803,
+        "mean_shap": -0.0003528000591737371,
+        "std_shap": 0.011501468292829841,
+        "min_shap": -0.03300215038463236,
+        "max_shap": 0.03384881155765663
+      },
+      "rank": 35
+    },
+    {
+      "feature_index": 132,
+      "feature_name": "feature_132",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentiment polarity of the text using TextBlob\"\n    from textblob import TextBlob\n    blob = TextBlob(text)\n    return blob.sentiment.polarity\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.009537486161525862,
+        "mean_shap": -0.00016291453769253642,
+        "std_shap": 0.01128864930143576,
+        "min_shap": -0.03157659266532,
+        "max_shap": 0.030556944300123096
+      },
+      "rank": 36
+    },
+    {
+      "feature_index": 86,
+      "feature_name": "feature_86",
+      "feature_code": "def feature(text: str) -> float:\n    \"Percentage of words that are verbs\"\n    doc = nlp(text)\n    verb_count = sum(1 for token in doc if token.pos_ == 'VERB')\n    return float(verb_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.008957753396471596,
+        "mean_shap": -0.0013045204320817514,
+        "std_shap": 0.013243352684032136,
+        "min_shap": -0.026776348778187162,
+        "max_shap": 0.06060183117612593
+      },
+      "rank": 37
+    },
+    {
+      "feature_index": 112,
+      "feature_name": "feature_112",
+      "feature_code": "def feature(text: str) -> float:\n    \"Named entity density considering unique entity types\"\n    doc = nlp(text)\n    unique_entities = len(set(ent.label_ for ent in doc.ents))\n    return float(unique_entities) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00835925033221326,
+        "mean_shap": -0.000839699813270061,
+        "std_shap": 0.01078916979682029,
+        "min_shap": -0.023900544568564084,
+        "max_shap": 0.03953810483703483
+      },
+      "rank": 38
+    },
+    {
+      "feature_index": 230,
+      "feature_name": "feature_230",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of nouns to total words\"\n    doc = nlp(text)\n    noun_count = sum(1 for token in doc if token.pos_ == 'NOUN')\n    total_word_count = len(doc)\n    return float(noun_count) / total_word_count if total_word_count > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.007766623681569571,
+        "mean_shap": -0.00016666094924266844,
+        "std_shap": 0.01024304817288878,
+        "min_shap": -0.027049924452843436,
+        "max_shap": 0.039476464290912616
+      },
+      "rank": 39
+    },
+    {
+      "feature_index": 166,
+      "feature_name": "feature_166",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of numerals in the text\"\n    doc = nlp(text)\n    numeral_count = sum(1 for token in doc if token.is_digit)\n    return float(numeral_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.007663142394452415,
+        "mean_shap": -0.0011832148689271864,
+        "std_shap": 0.010895177800323546,
+        "min_shap": -0.015412237045346014,
+        "max_shap": 0.04759638913289031
+      },
+      "rank": 40
+    },
+    {
+      "feature_index": 185,
+      "feature_name": "feature_185",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of nouns to total words in the text\"\n    doc = nlp(text)\n    noun_count = sum(1 for token in doc if token.pos_ == 'NOUN')\n    return float(noun_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.007599185692625605,
+        "mean_shap": -0.0005110773982784334,
+        "std_shap": 0.009710031195655618,
+        "min_shap": -0.025889588717335536,
+        "max_shap": 0.03750628585973823
+      },
+      "rank": 41
+    },
+    {
+      "feature_index": 64,
+      "feature_name": "feature_64",
+      "feature_code": "def feature(text: str) -> float:\n    \"Frequency of the most common word in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    most_common_word_count = Counter(words).most_common(1)[0][1]\n    return float(most_common_word_count) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0073895658719781866,
+        "mean_shap": -0.0016027082112554261,
+        "std_shap": 0.008582502763195105,
+        "min_shap": -0.0260585408589233,
+        "max_shap": 0.023179726005979718
+      },
+      "rank": 42
+    },
+    {
+      "feature_index": 62,
+      "feature_name": "feature_62",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of long words (6 or more characters) to total words\"\n    words = text.split()\n    long_word_count = sum(1 for word in words if len(word) >= 6)\n    return float(long_word_count) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.007015422256623213,
+        "mean_shap": -0.0008328867386925604,
+        "std_shap": 0.00905495209891562,
+        "min_shap": -0.017368004631409556,
+        "max_shap": 0.04721696574889319
+      },
+      "rank": 43
+    },
+    {
+      "feature_index": 176,
+      "feature_name": "feature_176",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of numeric tokens in the text\"\n    doc = nlp(text)\n    total_tokens = len(doc)\n    numeric_count = sum(1 for token in doc if token.like_num)\n    return float(numeric_count) / total_tokens if total_tokens > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.006330902316476037,
+        "mean_shap": -0.0004935870835514502,
+        "std_shap": 0.008645915131070315,
+        "min_shap": -0.014397655297601246,
+        "max_shap": 0.036496014640172915
+      },
+      "rank": 44
+    },
+    {
+      "feature_index": 213,
+      "feature_name": "feature_213",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of syllables in the text\"\n    total_syllables = sum(textstat.syllable_count(word) for word in text.split())\n    return float(total_syllables)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0058204671802141944,
+        "mean_shap": -0.0005056055978862019,
+        "std_shap": 0.009218498559291775,
+        "min_shap": -0.018785788467376444,
+        "max_shap": 0.03953621410392336
+      },
+      "rank": 45
+    },
+    {
+      "feature_index": 278,
+      "feature_name": "feature_278",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique capitalized words\"\n    words = set(word for word in text.split() if word[0].isupper())\n    return float(len(words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0057177078944333016,
+        "mean_shap": -0.00064862520378694,
+        "std_shap": 0.007584196479574991,
+        "min_shap": -0.018642680000409723,
+        "max_shap": 0.04423248775416151
+      },
+      "rank": 46
+    },
+    {
+      "feature_index": 100,
+      "feature_name": "feature_100",
+      "feature_code": "def feature(text: str) -> float:\n    \"Number of named entities in the text\"\n    doc = nlp(text)\n    return float(len(doc.ents))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0056322664414273586,
+        "mean_shap": 0.0017353960410933088,
+        "std_shap": 0.007336403207497509,
+        "min_shap": -0.011470202703912143,
+        "max_shap": 0.03452272475334675
+      },
+      "rank": 47
+    },
+    {
+      "feature_index": 103,
+      "feature_name": "feature_103",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of different punctuation marks used in the text\"\n    punctuation_marks = set(c for c in text if c in string.punctuation)\n    return float(len(punctuation_marks))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.005498201885029249,
+        "mean_shap": 0.0014636689624092736,
+        "std_shap": 0.008722887859620736,
+        "min_shap": -0.05324944134592786,
+        "max_shap": 0.014518281508758496
+      },
+      "rank": 48
+    },
+    {
+      "feature_index": 54,
+      "feature_name": "feature_54",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique punctuation marks used\"\n    unique_punctuation = set(c for c in text if c in string.punctuation)\n    return float(len(unique_punctuation))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.005177765371890787,
+        "mean_shap": 0.0009944281538937154,
+        "std_shap": 0.009167672425891076,
+        "min_shap": -0.06152117853109535,
+        "max_shap": 0.015164969377670411
+      },
+      "rank": 49
+    },
+    {
+      "feature_index": 282,
+      "feature_name": "feature_282",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of periods in the text\"\n    return float(text.count('.'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0051707890518413934,
+        "mean_shap": 0.0006203930695570263,
+        "std_shap": 0.0071522557625192905,
+        "min_shap": -0.03519366455184646,
+        "max_shap": 0.017460428576193093
+      },
+      "rank": 50
+    },
+    {
+      "feature_index": 21,
+      "feature_name": "feature_21",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of long words (more than 7 characters) to total words\"\n    words = text.split()\n    long_word_count = sum(1 for word in words if len(word) > 7)\n    return float(long_word_count) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.005152056426559696,
+        "mean_shap": -7.487377408826237e-05,
+        "std_shap": 0.006933933408273409,
+        "min_shap": -0.015854390376723395,
+        "max_shap": 0.024736964907821745
+      },
+      "rank": 51
+    },
+    {
+      "feature_index": 228,
+      "feature_name": "feature_228",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words that start with a vowel\"\n    words = text.split()\n    vowel_count = sum(1 for word in words if word and word[0].lower() in 'aeiou')\n    return float(vowel_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.005021566140383313,
+        "mean_shap": 0.001430403452328257,
+        "std_shap": 0.006299058622470088,
+        "min_shap": -0.029779977906804065,
+        "max_shap": 0.01335322578744248
+      },
+      "rank": 52
+    },
+    {
+      "feature_index": 63,
+      "feature_name": "feature_63",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of named entities in the text\"\n    doc = nlp(text)\n    return float(len(doc.ents))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0049181297361066845,
+        "mean_shap": 0.001399720993168742,
+        "std_shap": 0.006521538554725815,
+        "min_shap": -0.010417753174494528,
+        "max_shap": 0.032487415377271234
+      },
+      "rank": 53
+    },
+    {
+      "feature_index": 144,
+      "feature_name": "feature_144",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of uppercase words in the text\"\n    words = text.split()\n    uppercase_word_count = sum(1 for word in words if word.isupper())\n    return float(uppercase_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.004685176527573269,
+        "mean_shap": -0.00031124666448733196,
+        "std_shap": 0.0054201386365259905,
+        "min_shap": -0.01360502796772682,
+        "max_shap": 0.008863841951626612
+      },
+      "rank": 54
+    },
+    {
+      "feature_index": 8,
+      "feature_name": "feature_8",
+      "feature_code": "def feature(text: str) -> float:\n    'Weighted average word length considering stopwords'\n    doc = nlp(text)\n    if len(doc) == 0:\n        return 0.0\n    total_length = sum(len(token.text) for token in doc if token.is_alpha)\n    non_stopwords_count = sum(1 for token in doc if not token.is_stop)\n    if non_stopwords_count == 0:\n        return 0.0\n    return float(total_length) / non_stopwords_count\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.004672727811067805,
+        "mean_shap": -1.104173313637012e-05,
+        "std_shap": 0.005712531515559961,
+        "min_shap": -0.01723917459106469,
+        "max_shap": 0.011727287015365226
+      },
+      "rank": 55
+    },
+    {
+      "feature_index": 50,
+      "feature_name": "feature_50",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of stop words to total words\"\n    words = text.split()\n    stop_word_count = sum(1 for word in words if word.lower() in nlp.Defaults.stop_words)\n    return float(stop_word_count) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00462394079345625,
+        "mean_shap": -0.0007487936440839257,
+        "std_shap": 0.005698997087851775,
+        "min_shap": -0.016349769492924163,
+        "max_shap": 0.015137969796735531
+      },
+      "rank": 56
+    },
+    {
+      "feature_index": 139,
+      "feature_name": "feature_139",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of question marks in the text\"\n    return float(text.count('?'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.004530850188298352,
+        "mean_shap": -0.00027093363015490444,
+        "std_shap": 0.005269207049443179,
+        "min_shap": -0.014710058072202999,
+        "max_shap": 0.012271341587906376
+      },
+      "rank": 57
+    },
+    {
+      "feature_index": 70,
+      "feature_name": "feature_70",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of questions in the text\"\n    return float(text.count('?'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.004504486825904861,
+        "mean_shap": -0.0003715198828766052,
+        "std_shap": 0.0052035463109908016,
+        "min_shap": -0.013926206264076455,
+        "max_shap": 0.011731937577792395
+      },
+      "rank": 58
+    },
+    {
+      "feature_index": 197,
+      "feature_name": "feature_197",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of named entities in the text\"\n    doc = nlp(text)\n    return float(len(doc.ents))\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.004332997880446025,
+        "mean_shap": 0.0013612355773164088,
+        "std_shap": 0.005706811917414148,
+        "min_shap": -0.00899239491311416,
+        "max_shap": 0.024937599712718424
+      },
+      "rank": 59
+    },
+    {
+      "feature_index": 283,
+      "feature_name": "feature_283",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of three-letter words to total words\"\n    words = text.split()\n    three_letter_count = sum(1 for word in words if len(word) == 3)\n    return float(three_letter_count) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.004083131928612463,
+        "mean_shap": -0.0006012338454315712,
+        "std_shap": 0.005378538645064733,
+        "min_shap": -0.014528252501147879,
+        "max_shap": 0.01591853101135642
+      },
+      "rank": 60
+    },
+    {
+      "feature_index": 40,
+      "feature_name": "feature_40",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in characters\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s) for s in sentences if s]\n    return float(sum(lengths)) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003963767720358688,
+        "mean_shap": 0.0007632186690087925,
+        "std_shap": 0.004786380231447338,
+        "min_shap": -0.012861025042991636,
+        "max_shap": 0.014314170178719107
+      },
+      "rank": 61
+    },
+    {
+      "feature_index": 7,
+      "feature_name": "feature_7",
+      "feature_code": "def feature(text: str) -> float:\n    'Readability score using Flesch-Kincaid Grade Level'\n    return float(textstat.flesch_kincaid_grade(text))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00396064454133128,
+        "mean_shap": 2.5660012436435614e-05,
+        "std_shap": 0.005079582110337418,
+        "min_shap": -0.020543064850854557,
+        "max_shap": 0.013131795460849478
+      },
+      "rank": 62
+    },
+    {
+      "feature_index": 92,
+      "feature_name": "feature_92",
+      "feature_code": "def feature(text: str) -> float:\n    \"Sentiment polarity score using VADER\"\n    scores = sia.polarity_scores(text)\n    return float(scores['compound'])\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003923567885722869,
+        "mean_shap": -0.0009508695849410767,
+        "std_shap": 0.004946262502971743,
+        "min_shap": -0.008415561532049054,
+        "max_shap": 0.019623659496441848
+      },
+      "rank": 63
+    },
+    {
+      "feature_index": 120,
+      "feature_name": "feature_120",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of named entities in the text\"\n    doc = nlp(text)\n    return float(len(doc.ents))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0038612908340605588,
+        "mean_shap": 0.00117335878531046,
+        "std_shap": 0.005196582245209764,
+        "min_shap": -0.008089072150513963,
+        "max_shap": 0.024294620627175145
+      },
+      "rank": 64
+    },
+    {
+      "feature_index": 200,
+      "feature_name": "feature_200",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in characters\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.strip()) for s in sentences if s.strip()]\n    return float(statistics.mean(lengths)) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003835032995218646,
+        "mean_shap": 0.0010551250363297288,
+        "std_shap": 0.00466776900132131,
+        "min_shap": -0.013582083799266554,
+        "max_shap": 0.014339228709070286
+      },
+      "rank": 65
+    },
+    {
+      "feature_index": 192,
+      "feature_name": "feature_192",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of punctuation characters in the text\"\n    return float(sum(1 for c in text if not c.isalnum() and not c.isspace()))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003820515500749718,
+        "mean_shap": -0.0013466087091561082,
+        "std_shap": 0.005378122323344185,
+        "min_shap": -0.02087402064736477,
+        "max_shap": 0.008131485841747636
+      },
+      "rank": 66
+    },
+    {
+      "feature_index": 257,
+      "feature_name": "feature_257",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in words\"\n    sentences = text.split('.')\n    if not sentences:\n        return 0.0\n    lengths = [len(s.split()) for s in sentences if s.strip()]\n    return float(sum(lengths)) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0037922702304969804,
+        "mean_shap": -0.0006151233435595103,
+        "std_shap": 0.0053738885582824275,
+        "min_shap": -0.021507716098334868,
+        "max_shap": 0.012484782237938408
+      },
+      "rank": 67
+    },
+    {
+      "feature_index": 168,
+      "feature_name": "feature_168",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in characters\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s) for s in sentences if s.strip()]\n    return float(sum(lengths)) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003654752881513306,
+        "mean_shap": 0.0006389008871075843,
+        "std_shap": 0.00439265012900462,
+        "min_shap": -0.011706210291237244,
+        "max_shap": 0.013437670918750045
+      },
+      "rank": 68
+    },
+    {
+      "feature_index": 177,
+      "feature_name": "feature_177",
+      "feature_code": "def feature(text: str) -> float:\n    \"Sentiment polarity score using VADER\"\n    scores = sia.polarity_scores(text)\n    return float(scores['compound'])\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0035666366106833487,
+        "mean_shap": -0.0007809012186513216,
+        "std_shap": 0.004760508218278305,
+        "min_shap": -0.009286888061592,
+        "max_shap": 0.02341990070362148
+      },
+      "rank": 69
+    },
+    {
+      "feature_index": 37,
+      "feature_name": "feature_37",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of action verbs in the text\"\n    doc = nlp(text)\n    action_verb_count = sum(1 for token in doc if token.pos_ == 'VERB' and token.dep_ == 'ROOT')\n    return float(action_verb_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003554729097313506,
+        "mean_shap": -0.0013942438374784224,
+        "std_shap": 0.003999469916787821,
+        "min_shap": -0.009791730053740962,
+        "max_shap": 0.0073647586716659615
+      },
+      "rank": 70
+    },
+    {
+      "feature_index": 12,
+      "feature_name": "feature_12",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average length of sentences measured in characters\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s) for s in sentences if s.strip()]\n    if not lengths:\n        return 0.0\n    return float(sum(lengths)) / len(lengths)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0034546415671043254,
+        "mean_shap": 0.0005176368362860183,
+        "std_shap": 0.004282773695199809,
+        "min_shap": -0.012398987429960182,
+        "max_shap": 0.01102628358513614
+      },
+      "rank": 71
+    },
+    {
+      "feature_index": 124,
+      "feature_name": "feature_124",
+      "feature_code": "def feature(text: str) -> float:\n    \"Max length of sentences in words\"\n    sentences = re.split(r'[.!?]+', text)\n    max_length = max(len(s.split()) for s in sentences if s.split()) if sentences else 0\n    return float(max_length)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0033479418994505615,
+        "mean_shap": 0.001034370695658003,
+        "std_shap": 0.004201014983136521,
+        "min_shap": -0.012799220796623472,
+        "max_shap": 0.013144939382412743
+      },
+      "rank": 72
+    },
+    {
+      "feature_index": 254,
+      "feature_name": "feature_254",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique named entities in the text\"\n    doc = nlp(text)\n    unique_entities = set(ent.text for ent in doc.ents)\n    return float(len(unique_entities))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003307749678618312,
+        "mean_shap": 0.0007002001350155566,
+        "std_shap": 0.0044550115465957435,
+        "min_shap": -0.009890969318933693,
+        "max_shap": 0.0185911844935028
+      },
+      "rank": 73
+    },
+    {
+      "feature_index": 6,
+      "feature_name": "feature_6",
+      "feature_code": "def feature(text: str) -> float:\n    'Count of unique named entities in the text'\n    doc = nlp(text)\n    return float(len(set(ent.text for ent in doc.ents)))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003292228175746572,
+        "mean_shap": 0.0007496937043932614,
+        "std_shap": 0.004494625195224284,
+        "min_shap": -0.007926395691525217,
+        "max_shap": 0.020810984053219853
+      },
+      "rank": 74
+    },
+    {
+      "feature_index": 266,
+      "feature_name": "feature_266",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique named entities in the text\"\n    doc = nlp(text)\n    return float(len({ent.text for ent in doc.ents}))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003260665296184441,
+        "mean_shap": 0.000682981134449938,
+        "std_shap": 0.004379031705932838,
+        "min_shap": -0.009243745765827467,
+        "max_shap": 0.021863478471461813
+      },
+      "rank": 75
+    },
+    {
+      "feature_index": 261,
+      "feature_name": "feature_261",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average syllable count per sentence\"\n    sentences = text.split('.')\n    syllable_counts = [textstat.syllable_count(sentence) for sentence in sentences if sentence.strip()]\n    return float(sum(syllable_counts)) / len(syllable_counts) if syllable_counts else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003239689228530439,
+        "mean_shap": -0.00012870510645356326,
+        "std_shap": 0.004490317445879224,
+        "min_shap": -0.018588228599055883,
+        "max_shap": 0.016193301242384227
+      },
+      "rank": 76
+    },
+    {
+      "feature_index": 127,
+      "feature_name": "feature_127",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentiment polarity of the text\"\n    scores = sia.polarity_scores(text)\n    return float(scores['compound'])\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0032040067705700276,
+        "mean_shap": -0.000774834202925792,
+        "std_shap": 0.004198744736250821,
+        "min_shap": -0.008013747199286955,
+        "max_shap": 0.02198530597270777
+      },
+      "rank": 77
+    },
+    {
+      "feature_index": 26,
+      "feature_name": "feature_26",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of sentences longer than 15 words\"\n    sentences = re.split(r'[.!?]+', text)\n    long_sentence_count = sum(1 for s in sentences if len(s.split()) > 15)\n    return float(long_sentence_count) / len(sentences) if sentences else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0031929593201253997,
+        "mean_shap": 0.00028573183981546885,
+        "std_shap": 0.0041860713056194165,
+        "min_shap": -0.01946499148783726,
+        "max_shap": 0.011325319817400138
+      },
+      "rank": 78
+    },
+    {
+      "feature_index": 193,
+      "feature_name": "feature_193",
+      "feature_code": "def feature(text: str) -> float:\n    \"Sentiment polarity score using VADER\"\n    scores = sia.polarity_scores(text)\n    return scores['compound']\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0031849400009777303,
+        "mean_shap": -0.0006735295730249083,
+        "std_shap": 0.004204436750693861,
+        "min_shap": -0.007227473747948797,
+        "max_shap": 0.019352520041980195
+      },
+      "rank": 79
+    },
+    {
+      "feature_index": 16,
+      "feature_name": "feature_16",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentiment polarity of the text\"\n    scores = sia.polarity_scores(text)\n    return float(scores['compound'])\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003172825595589918,
+        "mean_shap": -0.0006603893623248801,
+        "std_shap": 0.004160467647848908,
+        "min_shap": -0.007863207468124628,
+        "max_shap": 0.017901417127828147
+      },
+      "rank": 80
+    },
+    {
+      "feature_index": 184,
+      "feature_name": "feature_184",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences with more than 15 words\"\n    sentences = re.split(r'[.!?]+', text)\n    long_sentence_count = sum(1 for s in sentences if len(s.split()) > 15)\n    return float(long_sentence_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0031492152746326243,
+        "mean_shap": 0.00011406487959227546,
+        "std_shap": 0.00418466484671865,
+        "min_shap": -0.005562474223765151,
+        "max_shap": 0.012689118625011708
+      },
+      "rank": 81
+    },
+    {
+      "feature_index": 207,
+      "feature_name": "feature_207",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique named entities in the text\"\n    doc = nlp(text)\n    unique_entities = {ent.text for ent in doc.ents}\n    return float(len(unique_entities))\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003111373517701844,
+        "mean_shap": 0.0006266042405461387,
+        "std_shap": 0.004118412785489394,
+        "min_shap": -0.009870501108499411,
+        "max_shap": 0.015421055825159426
+      },
+      "rank": 82
+    },
+    {
+      "feature_index": 108,
+      "feature_name": "feature_108",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentiment polarity of the text\"\n    scores = sia.polarity_scores(text)\n    return float(scores['compound'])\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.003106373346534618,
+        "mean_shap": -0.0006880334642512554,
+        "std_shap": 0.004155927615798339,
+        "min_shap": -0.008116730565057169,
+        "max_shap": 0.019059080820804267
+      },
+      "rank": 83
+    },
+    {
+      "feature_index": 141,
+      "feature_name": "feature_141",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length in characters\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s) for s in sentences if s.strip()]\n    return float(statistics.mean(lengths)) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0029535875215586037,
+        "mean_shap": 0.00034170739032290097,
+        "std_shap": 0.003691627768006113,
+        "min_shap": -0.009997769739276961,
+        "max_shap": 0.012831214746114025
+      },
+      "rank": 84
+    },
+    {
+      "feature_index": 81,
+      "feature_name": "feature_81",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentiment polarity from VADER\"\n    scores = sia.polarity_scores(text)\n    return float(scores['compound'])\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002951485372327713,
+        "mean_shap": -0.0006999025573067558,
+        "std_shap": 0.003837905942460261,
+        "min_shap": -0.008134889798202555,
+        "max_shap": 0.01667631850174229
+      },
+      "rank": 85
+    },
+    {
+      "feature_index": 74,
+      "feature_name": "feature_74",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of digits to total characters in the text\"\n    digit_count = sum(1 for c in text if c.isdigit())\n    return float(digit_count) / len(text) if len(text) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0029468644903732394,
+        "mean_shap": -0.0005657205234310435,
+        "std_shap": 0.004783906381892122,
+        "min_shap": -0.007319699092257157,
+        "max_shap": 0.024171897672685183
+      },
+      "rank": 86
+    },
+    {
+      "feature_index": 238,
+      "feature_name": "feature_238",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of numeric tokens in the text\"\n    doc = nlp(text)\n    numeric_count = sum(1 for token in doc if token.like_num)\n    return float(numeric_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002876172499215075,
+        "mean_shap": 0.0006088436070078584,
+        "std_shap": 0.00458422771530837,
+        "min_shap": -0.004536692536365042,
+        "max_shap": 0.024333663334815455
+      },
+      "rank": 87
+    },
+    {
+      "feature_index": 106,
+      "feature_name": "feature_106",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of sentences to words in the text\"\n    word_count = len(text.split())\n    sentence_count = text.count('.') + text.count('!') + text.count('?')\n    return float(sentence_count) / word_count if word_count > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0028531280864649844,
+        "mean_shap": -0.0011691087727947278,
+        "std_shap": 0.003823245800933635,
+        "min_shap": -0.027871064643579958,
+        "max_shap": 0.0075828600661636955
+      },
+      "rank": 88
+    },
+    {
+      "feature_index": 248,
+      "feature_name": "feature_248",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of adjectives in the text\"\n    doc = nlp(text)\n    adj_count = sum(1 for token in doc if token.pos_ == 'ADJ')\n    return float(adj_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002837066320307752,
+        "mean_shap": 4.97655464919527e-05,
+        "std_shap": 0.003657575925018808,
+        "min_shap": -0.010240688114932521,
+        "max_shap": 0.01104464137556227
+      },
+      "rank": 89
+    },
+    {
+      "feature_index": 36,
+      "feature_name": "feature_36",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of adjectives to total words\"\n    doc = nlp(text)\n    adj_count = sum(1 for token in doc if token.pos_ == 'ADJ')\n    return float(adj_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0028005168309250573,
+        "mean_shap": -0.00019343134948954168,
+        "std_shap": 0.003646437494091893,
+        "min_shap": -0.01288572649701345,
+        "max_shap": 0.010320771933847688
+      },
+      "rank": 90
+    },
+    {
+      "feature_index": 215,
+      "feature_name": "feature_215",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of prepositions in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADP'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002792304741056522,
+        "mean_shap": 0.0011371207081722228,
+        "std_shap": 0.003100614872661714,
+        "min_shap": -0.007199251053534247,
+        "max_shap": 0.008979934108683954
+      },
+      "rank": 91
+    },
+    {
+      "feature_index": 239,
+      "feature_name": "feature_239",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique named entities in the text\"\n    doc = nlp(text)\n    entity_count = len(set(ent.text for ent in doc.ents))\n    return float(entity_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0027659816137608154,
+        "mean_shap": 0.0005443707960589375,
+        "std_shap": 0.003726017605266647,
+        "min_shap": -0.007609688578107693,
+        "max_shap": 0.014877886108347312
+      },
+      "rank": 92
+    },
+    {
+      "feature_index": 199,
+      "feature_name": "feature_199",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of sentences to total words\"\n    word_count = len(text.split())\n    sentence_count = text.count('.') + text.count('!') + text.count('?')\n    return float(sentence_count) / word_count if word_count > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0027250392652387197,
+        "mean_shap": -0.0010296308930452188,
+        "std_shap": 0.003888404982013492,
+        "min_shap": -0.03101622059724021,
+        "max_shap": 0.00741518371650019
+      },
+      "rank": 93
+    },
+    {
+      "feature_index": 187,
+      "feature_name": "feature_187",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentiment subjectivity from TextBlob\"\n    from textblob import TextBlob\n    blob = TextBlob(text)\n    return float(blob.sentiment.subjectivity)\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0026467506829569677,
+        "mean_shap": -0.0003727983207793614,
+        "std_shap": 0.0034234946419725984,
+        "min_shap": -0.01636458123104354,
+        "max_shap": 0.0055507394616929875
+      },
+      "rank": 94
+    },
+    {
+      "feature_index": 148,
+      "feature_name": "feature_148",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in characters\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.strip()) for s in sentences if s.strip()]\n    return float(sum(lengths)) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0026197339661668912,
+        "mean_shap": 0.0006227868626379032,
+        "std_shap": 0.0032973967727668494,
+        "min_shap": -0.011559471487673355,
+        "max_shap": 0.010979257875413595
+      },
+      "rank": 95
+    },
+    {
+      "feature_index": 48,
+      "feature_name": "feature_48",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentiment subjectivity of the text using TextBlob\"\n    from textblob import TextBlob\n    sentiment = TextBlob(text).sentiment\n    return float(sentiment.subjectivity)\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002578115527877138,
+        "mean_shap": -6.0992724923057626e-05,
+        "std_shap": 0.003258410494247942,
+        "min_shap": -0.01550625060704559,
+        "max_shap": 0.00602000786938168
+      },
+      "rank": 96
+    },
+    {
+      "feature_index": 83,
+      "feature_name": "feature_83",
+      "feature_code": "def feature(text: str) -> float:\n    \"Total character count in the text\"\n    return float(len(text))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00253906883036098,
+        "mean_shap": -0.0003013766960750886,
+        "std_shap": 0.0032916208243395882,
+        "min_shap": -0.004958580880522878,
+        "max_shap": 0.0122287006218234
+      },
+      "rank": 97
+    },
+    {
+      "feature_index": 233,
+      "feature_name": "feature_233",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of stopwords to total words\"\n    doc = nlp(text)\n    stopword_count = sum(1 for token in doc if token.is_stop)\n    total_word_count = len(doc)\n    return float(stopword_count) / total_word_count if total_word_count > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002475249000626314,
+        "mean_shap": 7.157237452224344e-05,
+        "std_shap": 0.003192509952831362,
+        "min_shap": -0.005307848495598721,
+        "max_shap": 0.009862307069214872
+      },
+      "rank": 98
+    },
+    {
+      "feature_index": 290,
+      "feature_name": "feature_290",
+      "feature_code": "def feature(text: str) -> float:\n    \"Percentage of stopwords in the text\"\n    doc = nlp(text)\n    stopword_count = sum(1 for token in doc if token.is_stop)\n    return (stopword_count / len(doc)) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002381493299805735,
+        "mean_shap": 0.0001377480121588966,
+        "std_shap": 0.002966531750536963,
+        "min_shap": -0.0052039084303682655,
+        "max_shap": 0.008336902060260538
+      },
+      "rank": 99
+    },
+    {
+      "feature_index": 201,
+      "feature_name": "feature_201",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of prepositions in the text\"\n    doc = nlp(text)\n    prep_count = sum(1 for token in doc if token.pos_ == 'ADP')\n    return float(prep_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002360300042345766,
+        "mean_shap": 0.0007637330795652274,
+        "std_shap": 0.0028015928731356036,
+        "min_shap": -0.006724511130397876,
+        "max_shap": 0.007560572397709589
+      },
+      "rank": 100
+    },
+    {
+      "feature_index": 170,
+      "feature_name": "feature_170",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of words that are stop words\"\n    doc = nlp(text)\n    total_words = len(doc)\n    stop_word_count = sum(1 for token in doc if token.is_stop)\n    return float(stop_word_count) / total_words if total_words > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00235838676519267,
+        "mean_shap": 3.958462347065963e-05,
+        "std_shap": 0.003078770528271307,
+        "min_shap": -0.004664314939767934,
+        "max_shap": 0.010884157472120844
+      },
+      "rank": 101
+    },
+    {
+      "feature_index": 38,
+      "feature_name": "feature_38",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average named entity length in characters\"\n    doc = nlp(text)\n    if not doc.ents:\n        return 0.0\n    return float(sum(len(ent.text) for ent in doc.ents)) / len(doc.ents)\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0023519605946379493,
+        "mean_shap": -0.00018384046359388195,
+        "std_shap": 0.0031372742662839933,
+        "min_shap": -0.0055648053375644616,
+        "max_shap": 0.01270236720049515
+      },
+      "rank": 102
+    },
+    {
+      "feature_index": 5,
+      "feature_name": "feature_5",
+      "feature_code": "def feature(text: str) -> float:\n    'Ratio of stopwords to total words'\n    doc = nlp(text)\n    if len(doc) == 0:\n        return 0.0\n    stopword_count = sum(1 for token in doc if token.is_stop)\n    return float(stopword_count) / len(doc)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0022827170603197423,
+        "mean_shap": 0.00012918212473475235,
+        "std_shap": 0.002835370704593834,
+        "min_shap": -0.005768233500437536,
+        "max_shap": 0.010402110373466888
+      },
+      "rank": 103
+    },
+    {
+      "feature_index": 150,
+      "feature_name": "feature_150",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of stopwords in the text\"\n    doc = nlp(text)\n    stopword_count = sum(1 for token in doc if token.is_stop)\n    return float(stopword_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00227482963492821,
+        "mean_shap": 0.00021772126607397363,
+        "std_shap": 0.0030685959280353065,
+        "min_shap": -0.0043030871849942245,
+        "max_shap": 0.010980226474453366
+      },
+      "rank": 104
+    },
+    {
+      "feature_index": 84,
+      "feature_name": "feature_84",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average length of named entities in characters\"\n    doc = nlp(text)\n    if not doc.ents:\n        return 0.0\n    return float(sum(len(ent.text) for ent in doc.ents)) / len(doc.ents)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0022029070413927244,
+        "mean_shap": -0.0002620683274723158,
+        "std_shap": 0.0028406985029186265,
+        "min_shap": -0.004899829076391099,
+        "max_shap": 0.008254573794746723
+      },
+      "rank": 105
+    },
+    {
+      "feature_index": 251,
+      "feature_name": "feature_251",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of digits in the text\"\n    digit_count = sum(1 for c in text if c.isdigit())\n    return float(digit_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0021971181739255216,
+        "mean_shap": 0.0001292234476782344,
+        "std_shap": 0.003771072523294743,
+        "min_shap": -0.003872846868334771,
+        "max_shap": 0.020650710981346437
+      },
+      "rank": 106
+    },
+    {
+      "feature_index": 188,
+      "feature_name": "feature_188",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of stopwords in the text\"\n    doc = nlp(text)\n    stopword_count = sum(1 for token in doc if token.is_stop)\n    return float(stopword_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002194894402851651,
+        "mean_shap": 0.00014399044862369959,
+        "std_shap": 0.002740285783965087,
+        "min_shap": -0.004505275939000047,
+        "max_shap": 0.007763804758122582
+      },
+      "rank": 107
+    },
+    {
+      "feature_index": 198,
+      "feature_name": "feature_198",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    words = set(text.lower().split())\n    return float(len(words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0021299630545404736,
+        "mean_shap": -0.00037907288756092183,
+        "std_shap": 0.0025953562688814523,
+        "min_shap": -0.010894641989698244,
+        "max_shap": 0.0071132501604447085
+      },
+      "rank": 108
+    },
+    {
+      "feature_index": 234,
+      "feature_name": "feature_234",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences with exclamation marks\"\n    exclamation_count = text.count('!')\n    sentences = re.split(r'[.!?]+', text)\n    return float(exclamation_count) / len(sentences) if sentences else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0021103859707391442,
+        "mean_shap": -0.0006875728873476951,
+        "std_shap": 0.0025990498798396963,
+        "min_shap": -0.008600729618418084,
+        "max_shap": 0.00848299317573571
+      },
+      "rank": 109
+    },
+    {
+      "feature_index": 102,
+      "feature_name": "feature_102",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of stopwords in the text\"\n    doc = nlp(text)\n    if len(doc) == 0:\n        return 0.0\n    stopword_count = sum(1 for token in doc if token.is_stop)\n    return float(stopword_count) / len(doc)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0021101630393462853,
+        "mean_shap": 0.00013430731892775165,
+        "std_shap": 0.002845139978834199,
+        "min_shap": -0.00589162382240066,
+        "max_shap": 0.012256575876129137
+      },
+      "rank": 110
+    },
+    {
+      "feature_index": 122,
+      "feature_name": "feature_122",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of non-stopwords in the text\"\n    doc = nlp(text)\n    non_stopword_count = sum(1 for token in doc if not token.is_stop)\n    return float(non_stopword_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002106752969172511,
+        "mean_shap": 1.5278930220897498e-05,
+        "std_shap": 0.002654376205023459,
+        "min_shap": -0.004160289521516451,
+        "max_shap": 0.008897377871139948
+      },
+      "rank": 111
+    },
+    {
+      "feature_index": 18,
+      "feature_name": "feature_18",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average named entity length in characters\"\n    doc = nlp(text)\n    if not doc.ents:\n        return 0.0\n    return float(sum(len(ent.text) for ent in doc.ents)) / len(doc.ents)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002064509542656213,
+        "mean_shap": -0.0003031542020845961,
+        "std_shap": 0.002716255468873118,
+        "min_shap": -0.004809869240467869,
+        "max_shap": 0.010205614171993723
+      },
+      "rank": 112
+    },
+    {
+      "feature_index": 80,
+      "feature_name": "feature_80",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of stopwords in the text\"\n    doc = nlp(text)\n    stopword_count = sum(1 for token in doc if token.is_stop)\n    return float(stopword_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002039101502188217,
+        "mean_shap": 0.0002760914674782779,
+        "std_shap": 0.002802044418965629,
+        "min_shap": -0.003668409286603639,
+        "max_shap": 0.009147267619075633
+      },
+      "rank": 113
+    },
+    {
+      "feature_index": 94,
+      "feature_name": "feature_94",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of stop words in the text\"\n    doc = nlp(text)\n    stop_word_count = sum(1 for token in doc if token.is_stop)\n    return float(stop_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0020348831309377276,
+        "mean_shap": 0.0005816358272089706,
+        "std_shap": 0.002560242909139999,
+        "min_shap": -0.006099027957845466,
+        "max_shap": 0.010067213171971422
+      },
+      "rank": 114
+    },
+    {
+      "feature_index": 34,
+      "feature_name": "feature_34",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of stopwords to total words\"\n    doc = nlp(text)\n    stopword_count = sum(1 for token in doc if token.is_stop)\n    return float(stopword_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0020162376984780685,
+        "mean_shap": 0.00018928878680456396,
+        "std_shap": 0.0026038108263270695,
+        "min_shap": -0.004730803794029224,
+        "max_shap": 0.008167860677353646
+      },
+      "rank": 115
+    },
+    {
+      "feature_index": 173,
+      "feature_name": "feature_173",
+      "feature_code": "def feature(text: str) -> float:\n    \"Complex word count (words with 3 or more syllables)\"\n    words = text.split()\n    complex_word_count = sum(1 for word in words if textstat.syllable_count(word) >= 3)\n    return float(complex_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00201392991460475,
+        "mean_shap": 0.00018372944556212118,
+        "std_shap": 0.002630753641507754,
+        "min_shap": -0.0051530981900805885,
+        "max_shap": 0.013847882353468502
+      },
+      "rank": 116
+    },
+    {
+      "feature_index": 264,
+      "feature_name": "feature_264",
+      "feature_code": "def feature(text: str) -> float:\n    \"Percentage of stopwords in the text\"\n    doc = nlp(text)\n    stopword_count = sum(1 for token in doc if token.is_stop)\n    return float(stopword_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.002001396260121012,
+        "mean_shap": 9.826626927217735e-05,
+        "std_shap": 0.0026008752560368513,
+        "min_shap": -0.004201194455035405,
+        "max_shap": 0.008844840566506912
+      },
+      "rank": 117
+    },
+    {
+      "feature_index": 66,
+      "feature_name": "feature_66",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of negative words in the text using VADER\"\n    scores = sia.polarity_scores(text)\n    return float(scores['neg'])\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0019087718542095521,
+        "mean_shap": -0.00012141304697916815,
+        "std_shap": 0.0025181950887210947,
+        "min_shap": -0.009431655904810902,
+        "max_shap": 0.008566957428737733
+      },
+      "rank": 118
+    },
+    {
+      "feature_index": 146,
+      "feature_name": "feature_146",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of characters in the text\"\n    return float(len(text.strip()))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0018993890834019637,
+        "mean_shap": -0.000341018919315878,
+        "std_shap": 0.002501553214544178,
+        "min_shap": -0.003771144254460891,
+        "max_shap": 0.009451362279271194
+      },
+      "rank": 119
+    },
+    {
+      "feature_index": 270,
+      "feature_name": "feature_270",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average length of named entities in the text\"\n    doc = nlp(text)\n    lengths = [len(ent.text) for ent in doc.ents]\n    return float(sum(lengths) / len(lengths)) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0018956364540179992,
+        "mean_shap": -0.00016195050209079473,
+        "std_shap": 0.002598947422477278,
+        "min_shap": -0.0036228917933481316,
+        "max_shap": 0.01020374752350971
+      },
+      "rank": 120
+    },
+    {
+      "feature_index": 79,
+      "feature_name": "feature_79",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences that contain at least one noun\"\n    doc = nlp(text)\n    sentence_with_noun_count = sum(1 for sent in doc.sents if any(token.pos_ == 'NOUN' for token in sent))\n    return float(sentence_with_noun_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0018131707403479548,
+        "mean_shap": 0.0003712324952715258,
+        "std_shap": 0.002712573752262589,
+        "min_shap": -0.01465810365935843,
+        "max_shap": 0.008960551530981265
+      },
+      "rank": 121
+    },
+    {
+      "feature_index": 253,
+      "feature_name": "feature_253",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of words that are stop words\"\n    doc = nlp(text)\n    stopword_count = sum(1 for token in doc if token.is_stop)\n    return float(stopword_count) / len(doc) if len(doc) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00178146171629392,
+        "mean_shap": 0.00014930058267724675,
+        "std_shap": 0.0024325656021241975,
+        "min_shap": -0.004388552452607325,
+        "max_shap": 0.008015762942028616
+      },
+      "rank": 122
+    },
+    {
+      "feature_index": 183,
+      "feature_name": "feature_183",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of punctuation characters in the text\"\n    if len(text) == 0:\n        return 0.0\n    punctuation_count = sum(1 for c in text if c in string.punctuation)\n    return float(punctuation_count) / len(text)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0017550902074225882,
+        "mean_shap": -0.00019359518688091994,
+        "std_shap": 0.0026870948289307484,
+        "min_shap": -0.01419600024063226,
+        "max_shap": 0.004721921239500705
+      },
+      "rank": 123
+    },
+    {
+      "feature_index": 137,
+      "feature_name": "feature_137",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of negative sentiment words in the text using VADER\"\n    scores = sia.polarity_scores(text)\n    return float(scores['neg'])\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.001717685579948208,
+        "mean_shap": 3.043083276096744e-05,
+        "std_shap": 0.002394201653181892,
+        "min_shap": -0.0068776909184105894,
+        "max_shap": 0.011864019026553405
+      },
+      "rank": 124
+    },
+    {
+      "feature_index": 41,
+      "feature_name": "feature_41",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of punctuation to total characters\"\n    punct_count = sum(1 for c in text if c in string.punctuation)\n    return float(punct_count) / len(text) if len(text) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0016852050532345573,
+        "mean_shap": 9.915950392815413e-06,
+        "std_shap": 0.002538023586327363,
+        "min_shap": -0.012590732417310466,
+        "max_shap": 0.004315567578982985
+      },
+      "rank": 125
+    },
+    {
+      "feature_index": 196,
+      "feature_name": "feature_196",
+      "feature_code": "def feature(text: str) -> float:\n    \"Density of complex words (words with more than 2 syllables)\"\n    complex_word_count = sum(1 for word in text.split() if textstat.syllable_count(word) > 2)\n    return float(complex_word_count) / len(text.split()) if text.split() else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0016404903105921634,
+        "mean_shap": -6.92519800820005e-05,
+        "std_shap": 0.002231776102731864,
+        "min_shap": -0.004292192159919041,
+        "max_shap": 0.008522436798711492
+      },
+      "rank": 126
+    },
+    {
+      "feature_index": 138,
+      "feature_name": "feature_138",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of negative sentiment words in the text using VADER\"\n    scores = sia.polarity_scores(text)\n    return float(scores['neg'])\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0016228581125711941,
+        "mean_shap": -4.6370493646125575e-05,
+        "std_shap": 0.0023351314744418936,
+        "min_shap": -0.008529912341625671,
+        "max_shap": 0.007540421777088273
+      },
+      "rank": 127
+    },
+    {
+      "feature_index": 75,
+      "feature_name": "feature_75",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words repeated more than once\"\n    words = text.split()\n    word_count = Counter(words)\n    repeat_count = sum(1 for count in word_count.values() if count > 1)\n    return float(repeat_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0014382749750415909,
+        "mean_shap": 0.0002394574808356761,
+        "std_shap": 0.0019396812210384082,
+        "min_shap": -0.0038515681816058646,
+        "max_shap": 0.007303503370180887
+      },
+      "rank": 128
+    },
+    {
+      "feature_index": 274,
+      "feature_name": "feature_274",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of capitalized words in the text\"\n    words = text.split()\n    return float(sum(1 for word in words if word[0].isupper()))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00142993479102766,
+        "mean_shap": -0.0006296724993373908,
+        "std_shap": 0.001628021676525486,
+        "min_shap": -0.005007053181468537,
+        "max_shap": 0.004454167927242474
+      },
+      "rank": 129
+    },
+    {
+      "feature_index": 32,
+      "feature_name": "feature_32",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of sentences to total words\"\n    sentences = re.split(r'[.!?]+', text)\n    word_count = len(text.split())\n    sentence_count = len([s for s in sentences if s.strip()])  # Ensuring non-empty sentences\n    return float(sentence_count) / word_count if word_count > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0014255804106803182,
+        "mean_shap": 0.00031489762936669577,
+        "std_shap": 0.0018262792231051805,
+        "min_shap": -0.007522499026714421,
+        "max_shap": 0.003702485179163525
+      },
+      "rank": 130
+    },
+    {
+      "feature_index": 2,
+      "feature_name": "feature_2",
+      "feature_code": "def feature(text: str) -> float:\n    'Ratio of punctuation characters to total characters'\n    if len(text) == 0:\n        return 0.0\n    punctuation_count = sum(1 for c in text if c in string.punctuation)\n    return float(punctuation_count) / len(text)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0013347999467614362,
+        "mean_shap": 5.152965763174337e-05,
+        "std_shap": 0.0020650719097169076,
+        "min_shap": -0.009358462503389283,
+        "max_shap": 0.004837918351634497
+      },
+      "rank": 131
+    },
+    {
+      "feature_index": 232,
+      "feature_name": "feature_232",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of distinct characters in the text\"\n    unique_chars = set(text)\n    return float(len(unique_chars))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0012809110531656427,
+        "mean_shap": 0.0002948549152714101,
+        "std_shap": 0.0015537517438289716,
+        "min_shap": -0.003505338168831676,
+        "max_shap": 0.004446642154964925
+      },
+      "rank": 132
+    },
+    {
+      "feature_index": 67,
+      "feature_name": "feature_67",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of complex words (3 or more syllables) to total words\"\n    words = text.split()\n    complex_word_count = sum(1 for word in words if textstat.syllable_count(word) >= 3)\n    return float(complex_word_count) / len(words) if words else 0.0\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0012377001919775068,
+        "mean_shap": -1.3031970601051089e-05,
+        "std_shap": 0.0016424218293542088,
+        "min_shap": -0.0029715496341442627,
+        "max_shap": 0.007327594891792663
+      },
+      "rank": 133
+    },
+    {
+      "feature_index": 118,
+      "feature_name": "feature_118",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adverbs in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADV'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0012171776919129955,
+        "mean_shap": -0.00018518466030036115,
+        "std_shap": 0.0014223461325459069,
+        "min_shap": -0.003183159939659428,
+        "max_shap": 0.003763447609038404
+      },
+      "rank": 134
+    },
+    {
+      "feature_index": 272,
+      "feature_name": "feature_272",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of words with emotional connotations\"\n    emotional_words = {'happy', 'sad', 'angry', 'excited', 'fear', 'love'}\n    words = text.lower().split()\n    return float(sum(1 for word in words if word in emotional_words)) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0011971209853588276,
+        "mean_shap": 0.00034938777754375924,
+        "std_shap": 0.0019859914012375283,
+        "min_shap": -0.013748860709091001,
+        "max_shap": 0.003533052078654722
+      },
+      "rank": 135
+    },
+    {
+      "feature_index": 99,
+      "feature_name": "feature_99",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adverbs in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADV'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0011952642436725137,
+        "mean_shap": -0.0002380193259107094,
+        "std_shap": 0.0013938101696078231,
+        "min_shap": -0.003335768325948514,
+        "max_shap": 0.004610122148395006
+      },
+      "rank": 136
+    },
+    {
+      "feature_index": 43,
+      "feature_name": "feature_43",
+      "feature_code": "def feature(text: str) -> float:\n    \"Unique character count in the text\"\n    return float(len(set(text)))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0011702390043267865,
+        "mean_shap": 0.00036009893400569656,
+        "std_shap": 0.0014470731616353183,
+        "min_shap": -0.004326998472724707,
+        "max_shap": 0.004796308627476921
+      },
+      "rank": 137
+    },
+    {
+      "feature_index": 116,
+      "feature_name": "feature_116",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of complex words (three syllables or more) in the text\"\n    complex_word_count = sum(1 for word in text.split() if textstat.syllable_count(word) >= 3)\n    return float(complex_word_count) / len(text.split()) if len(text.split()) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0011643867368942608,
+        "mean_shap": -0.00011169791736814655,
+        "std_shap": 0.0015045777098213363,
+        "min_shap": -0.0031747446392714007,
+        "max_shap": 0.006229592598589369
+      },
+      "rank": 138
+    },
+    {
+      "feature_index": 27,
+      "feature_name": "feature_27",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adverbs in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADV'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0011228581527962173,
+        "mean_shap": -9.376599093859247e-05,
+        "std_shap": 0.0014190263179405767,
+        "min_shap": -0.002421029702478465,
+        "max_shap": 0.004545375291648155
+      },
+      "rank": 139
+    },
+    {
+      "feature_index": 77,
+      "feature_name": "feature_77",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique characters in the text\"\n    unique_chars = set(text)\n    return float(len(unique_chars))\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0010707719549519405,
+        "mean_shap": 0.00015947773976142688,
+        "std_shap": 0.00134752849998174,
+        "min_shap": -0.003913113034251895,
+        "max_shap": 0.003582928478945737
+      },
+      "rank": 140
+    },
+    {
+      "feature_index": 243,
+      "feature_name": "feature_243",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of complex words (3+ syllables) in the text\"\n    words = text.split()\n    complex_word_count = sum(1 for word in words if textstat.syllable_count(word) > 2)\n    return float(complex_word_count) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0010481467516695985,
+        "mean_shap": 7.583235043880252e-05,
+        "std_shap": 0.001424276715151255,
+        "min_shap": -0.0027833997444445756,
+        "max_shap": 0.0060057908302937465
+      },
+      "rank": 141
+    },
+    {
+      "feature_index": 22,
+      "feature_name": "feature_22",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of positive sentiment words in the text\"\n    positive_words = {'good', 'great', 'happy', 'positive', 'excellent', 'fantastic', 'wonderful'}\n    word_list = text.lower().split()\n    return float(sum(1 for word in word_list if word in positive_words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.001046146599738733,
+        "mean_shap": 2.1833865340031286e-05,
+        "std_shap": 0.0018797107576244826,
+        "min_shap": -0.007346804105762624,
+        "max_shap": 0.011898435440999108
+      },
+      "rank": 142
+    },
+    {
+      "feature_index": 143,
+      "feature_name": "feature_143",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adverbs in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADV'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0010198095569365123,
+        "mean_shap": -0.00010180868217332691,
+        "std_shap": 0.0012955449351473882,
+        "min_shap": -0.0027177225554400352,
+        "max_shap": 0.005263739339282976
+      },
+      "rank": 143
+    },
+    {
+      "feature_index": 133,
+      "feature_name": "feature_133",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adverbs in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADV'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0009702402037594221,
+        "mean_shap": -6.061278457114163e-05,
+        "std_shap": 0.0012379306506683442,
+        "min_shap": -0.0024268274832799524,
+        "max_shap": 0.004838848628973915
+      },
+      "rank": 144
+    },
+    {
+      "feature_index": 52,
+      "feature_name": "feature_52",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of complex words (more than two syllables) to total words\"\n    words = text.split()\n    complex_word_count = sum(1 for word in words if textstat.syllable_count(word) > 2)\n    return float(complex_word_count) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0009658655883215121,
+        "mean_shap": -3.158945926172429e-05,
+        "std_shap": 0.0012829396513229369,
+        "min_shap": -0.0024076029244180504,
+        "max_shap": 0.0052895828367022875
+      },
+      "rank": 145
+    },
+    {
+      "feature_index": 57,
+      "feature_name": "feature_57",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique characters in the text\"\n    unique_chars = set(text)\n    return float(len(unique_chars))\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.000959487935301395,
+        "mean_shap": 9.633087045677199e-05,
+        "std_shap": 0.0012458578756839069,
+        "min_shap": -0.0049878415310341045,
+        "max_shap": 0.003954256921709977
+      },
+      "rank": 146
+    },
+    {
+      "feature_index": 17,
+      "feature_name": "feature_17",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of complex words to total words\"\n    complex_word_count = sum(1 for word in text.split() if textstat.syllable_count(word) > 2)\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(complex_word_count) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0009364617781881452,
+        "mean_shap": -0.00010949601160888532,
+        "std_shap": 0.0011859670787124545,
+        "min_shap": -0.0028618637023438346,
+        "max_shap": 0.0043505048018594615
+      },
+      "rank": 147
+    },
+    {
+      "feature_index": 259,
+      "feature_name": "feature_259",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique characters in the text\"\n    unique_chars = set(text)\n    return float(len(unique_chars))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0009240405950457245,
+        "mean_shap": 0.00014298495133754135,
+        "std_shap": 0.0012005452904443308,
+        "min_shap": -0.004210986525603911,
+        "max_shap": 0.0055207063475643066
+      },
+      "rank": 148
+    },
+    {
+      "feature_index": 209,
+      "feature_name": "feature_209",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adverbs in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADV'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0009081090902837672,
+        "mean_shap": -7.99890609155558e-05,
+        "std_shap": 0.0011629415396845865,
+        "min_shap": -0.002154545977127532,
+        "max_shap": 0.004589966121248414
+      },
+      "rank": 149
+    },
+    {
+      "feature_index": 258,
+      "feature_name": "feature_258",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words containing digits\"\n    return float(sum(1 for word in text.split() if any(char.isdigit() for char in word)))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0008551405763938155,
+        "mean_shap": -0.00022688525147118187,
+        "std_shap": 0.0013452555042503533,
+        "min_shap": -0.002534359433387203,
+        "max_shap": 0.008092667045316387
+      },
+      "rank": 150
+    },
+    {
+      "feature_index": 249,
+      "feature_name": "feature_249",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of uppercase letters in the text\"\n    uppercase_count = sum(1 for c in text if c.isupper())\n    return float(uppercase_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0008450678661969727,
+        "mean_shap": 0.0002599242650602496,
+        "std_shap": 0.00109218051652001,
+        "min_shap": -0.0037872345565881775,
+        "max_shap": 0.004139487000548438
+      },
+      "rank": 151
+    },
+    {
+      "feature_index": 105,
+      "feature_name": "feature_105",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of distinct characters in the text\"\n    return float(len(set(text)))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0008352635209552507,
+        "mean_shap": 0.00014886165362988166,
+        "std_shap": 0.0010676465193533125,
+        "min_shap": -0.0036073968123459007,
+        "max_shap": 0.0031127061395924507
+      },
+      "rank": 152
+    },
+    {
+      "feature_index": 157,
+      "feature_name": "feature_157",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of different POS tags in the text\"\n    doc = nlp(text)\n    pos_counts = len(set(token.pos_ for token in doc))\n    return float(pos_counts)\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.000764156192363966,
+        "mean_shap": 2.1812892548733944e-05,
+        "std_shap": 0.0009774381786648054,
+        "min_shap": -0.0025664091172214044,
+        "max_shap": 0.00326074355413073
+      },
+      "rank": 153
+    },
+    {
+      "feature_index": 78,
+      "feature_name": "feature_78",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of unique words to total words\"\n    words = text.split()\n    unique_words = len(set(words))\n    return float(unique_words) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0007132320849479772,
+        "mean_shap": 5.109049953077788e-05,
+        "std_shap": 0.0009481214424039416,
+        "min_shap": -0.0036458122311428466,
+        "max_shap": 0.0019570689835798852
+      },
+      "rank": 154
+    },
+    {
+      "feature_index": 204,
+      "feature_name": "feature_204",
+      "feature_code": "def feature(text: str) -> float:\n    \"Percentage of sentences with more than 10 words\"\n    sentences = re.split(r'[.!?]+', text)\n    long_sentence_count = sum(1 for s in sentences if len(s.split()) > 10)\n    return float(long_sentence_count) / len(sentences) if sentences else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0007083759841996662,
+        "mean_shap": -0.0003102813625884138,
+        "std_shap": 0.0008922235087509246,
+        "min_shap": -0.0037622025453852865,
+        "max_shap": 0.002810759857706051
+      },
+      "rank": 155
+    },
+    {
+      "feature_index": 269,
+      "feature_name": "feature_269",
+      "feature_code": "def feature(text: str) -> float:\n    \"Flesch reading ease score for the text\"\n    import textstat\n    return float(textstat.flesch_reading_ease(text))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.000674743646399584,
+        "mean_shap": -5.138540824236046e-05,
+        "std_shap": 0.0008543333213129419,
+        "min_shap": -0.002319907956641339,
+        "max_shap": 0.0027815845429654067
+      },
+      "rank": 156
+    },
+    {
+      "feature_index": 179,
+      "feature_name": "feature_179",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of sentences that contain more than 10 words\"\n    sentences = re.split(r'[.!?]+', text)\n    long_sentences = sum(1 for s in sentences if len(s.split()) > 10)\n    return float(long_sentences) / len(sentences) if sentences else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0006710539201136327,
+        "mean_shap": -0.00027587728021513696,
+        "std_shap": 0.0008361350279185171,
+        "min_shap": -0.004615235546353969,
+        "max_shap": 0.0015426226541081476
+      },
+      "rank": 157
+    },
+    {
+      "feature_index": 255,
+      "feature_name": "feature_255",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences with more than 10 words\"\n    sentences = re.split(r'[.!?]+', text)\n    long_sentence_count = sum(1 for s in sentences if len(s.split()) > 10)\n    return float(long_sentence_count) / len(sentences) if sentences else 0.0\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0006694963572871953,
+        "mean_shap": -0.0002535308258446613,
+        "std_shap": 0.0008168262610415553,
+        "min_shap": -0.0027263447474142046,
+        "max_shap": 0.002518210162213763
+      },
+      "rank": 158
+    },
+    {
+      "feature_index": 169,
+      "feature_name": "feature_169",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences in the text\"\n    return float(len(re.split(r'[.!?]+', text)))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0006655896831495026,
+        "mean_shap": 1.2888082944148919e-05,
+        "std_shap": 0.0009053971580600133,
+        "min_shap": -0.004107213436303369,
+        "max_shap": 0.0023871630915384685
+      },
+      "rank": 159
+    },
+    {
+      "feature_index": 211,
+      "feature_name": "feature_211",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of unique words to total words\"\n    words = text.split()\n    unique_words = len(set(words))\n    total_words = len(words)\n    return float(unique_words) / total_words if total_words > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0006612875990092445,
+        "mean_shap": 5.627919753344259e-05,
+        "std_shap": 0.000850878882245958,
+        "min_shap": -0.002883061614162661,
+        "max_shap": 0.001977532782114359
+      },
+      "rank": 160
+    },
+    {
+      "feature_index": 96,
+      "feature_name": "feature_96",
+      "feature_code": "def feature(text: str) -> float:\n    \"Readability score (Flesch Reading Ease)\"\n    return float(textstat.flesch_reading_ease(text))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0006534194786237805,
+        "mean_shap": -0.00010235970642559703,
+        "std_shap": 0.0008028653218508292,
+        "min_shap": -0.002700283863417711,
+        "max_shap": 0.0021217889687275633
+      },
+      "rank": 161
+    },
+    {
+      "feature_index": 229,
+      "feature_name": "feature_229",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences with more than 10 words\"\n    sentences = re.split(r'[.!?]+', text)\n    long_sentence_count = sum(1 for s in sentences if len(s.split()) > 10)\n    return float(long_sentence_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0006460344498261794,
+        "mean_shap": 0.00017281333522193792,
+        "std_shap": 0.0009350498041911832,
+        "min_shap": -0.0023152811369757114,
+        "max_shap": 0.003735815391317844
+      },
+      "rank": 162
+    },
+    {
+      "feature_index": 195,
+      "feature_name": "feature_195",
+      "feature_code": "def feature(text: str) -> float:\n    \"Readability score based on Flesch Reading Ease\"\n    return float(textstat.flesch_reading_ease(text))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0006099508421284321,
+        "mean_shap": -0.00012505513568504314,
+        "std_shap": 0.000770744244988467,
+        "min_shap": -0.0025198615708254125,
+        "max_shap": 0.0016343548799976294
+      },
+      "rank": 163
+    },
+    {
+      "feature_index": 129,
+      "feature_name": "feature_129",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of unique words to total words\"\n    words = text.split()\n    unique_words = len(set(words))\n    return float(unique_words) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005794171396541081,
+        "mean_shap": 0.00015955371802335282,
+        "std_shap": 0.0007265390579705279,
+        "min_shap": -0.0026999677165718086,
+        "max_shap": 0.0017577328871081837
+      },
+      "rank": 164
+    },
+    {
+      "feature_index": 51,
+      "feature_name": "feature_51",
+      "feature_code": "def feature(text: str) -> float:\n    \"Counting the number of different parts of speech (POS) used\"\n    doc = nlp(text)\n    pos_tags = {token.pos_ for token in doc}\n    return float(len(pos_tags))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005749913920767818,
+        "mean_shap": 6.822586386456055e-05,
+        "std_shap": 0.0007722323115127693,
+        "min_shap": -0.002506647144604709,
+        "max_shap": 0.003737823840348937
+      },
+      "rank": 165
+    },
+    {
+      "feature_index": 236,
+      "feature_name": "feature_236",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of unique words to total words\"\n    words = text.split()\n    unique_word_count = len(set(words))\n    return float(unique_word_count) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005733539949274298,
+        "mean_shap": 0.00010387168968970588,
+        "std_shap": 0.0006825080479849315,
+        "min_shap": -0.00191044270650992,
+        "max_shap": 0.0016601201906817405
+      },
+      "rank": 166
+    },
+    {
+      "feature_index": 113,
+      "feature_name": "feature_113",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences in the text\"\n    doc = nlp(text)\n    return float(len(list(doc.sents)))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005712966707884939,
+        "mean_shap": -0.000115967900903985,
+        "std_shap": 0.0007152357657452979,
+        "min_shap": -0.0021433694333236357,
+        "max_shap": 0.0018889664413813006
+      },
+      "rank": 167
+    },
+    {
+      "feature_index": 131,
+      "feature_name": "feature_131",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words with less than 3 characters\"\n    words = text.split()\n    short_word_count = sum(1 for word in words if len(word) < 3)\n    return float(short_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005708743184266731,
+        "mean_shap": 5.915609550203091e-05,
+        "std_shap": 0.0006803040079231747,
+        "min_shap": -0.001914950264928253,
+        "max_shap": 0.0016093605232049319
+      },
+      "rank": 168
+    },
+    {
+      "feature_index": 161,
+      "feature_name": "feature_161",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words with fewer than 3 characters\"\n    words = text.split()\n    short_word_count = sum(1 for word in words if len(word) < 3)\n    return float(short_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005690176843031144,
+        "mean_shap": -0.00015204363925304287,
+        "std_shap": 0.0007324784855325174,
+        "min_shap": -0.0026629817445628797,
+        "max_shap": 0.0018284725112595562
+      },
+      "rank": 169
+    },
+    {
+      "feature_index": 91,
+      "feature_name": "feature_91",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences with more than 10 words\"\n    sentences = re.split(r'[.!?]+', text)\n    long_sentence_count = sum(1 for s in sentences if len(s.split()) > 10)\n    return float(long_sentence_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005649634566130781,
+        "mean_shap": 3.0435791120226376e-05,
+        "std_shap": 0.0007040726411391883,
+        "min_shap": -0.0020950984972323778,
+        "max_shap": 0.0021670388366868713
+      },
+      "rank": 170
+    },
+    {
+      "feature_index": 210,
+      "feature_name": "feature_210",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words that are less than 3 characters\"\n    words = text.split()\n    short_word_count = sum(1 for word in words if len(word) < 3)\n    return float(short_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005553872266736645,
+        "mean_shap": 0.00016728279447567352,
+        "std_shap": 0.0006796961402522522,
+        "min_shap": -0.002351859427953187,
+        "max_shap": 0.0021638410161159173
+      },
+      "rank": 171
+    },
+    {
+      "feature_index": 241,
+      "feature_name": "feature_241",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences with more than 20 words\"\n    sentences = re.split(r'[.!?]+', text)\n    long_sentence_count = sum(1 for s in sentences if len(s.split()) > 20)\n    return float(long_sentence_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.000552521054291226,
+        "mean_shap": -7.653657159032159e-06,
+        "std_shap": 0.0016088774932970958,
+        "min_shap": -0.015476109432450742,
+        "max_shap": 0.005442102878424159
+      },
+      "rank": 172
+    },
+    {
+      "feature_index": 85,
+      "feature_name": "feature_85",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words with 2 or fewer characters\"\n    words = text.split()\n    short_word_count = sum(1 for word in words if len(word) <= 2)\n    return float(short_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005487158145071085,
+        "mean_shap": -0.00012945198849221554,
+        "std_shap": 0.0006986864263949723,
+        "min_shap": -0.001969275655948014,
+        "max_shap": 0.0021520742256917282
+      },
+      "rank": 173
+    },
+    {
+      "feature_index": 3,
+      "feature_name": "feature_3",
+      "feature_code": "def feature(text: str) -> float:\n    'Lexical diversity using unique words'\n    words = text.split()\n    if not words:\n        return 0.0\n    unique_words = len(set(words))\n    return float(unique_words) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005463009252556564,
+        "mean_shap": 1.4876812791394976e-05,
+        "std_shap": 0.0006795720971354089,
+        "min_shap": -0.0016419017618853424,
+        "max_shap": 0.001949327284101848
+      },
+      "rank": 174
+    },
+    {
+      "feature_index": 73,
+      "feature_name": "feature_73",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words with 3 or fewer characters\"\n    short_word_count = sum(1 for word in text.split() if len(word) <= 3)\n    return float(short_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005396175079335695,
+        "mean_shap": -1.2410873138801215e-05,
+        "std_shap": 0.0006820120373910221,
+        "min_shap": -0.0017817688810565046,
+        "max_shap": 0.0023324502665835263
+      },
+      "rank": 175
+    },
+    {
+      "feature_index": 245,
+      "feature_name": "feature_245",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of words to distinct words (vocabulary richness)\"\n    words = text.split()\n    unique_words = len(set(words))\n    return float(len(words)) / unique_words if unique_words > 0 else 0.0\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005343210299159464,
+        "mean_shap": 7.214048060928293e-05,
+        "std_shap": 0.0006700187462445029,
+        "min_shap": -0.0018817858551041476,
+        "max_shap": 0.0017095498734460393
+      },
+      "rank": 176
+    },
+    {
+      "feature_index": 140,
+      "feature_name": "feature_140",
+      "feature_code": "def feature(text: str) -> float:\n    \"Ratio of unique words to total words in the text\"\n    words = text.split()\n    unique_word_count = len(set(words))\n    return float(unique_word_count) / len(words) if len(words) > 0 else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005295115334325081,
+        "mean_shap": 0.00012473838590486668,
+        "std_shap": 0.0006476173063341916,
+        "min_shap": -0.0018246180909038234,
+        "max_shap": 0.0016396242185502152
+      },
+      "rank": 177
+    },
+    {
+      "feature_index": 263,
+      "feature_name": "feature_263",
+      "feature_code": "def feature(text: str) -> float:\n    \"Lexical diversity score based on unique words to total words ratio\"\n    words = text.split()\n    unique_words = set(words)\n    return float(len(unique_words)) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005285594946484676,
+        "mean_shap": 7.473758658675493e-05,
+        "std_shap": 0.0006495950393806751,
+        "min_shap": -0.001694945518166042,
+        "max_shap": 0.0016464405960197235
+      },
+      "rank": 178
+    },
+    {
+      "feature_index": 126,
+      "feature_name": "feature_126",
+      "feature_code": "def feature(text: str) -> float:\n    \"Lexical diversity measured as the ratio of unique words to total words\"\n    words = text.split()\n    unique_words = len(set(words))\n    return float(unique_words) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005187974419075968,
+        "mean_shap": 0.00010236590532710416,
+        "std_shap": 0.0006478131620338953,
+        "min_shap": -0.0022629085212348063,
+        "max_shap": 0.0017515610315198206
+      },
+      "rank": 179
+    },
+    {
+      "feature_index": 25,
+      "feature_name": "feature_25",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of distinct parts of speech in the text\"\n    doc = nlp(text)\n    pos_tags = set(token.pos_ for token in doc)\n    return float(len(pos_tags))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005185790460269083,
+        "mean_shap": 5.0775384457055426e-06,
+        "std_shap": 0.0007192402833890308,
+        "min_shap": -0.0018014695440893896,
+        "max_shap": 0.0038296603206044023
+      },
+      "rank": 180
+    },
+    {
+      "feature_index": 295,
+      "feature_name": "feature_295",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of specific keywords in the text\"\n    keywords = ['important', 'critical', 'essential', 'vital']\n    keyword_count = sum(text.lower().count(keyword) for keyword in keywords)\n    return float(keyword_count)\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0005105318492559997,
+        "mean_shap": 3.4399556211993563e-06,
+        "std_shap": 0.0010018436251174657,
+        "min_shap": -0.0012612931129996855,
+        "max_shap": 0.006508284814082008
+      },
+      "rank": 181
+    },
+    {
+      "feature_index": 134,
+      "feature_name": "feature_134",
+      "feature_code": "def feature(text: str) -> float:\n    \"Number of sentences longer than 10 words\"\n    sentences = re.split(r'[.!?]+', text)\n    long_sentence_count = sum(1 for s in sentences if len(s.split()) > 10)\n    return float(long_sentence_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0004974521431467195,
+        "mean_shap": 3.9728665035181624e-05,
+        "std_shap": 0.0006385817703034336,
+        "min_shap": -0.0015344262888312191,
+        "max_shap": 0.00246200959385675
+      },
+      "rank": 182
+    },
+    {
+      "feature_index": 13,
+      "feature_name": "feature_13",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of unique words to total words\"\n    words = text.split()\n    if not words:\n        return 0.0\n    unique_words = len(set(words))\n    return float(unique_words) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00048806281528019236,
+        "mean_shap": 3.54875139048699e-05,
+        "std_shap": 0.0006219734836597203,
+        "min_shap": -0.0018323152425330606,
+        "max_shap": 0.0014311084333241716
+      },
+      "rank": 183
+    },
+    {
+      "feature_index": 265,
+      "feature_name": "feature_265",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words with 3 or fewer characters\"\n    return float(sum(1 for word in text.split() if len(word) <= 3))\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0004778948930236288,
+        "mean_shap": 0.00021205420866231685,
+        "std_shap": 0.0005815747547355727,
+        "min_shap": -0.0016817325121429737,
+        "max_shap": 0.002258616168498889
+      },
+      "rank": 184
+    },
+    {
+      "feature_index": 292,
+      "feature_name": "feature_292",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of verbs in the text\"\n    doc = nlp(text)\n    verb_count = sum(1 for token in doc if token.pos_ == 'VERB')\n    return float(verb_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00047153121980870804,
+        "mean_shap": 8.955902290133816e-05,
+        "std_shap": 0.0006593255721606317,
+        "min_shap": -0.000937176358537671,
+        "max_shap": 0.0025492410062197025
+      },
+      "rank": 185
+    },
+    {
+      "feature_index": 145,
+      "feature_name": "feature_145",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average syllable count per word in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    syllable_counts = [textstat.syllable_count(word) for word in words]\n    return float(sum(syllable_counts)) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0004523508384462594,
+        "mean_shap": -0.00013564303103758083,
+        "std_shap": 0.0005561768106915741,
+        "min_shap": -0.0019107282331562003,
+        "max_shap": 0.0009950212663326161
+      },
+      "rank": 186
+    },
+    {
+      "feature_index": 222,
+      "feature_name": "feature_222",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average syllables per word in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    total_syllables = sum(textstat.syllable_count(word) for word in words)\n    return float(total_syllables) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.000452253408937423,
+        "mean_shap": -4.4283911298591306e-05,
+        "std_shap": 0.000551353726290013,
+        "min_shap": -0.001416136610559534,
+        "max_shap": 0.0011298625652527117
+      },
+      "rank": 187
+    },
+    {
+      "feature_index": 167,
+      "feature_name": "feature_167",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average readability score using Flesch Reading Ease\"\n    try:\n        return float(textstat.flesch_reading_ease(text))\n    except Exception:\n        return 0.0\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00045151583250210565,
+        "mean_shap": 4.4386521942363887e-05,
+        "std_shap": 0.0006016161480854654,
+        "min_shap": -0.002156344527599125,
+        "max_shap": 0.0020375291475759304
+      },
+      "rank": 188
+    },
+    {
+      "feature_index": 95,
+      "feature_name": "feature_95",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique sentences in the text\"\n    sentences = re.split(r'[.!?]+', text)\n    unique_sentences = set(s.strip() for s in sentences if s.strip())\n    return float(len(unique_sentences))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0004514597997622556,
+        "mean_shap": -0.00011023659502566517,
+        "std_shap": 0.0005556840124124962,
+        "min_shap": -0.0017052784045571603,
+        "max_shap": 0.001757372922916548
+      },
+      "rank": 189
+    },
+    {
+      "feature_index": 104,
+      "feature_name": "feature_104",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average readability score using Flesch Reading Ease\"\n    return float(textstat.flesch_reading_ease(text))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00044197108708314667,
+        "mean_shap": -7.07000665101107e-05,
+        "std_shap": 0.0005687296569526698,
+        "min_shap": -0.0017030857543289387,
+        "max_shap": 0.002350166353031018
+      },
+      "rank": 190
+    },
+    {
+      "feature_index": 279,
+      "feature_name": "feature_279",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adjectives in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADJ'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0004400018830662312,
+        "mean_shap": -0.00013118764538024803,
+        "std_shap": 0.0006186265075247254,
+        "min_shap": -0.0014376246582446276,
+        "max_shap": 0.0038362447541041506
+      },
+      "rank": 191
+    },
+    {
+      "feature_index": 242,
+      "feature_name": "feature_242",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words that are verbs\"\n    doc = nlp(text)\n    verb_count = sum(1 for token in doc if token.pos_ == 'VERB')\n    return float(verb_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00043773486905398574,
+        "mean_shap": -4.360264326384807e-05,
+        "std_shap": 0.0006444320435875415,
+        "min_shap": -0.0018222687868960025,
+        "max_shap": 0.0024534581526789935
+      },
+      "rank": 192
+    },
+    {
+      "feature_index": 226,
+      "feature_name": "feature_226",
+      "feature_code": "def feature(text: str) -> float:\n    \"Lexical diversity measured as unique words to total words ratio\"\n    words = text.split()\n    if not words:\n        return 0.0\n    unique_word_count = len(set(words))\n    return float(unique_word_count) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0004370162608232056,
+        "mean_shap": 8.877993789006761e-05,
+        "std_shap": 0.0005262491636166735,
+        "min_shap": -0.0013075756947910286,
+        "max_shap": 0.0013437446420725377
+      },
+      "rank": 193
+    },
+    {
+      "feature_index": 262,
+      "feature_name": "feature_262",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adjectives in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADJ'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00043193219166504603,
+        "mean_shap": -9.491083910192974e-05,
+        "std_shap": 0.0005695719023563617,
+        "min_shap": -0.0011989870910571075,
+        "max_shap": 0.0030942354348966195
+      },
+      "rank": 194
+    },
+    {
+      "feature_index": 281,
+      "feature_name": "feature_281",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of different sentence lengths\"\n    sentences = re.split(r'[.!?]+', text)\n    sentence_lengths = set(len(s.split()) for s in sentences if s.strip())\n    return float(len(sentence_lengths))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0004240405301137424,
+        "mean_shap": -9.881569835341852e-05,
+        "std_shap": 0.000530974886462993,
+        "min_shap": -0.0014799254234741043,
+        "max_shap": 0.0016329660904205708
+      },
+      "rank": 195
+    },
+    {
+      "feature_index": 14,
+      "feature_name": "feature_14",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences containing more than 10 words\"\n    sentences = re.split(r'[.!?]+', text)\n    long_sentence_count = sum(1 for s in sentences if len(s.split()) > 10)\n    return float(long_sentence_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0004220385178211852,
+        "mean_shap": 8.164967957817772e-05,
+        "std_shap": 0.0005903480757211854,
+        "min_shap": -0.0010959572872704334,
+        "max_shap": 0.001969977611748143
+      },
+      "rank": 196
+    },
+    {
+      "feature_index": 11,
+      "feature_name": "feature_11",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of verbs in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'VERB'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00041958605227371574,
+        "mean_shap": 6.797986501809775e-05,
+        "std_shap": 0.0005577390324655303,
+        "min_shap": -0.0013591744856244967,
+        "max_shap": 0.0023016943286837464
+      },
+      "rank": 197
+    },
+    {
+      "feature_index": 235,
+      "feature_name": "feature_235",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adjectives in the text\"\n    doc = nlp(text)\n    adj_count = sum(1 for token in doc if token.pos_ == 'ADJ')\n    return float(adj_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0004160093843576638,
+        "mean_shap": -9.807428167070187e-06,
+        "std_shap": 0.0005439786696003056,
+        "min_shap": -0.0016397254937981138,
+        "max_shap": 0.002599895962698075
+      },
+      "rank": 198
+    },
+    {
+      "feature_index": 42,
+      "feature_name": "feature_42",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of verbs in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'VERB'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0004082174505854447,
+        "mean_shap": -2.7438915831889398e-05,
+        "std_shap": 0.0006341240800276067,
+        "min_shap": -0.0011074749968242779,
+        "max_shap": 0.0031791736782733667
+      },
+      "rank": 199
+    },
+    {
+      "feature_index": 49,
+      "feature_name": "feature_49",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of long sentences (more than 20 words)\"\n    sentences = re.split(r'[.!?]+', text)\n    long_sentence_count = sum(1 for s in sentences if len(s.split()) > 20)\n    return float(long_sentence_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00040609213034578016,
+        "mean_shap": -4.225145702935835e-05,
+        "std_shap": 0.0011707555219850176,
+        "min_shap": -0.011280437599924087,
+        "max_shap": 0.00412017996132236
+      },
+      "rank": 200
+    },
+    {
+      "feature_index": 82,
+      "feature_name": "feature_82",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adjectives in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADJ'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00039978949259617924,
+        "mean_shap": -0.0001202658500144506,
+        "std_shap": 0.00048826697024634665,
+        "min_shap": -0.0015794462136701263,
+        "max_shap": 0.0022797426096654596
+      },
+      "rank": 201
+    },
+    {
+      "feature_index": 10,
+      "feature_name": "feature_10",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adjectives in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADJ'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.000391681114462595,
+        "mean_shap": -0.0001021411998599482,
+        "std_shap": 0.0005325782876955329,
+        "min_shap": -0.0017701628507938933,
+        "max_shap": 0.0027118526427030738
+      },
+      "rank": 202
+    },
+    {
+      "feature_index": 194,
+      "feature_name": "feature_194",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of verbs in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'VERB'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003909889936493212,
+        "mean_shap": 1.5682955556756107e-05,
+        "std_shap": 0.0005628259132864731,
+        "min_shap": -0.0014666712604618915,
+        "max_shap": 0.0019283516813350956
+      },
+      "rank": 203
+    },
+    {
+      "feature_index": 165,
+      "feature_name": "feature_165",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences in the text\"\n    return float(len(list(nlp(text).sents)))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003875721252049076,
+        "mean_shap": -2.5509337286052304e-05,
+        "std_shap": 0.0005059129952055859,
+        "min_shap": -0.002141207801303705,
+        "max_shap": 0.0014173474556602235
+      },
+      "rank": 204
+    },
+    {
+      "feature_index": 160,
+      "feature_name": "feature_160",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adjectives in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADJ'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.000387270498154917,
+        "mean_shap": -9.828097003827242e-05,
+        "std_shap": 0.0005008854622783127,
+        "min_shap": -0.0015594938185322486,
+        "max_shap": 0.0021721037518974656
+      },
+      "rank": 205
+    },
+    {
+      "feature_index": 35,
+      "feature_name": "feature_35",
+      "feature_code": "def feature(text: str) -> float:\n    \"Sum of the lengths of all sentences\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.strip()]\n    return float(sum(lengths))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003818814669937712,
+        "mean_shap": 4.5329199167570016e-05,
+        "std_shap": 0.000511557244387985,
+        "min_shap": -0.0013672586211518158,
+        "max_shap": 0.0018929582227847914
+      },
+      "rank": 206
+    },
+    {
+      "feature_index": 60,
+      "feature_name": "feature_60",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average syllables per word\"\n    words = text.split()\n    syllable_count = sum(textstat.syllable_count(word) for word in words)\n    return float(syllable_count) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00037943698337115114,
+        "mean_shap": -3.712347316143751e-05,
+        "std_shap": 0.0004943920296991385,
+        "min_shap": -0.0016704649107335667,
+        "max_shap": 0.0014174778611360007
+      },
+      "rank": 207
+    },
+    {
+      "feature_index": 125,
+      "feature_name": "feature_125",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of verbs in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'VERB'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00037902765178806573,
+        "mean_shap": -2.4440797632434162e-05,
+        "std_shap": 0.0005499939809932218,
+        "min_shap": -0.001424588893146057,
+        "max_shap": 0.0020238109086771934
+      },
+      "rank": 208
+    },
+    {
+      "feature_index": 58,
+      "feature_name": "feature_58",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences in the text\"\n    return float(text.count('.') + text.count('!') + text.count('?'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00037406353879728505,
+        "mean_shap": -0.0001119263008219818,
+        "std_shap": 0.0005084419272688199,
+        "min_shap": -0.0026045471489778557,
+        "max_shap": 0.0009917315376271273
+      },
+      "rank": 209
+    },
+    {
+      "feature_index": 277,
+      "feature_name": "feature_277",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average number of syllables per word\"\n    words = text.split()\n    if not words:\n        return 0.0\n    syllable_count = sum(textstat.syllable_count(word) for word in words)\n    return syllable_count / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00037174347904468744,
+        "mean_shap": 1.8604294827207668e-05,
+        "std_shap": 0.00045349166746057584,
+        "min_shap": -0.001524328811183786,
+        "max_shap": 0.0011030339812921122
+      },
+      "rank": 210
+    },
+    {
+      "feature_index": 30,
+      "feature_name": "feature_30",
+      "feature_code": "def feature(text: str) -> float:\n    \"Total number of words in the text\"\n    return float(len(text.split()))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00036914057775652546,
+        "mean_shap": 6.035967345932614e-05,
+        "std_shap": 0.0005325938248944737,
+        "min_shap": -0.0008720379019897847,
+        "max_shap": 0.0026409642568605016
+      },
+      "rank": 211
+    },
+    {
+      "feature_index": 151,
+      "feature_name": "feature_151",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average syllable count per word\"\n    words = text.split()\n    syllable_counts = [textstat.syllable_count(word) for word in words]\n    return float(sum(syllable_counts)) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00036647383601382807,
+        "mean_shap": -8.614246555878732e-06,
+        "std_shap": 0.0004668454209013342,
+        "min_shap": -0.001152991323297827,
+        "max_shap": 0.0012985385081111301
+      },
+      "rank": 212
+    },
+    {
+      "feature_index": 4,
+      "feature_name": "feature_4",
+      "feature_code": "def feature(text: str) -> float:\n    'Average syllables per word in the text'\n    words = text.split()\n    if not words:\n        return 0.0\n    syllable_count = sum(textstat.syllable_count(word) for word in words)\n    return float(syllable_count) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003646136661169309,
+        "mean_shap": -3.5138091189793036e-05,
+        "std_shap": 0.00045955375793733455,
+        "min_shap": -0.0011435097444512424,
+        "max_shap": 0.0014091803693301397
+      },
+      "rank": 213
+    },
+    {
+      "feature_index": 256,
+      "feature_name": "feature_256",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences in the text\"\n    return float(text.count('.') + text.count('!') + text.count('?'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00036341449080960926,
+        "mean_shap": 3.0448847412912967e-05,
+        "std_shap": 0.0004631595454053866,
+        "min_shap": -0.0012788269602064782,
+        "max_shap": 0.001293308064707866
+      },
+      "rank": 214
+    },
+    {
+      "feature_index": 123,
+      "feature_name": "feature_123",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences in the text\"\n    return float(len(list(nlp(text).sents)))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00036203164811066574,
+        "mean_shap": -1.1333662259892357e-05,
+        "std_shap": 0.0004512577890523849,
+        "min_shap": -0.001119971453700086,
+        "max_shap": 0.0012508572167066543
+      },
+      "rank": 215
+    },
+    {
+      "feature_index": 111,
+      "feature_name": "feature_111",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adjectives in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADJ'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003593806688009298,
+        "mean_shap": -7.682729975101371e-05,
+        "std_shap": 0.0005088143436193959,
+        "min_shap": -0.001484440231415829,
+        "max_shap": 0.0024089026045718592
+      },
+      "rank": 216
+    },
+    {
+      "feature_index": 286,
+      "feature_name": "feature_286",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of different sentence lengths\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = {len(s.split()) for s in sentences if s.split()}\n    return float(len(lengths))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003575281163282611,
+        "mean_shap": 6.129544082289761e-05,
+        "std_shap": 0.0005010167941760276,
+        "min_shap": -0.0017469946776376938,
+        "max_shap": 0.002833708069275663
+      },
+      "rank": 217
+    },
+    {
+      "feature_index": 154,
+      "feature_name": "feature_154",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words in the text\"\n    return float(len(text.split()))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00035728270365253966,
+        "mean_shap": -1.6977724368634855e-05,
+        "std_shap": 0.0005175038424831182,
+        "min_shap": -0.0011781615643907107,
+        "max_shap": 0.0018400713854306607
+      },
+      "rank": 218
+    },
+    {
+      "feature_index": 289,
+      "feature_name": "feature_289",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adjectives in the text\"\n    doc = nlp(text)\n    adj_count = sum(1 for token in doc if token.pos_ == 'ADJ')\n    return float(adj_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003554433626788656,
+        "mean_shap": -0.00011698631290195347,
+        "std_shap": 0.00046612384465780294,
+        "min_shap": -0.0014235605780724176,
+        "max_shap": 0.0018754938699732336
+      },
+      "rank": 219
+    },
+    {
+      "feature_index": 19,
+      "feature_name": "feature_19",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of punctuation marks in the text\"\n    punctuation_count = sum(1 for c in text if c in string.punctuation)\n    return float(punctuation_count)\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003496037262992846,
+        "mean_shap": -6.19576002974831e-05,
+        "std_shap": 0.00047410265121949793,
+        "min_shap": -0.00199603915509648,
+        "max_shap": 0.001482316967946954
+      },
+      "rank": 220
+    },
+    {
+      "feature_index": 284,
+      "feature_name": "feature_284",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of verbs in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'VERB'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00034607863747922304,
+        "mean_shap": 8.73743596172098e-05,
+        "std_shap": 0.0005122572628151401,
+        "min_shap": -0.001093374398537494,
+        "max_shap": 0.002115342481618701
+      },
+      "rank": 221
+    },
+    {
+      "feature_index": 121,
+      "feature_name": "feature_121",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average syllable count per word\"\n    words = text.split()\n    if not words:\n        return 0.0\n    syllable_counts = [textstat.syllable_count(word) for word in words]\n    return float(sum(syllable_counts)) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003454593921691611,
+        "mean_shap": -3.763094774903859e-05,
+        "std_shap": 0.0004568999984866879,
+        "min_shap": -0.0013630697650716523,
+        "max_shap": 0.001907834506302572
+      },
+      "rank": 222
+    },
+    {
+      "feature_index": 174,
+      "feature_name": "feature_174",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of punctuation marks in the text\"\n    punctuation_count = sum(1 for c in text if c in string.punctuation)\n    return float(punctuation_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00033831304222666484,
+        "mean_shap": -0.00014058453371602062,
+        "std_shap": 0.000423403337574573,
+        "min_shap": -0.001439171357576584,
+        "max_shap": 0.0009982125630599577
+      },
+      "rank": 223
+    },
+    {
+      "feature_index": 224,
+      "feature_name": "feature_224",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences in the text\"\n    return float(len(re.findall(r'[.!?]', text)))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00032757226840982457,
+        "mean_shap": -8.132527304830104e-05,
+        "std_shap": 0.000471339732914491,
+        "min_shap": -0.0030448674212911514,
+        "max_shap": 0.0010958718380927452
+      },
+      "rank": 224
+    },
+    {
+      "feature_index": 189,
+      "feature_name": "feature_189",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    words = set(text.split())\n    return float(len(words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00032447900868901497,
+        "mean_shap": -9.44480101529573e-06,
+        "std_shap": 0.0004346491140036897,
+        "min_shap": -0.0010986135932976816,
+        "max_shap": 0.0021561908174271577
+      },
+      "rank": 225
+    },
+    {
+      "feature_index": 142,
+      "feature_name": "feature_142",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of total punctuation marks in the text\"\n    punctuation_count = sum(1 for c in text if c in string.punctuation)\n    return float(punctuation_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003220547826682496,
+        "mean_shap": -0.00017131772626497976,
+        "std_shap": 0.00047097026422507154,
+        "min_shap": -0.0025661999695713593,
+        "max_shap": 0.0013066951392726924
+      },
+      "rank": 226
+    },
+    {
+      "feature_index": 159,
+      "feature_name": "feature_159",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.split()]\n    if not lengths:\n        return 0.0\n    return float(sum(lengths)) / len(lengths)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00032155247692966564,
+        "mean_shap": 4.667963414514559e-05,
+        "std_shap": 0.00041433923060090334,
+        "min_shap": -0.0014765224705638959,
+        "max_shap": 0.001029733958080953
+      },
+      "rank": 227
+    },
+    {
+      "feature_index": 87,
+      "feature_name": "feature_87",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of punctuation marks in the text\"\n    punctuation_count = sum(1 for c in text if c in string.punctuation)\n    return float(punctuation_count)\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00031909204305935284,
+        "mean_shap": -3.5979774878913126e-05,
+        "std_shap": 0.0004814544831795759,
+        "min_shap": -0.002578695903209372,
+        "max_shap": 0.0015070163102329013
+      },
+      "rank": 228
+    },
+    {
+      "feature_index": 130,
+      "feature_name": "feature_130",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average character length of words in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(sum(len(word) for word in words)) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003190318408040827,
+        "mean_shap": 2.2181943665565472e-05,
+        "std_shap": 0.0004555665909010368,
+        "min_shap": -0.002310973713647225,
+        "max_shap": 0.0012033915086642234
+      },
+      "rank": 229
+    },
+    {
+      "feature_index": 114,
+      "feature_name": "feature_114",
+      "feature_code": "def feature(text: str) -> float:\n    \"Total number of unique words in the text\"\n    words = text.split()\n    unique_word_count = len(set(words))\n    return float(unique_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0003160471584275321,
+        "mean_shap": -3.485333491849126e-05,
+        "std_shap": 0.0004452364092605462,
+        "min_shap": -0.0008602668855434178,
+        "max_shap": 0.0025034132545864026
+      },
+      "rank": 230
+    },
+    {
+      "feature_index": 39,
+      "feature_name": "feature_39",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of total words in the text\"\n    return float(len(text.split()))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00031207770898478897,
+        "mean_shap": -6.963569613473534e-05,
+        "std_shap": 0.0003798992242311246,
+        "min_shap": -0.00111208942588367,
+        "max_shap": 0.0010563739836607338
+      },
+      "rank": 231
+    },
+    {
+      "feature_index": 33,
+      "feature_name": "feature_33",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of punctuation marks in the text\"\n    punctuation_count = sum(1 for c in text if c in string.punctuation)\n    return float(punctuation_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00030888738976309006,
+        "mean_shap": -6.218617143626055e-05,
+        "std_shap": 0.0004327757413071217,
+        "min_shap": -0.0023470952168381095,
+        "max_shap": 0.0010542516312656367
+      },
+      "rank": 232
+    },
+    {
+      "feature_index": 190,
+      "feature_name": "feature_190",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.split()]\n    return float(sum(lengths)) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00030878562608881025,
+        "mean_shap": 4.2970403189718845e-05,
+        "std_shap": 0.0004392008304380501,
+        "min_shap": -0.0017627432856830096,
+        "max_shap": 0.001448725672538474
+      },
+      "rank": 233
+    },
+    {
+      "feature_index": 162,
+      "feature_name": "feature_162",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average syllables per word\"\n    words = text.split()\n    if not words:\n        return 0.0\n    syllable_count = sum(textstat.syllable_count(word) for word in words)\n    return float(syllable_count) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00030637664682890556,
+        "mean_shap": -2.199401724697486e-05,
+        "std_shap": 0.00040074792827665115,
+        "min_shap": -0.0013178198111240588,
+        "max_shap": 0.00146776348807737
+      },
+      "rank": 234
+    },
+    {
+      "feature_index": 231,
+      "feature_name": "feature_231",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.strip()]\n    return float(sum(lengths)) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00029136921178921565,
+        "mean_shap": -7.1297464535884545e-06,
+        "std_shap": 0.0004558962725151427,
+        "min_shap": -0.002785900359081255,
+        "max_shap": 0.0012245392691131126
+      },
+      "rank": 235
+    },
+    {
+      "feature_index": 244,
+      "feature_name": "feature_244",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of different punctuation marks used in the text\"\n    punctuation_count = sum(1 for char in text if char in string.punctuation)\n    return float(punctuation_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00029013875109775084,
+        "mean_shap": -8.211521894961278e-05,
+        "std_shap": 0.00038127759412326487,
+        "min_shap": -0.001667178852368749,
+        "max_shap": 0.0012092415780687027
+      },
+      "rank": 236
+    },
+    {
+      "feature_index": 149,
+      "feature_name": "feature_149",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    words = set(text.split())\n    return float(len(words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00028553723603513896,
+        "mean_shap": -3.031120680605052e-05,
+        "std_shap": 0.00043290109577217645,
+        "min_shap": -0.0012358903368972919,
+        "max_shap": 0.0019180093192979837
+      },
+      "rank": 237
+    },
+    {
+      "feature_index": 191,
+      "feature_name": "feature_191",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adjectives in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADJ'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002849860738085371,
+        "mean_shap": -5.4148867143059313e-05,
+        "std_shap": 0.00040519046167340647,
+        "min_shap": -0.001800461417175135,
+        "max_shap": 0.0017033589251819999
+      },
+      "rank": 238
+    },
+    {
+      "feature_index": 181,
+      "feature_name": "feature_181",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adjectives in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADJ'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00028473121174137274,
+        "mean_shap": -7.727205144525854e-05,
+        "std_shap": 0.00038643051619316183,
+        "min_shap": -0.0011834103752326197,
+        "max_shap": 0.002222907177383554
+      },
+      "rank": 239
+    },
+    {
+      "feature_index": 252,
+      "feature_name": "feature_252",
+      "feature_code": "def feature(text: str) -> float:\n    \"Mean word length in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(sum(len(word) for word in words)) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002831228507857932,
+        "mean_shap": -2.2863159708348127e-05,
+        "std_shap": 0.00040263413426473715,
+        "min_shap": -0.0021460592730229576,
+        "max_shap": 0.0015905169571833126
+      },
+      "rank": 240
+    },
+    {
+      "feature_index": 268,
+      "feature_name": "feature_268",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of adjectives in the text\"\n    doc = nlp(text)\n    return float(sum(1 for token in doc if token.pos_ == 'ADJ'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00027920912187702734,
+        "mean_shap": -7.682937782047412e-05,
+        "std_shap": 0.0003539494192660201,
+        "min_shap": -0.0009161694062544691,
+        "max_shap": 0.0016848340253661903
+      },
+      "rank": 241
+    },
+    {
+      "feature_index": 68,
+      "feature_name": "feature_68",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of words in the text\"\n    return float(len(text.split()))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002788620243832636,
+        "mean_shap": 6.600758147881958e-05,
+        "std_shap": 0.00039826402826317523,
+        "min_shap": -0.0007339206616803642,
+        "max_shap": 0.0016366958383659108
+      },
+      "rank": 242
+    },
+    {
+      "feature_index": 158,
+      "feature_name": "feature_158",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    words = text.split()\n    unique_word_count = len(set(words))\n    return float(unique_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002752417301034767,
+        "mean_shap": -0.00010318294141693723,
+        "std_shap": 0.00036498976204844727,
+        "min_shap": -0.0008736742019780212,
+        "max_shap": 0.001555888661902529
+      },
+      "rank": 243
+    },
+    {
+      "feature_index": 9,
+      "feature_name": "feature_9",
+      "feature_code": "def feature(text: str) -> float:\n    'Median word length in the text'\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(statistics.median(len(word) for word in words))\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00026938658692236416,
+        "mean_shap": 3.718186907959651e-06,
+        "std_shap": 0.0004961672724048366,
+        "min_shap": -0.003178936334592145,
+        "max_shap": 0.0014743322506122955
+      },
+      "rank": 244
+    },
+    {
+      "feature_index": 250,
+      "feature_name": "feature_250",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average syllable count per word\"\n    words = text.split()\n    syllable_counts = [textstat.syllable_count(word) for word in words]\n    return float(sum(syllable_counts)) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00026737866385901764,
+        "mean_shap": 4.6067914211921136e-05,
+        "std_shap": 0.0003535157493109912,
+        "min_shap": -0.0007958711848988587,
+        "max_shap": 0.0013261024922512341
+      },
+      "rank": 245
+    },
+    {
+      "feature_index": 223,
+      "feature_name": "feature_223",
+      "feature_code": "def feature(text: str) -> float:\n    \"Total word count in the text\"\n    return float(len(text.split()))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002627158233292566,
+        "mean_shap": -5.168797515435686e-05,
+        "std_shap": 0.0003529653372131598,
+        "min_shap": -0.000736997150502648,
+        "max_shap": 0.0013394874546203462
+      },
+      "rank": 246
+    },
+    {
+      "feature_index": 247,
+      "feature_name": "feature_247",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.split()]\n    return float(sum(lengths)) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.000261789182231517,
+        "mean_shap": -3.38187765451227e-05,
+        "std_shap": 0.00037163845723196944,
+        "min_shap": -0.0015686592891610924,
+        "max_shap": 0.0009764646704601672
+      },
+      "rank": 247
+    },
+    {
+      "feature_index": 171,
+      "feature_name": "feature_171",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    words = text.split()\n    return float(len(set(words)))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002612739777766009,
+        "mean_shap": -8.549102171606047e-05,
+        "std_shap": 0.0003117552547909795,
+        "min_shap": -0.0009020914704511083,
+        "max_shap": 0.000968700460984787
+      },
+      "rank": 248
+    },
+    {
+      "feature_index": 227,
+      "feature_name": "feature_227",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average word length in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(sum(len(word) for word in words)) / len(words)\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002599965519435468,
+        "mean_shap": 3.9701601705236476e-05,
+        "std_shap": 0.00036408721712070203,
+        "min_shap": -0.0016203509175601713,
+        "max_shap": 0.0012907093487534026
+      },
+      "rank": 249
+    },
+    {
+      "feature_index": 178,
+      "feature_name": "feature_178",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    words = set(text.split())\n    return float(len(words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002590778340257491,
+        "mean_shap": -0.00011700879623495183,
+        "std_shap": 0.00032351642486128606,
+        "min_shap": -0.0012092141980481169,
+        "max_shap": 0.0011430477942506886
+      },
+      "rank": 250
+    },
+    {
+      "feature_index": 90,
+      "feature_name": "feature_90",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average word length in the text\"\n    words = text.split()\n    return float(sum(len(word) for word in words)) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.000258197966863837,
+        "mean_shap": 6.890814149519057e-08,
+        "std_shap": 0.0003470707050527137,
+        "min_shap": -0.0012954678824353744,
+        "max_shap": 0.0010803693002726664
+      },
+      "rank": 251
+    },
+    {
+      "feature_index": 276,
+      "feature_name": "feature_276",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of exclamation marks in the text\"\n    return float(text.count('!'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00025385800003569544,
+        "mean_shap": -8.333201439396168e-05,
+        "std_shap": 0.0003319066197654983,
+        "min_shap": -0.0009313442752071304,
+        "max_shap": 0.0018562374871068646
+      },
+      "rank": 252
+    },
+    {
+      "feature_index": 164,
+      "feature_name": "feature_164",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of exclamations in the text\"\n    return float(text.count('!'))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.000251991705132672,
+        "mean_shap": -9.252209740562311e-05,
+        "std_shap": 0.0003039793970399989,
+        "min_shap": -0.0010837190055762859,
+        "max_shap": 0.0009290253963180196
+      },
+      "rank": 253
+    },
+    {
+      "feature_index": 203,
+      "feature_name": "feature_203",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average syllables per word in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    syllable_counts = [textstat.syllable_count(word) for word in words]\n    return float(sum(syllable_counts)) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00025101732376313856,
+        "mean_shap": -3.856598192012837e-05,
+        "std_shap": 0.0003361208239250992,
+        "min_shap": -0.0012512936093537603,
+        "max_shap": 0.0008333542091588283
+      },
+      "rank": 254
+    },
+    {
+      "feature_index": 24,
+      "feature_name": "feature_24",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average number of characters per word\"\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(sum(len(word) for word in words)) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00025096539778893674,
+        "mean_shap": -8.126744519183136e-06,
+        "std_shap": 0.0003425026906875514,
+        "min_shap": -0.0014673926304945265,
+        "max_shap": 0.0010274680716769284
+      },
+      "rank": 255
+    },
+    {
+      "feature_index": 218,
+      "feature_name": "feature_218",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.split()]\n    if not lengths:\n        return 0.0\n    return float(sum(lengths)) / len(lengths)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002508332582321114,
+        "mean_shap": 7.82260244756494e-06,
+        "std_shap": 0.00033925586181848973,
+        "min_shap": -0.0013674852006191533,
+        "max_shap": 0.0009470437199051892
+      },
+      "rank": 256
+    },
+    {
+      "feature_index": 31,
+      "feature_name": "feature_31",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average character length of words in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(sum(len(word) for word in words)) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002459794526648602,
+        "mean_shap": -2.1754777185910353e-05,
+        "std_shap": 0.00034758438352032104,
+        "min_shap": -0.0013080639903593422,
+        "max_shap": 0.0015039646838781358
+      },
+      "rank": 257
+    },
+    {
+      "feature_index": 288,
+      "feature_name": "feature_288",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.split()]\n    return float(sum(lengths)) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002442202021845061,
+        "mean_shap": -8.228426259986414e-05,
+        "std_shap": 0.0003108068969633287,
+        "min_shap": -0.0010244015919799179,
+        "max_shap": 0.001327874873649654
+      },
+      "rank": 258
+    },
+    {
+      "feature_index": 237,
+      "feature_name": "feature_237",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average word length in the text\"\n    words = text.split()\n    return sum(len(word) for word in words) / len(words) if words else 0.0\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00024391541377641278,
+        "mean_shap": 3.003454755391681e-05,
+        "std_shap": 0.00033878368103529446,
+        "min_shap": -0.0015580487223987674,
+        "max_shap": 0.0010369824525821804
+      },
+      "rank": 259
+    },
+    {
+      "feature_index": 135,
+      "feature_name": "feature_135",
+      "feature_code": "def feature(text: str) -> float:\n    \"Mean word length in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(sum(len(word) for word in words)) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002402310635608333,
+        "mean_shap": 3.9989987086909754e-05,
+        "std_shap": 0.0003457467432573307,
+        "min_shap": -0.0018057220560854627,
+        "max_shap": 0.0007919494496716628
+      },
+      "rank": 260
+    },
+    {
+      "feature_index": 98,
+      "feature_name": "feature_98",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length (number of words per sentence)\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s]\n    return float(statistics.mean(lengths)) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00023991473510660908,
+        "mean_shap": 2.1122928957929215e-05,
+        "std_shap": 0.000346716207821981,
+        "min_shap": -0.0016599620656983752,
+        "max_shap": 0.0008103664875445552
+      },
+      "rank": 261
+    },
+    {
+      "feature_index": 216,
+      "feature_name": "feature_216",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average length of words in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(sum(len(word) for word in words)) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00023916315091993665,
+        "mean_shap": 4.8253697414269315e-06,
+        "std_shap": 0.00030801242697116267,
+        "min_shap": -0.0013654766879487544,
+        "max_shap": 0.0006712789504484273
+      },
+      "rank": 262
+    },
+    {
+      "feature_index": 65,
+      "feature_name": "feature_65",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average number of characters per word\"\n    words = text.split()\n    return float(sum(len(word) for word in words)) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.000238189549735558,
+        "mean_shap": 1.0050840274784528e-05,
+        "std_shap": 0.0003361747454265111,
+        "min_shap": -0.0011960072949048861,
+        "max_shap": 0.0013160115907150103
+      },
+      "rank": 263
+    },
+    {
+      "feature_index": 101,
+      "feature_name": "feature_101",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average character length of words in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(sum(len(word) for word in words)) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002364138712431691,
+        "mean_shap": -1.9270494836245713e-05,
+        "std_shap": 0.000306816206287177,
+        "min_shap": -0.001268186798529048,
+        "max_shap": 0.0008987621246770739
+      },
+      "rank": 264
+    },
+    {
+      "feature_index": 180,
+      "feature_name": "feature_180",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average number of characters per word\"\n    words = text.split()\n    return float(sum(len(word) for word in words)) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00023405398698304333,
+        "mean_shap": -2.7504680610989303e-05,
+        "std_shap": 0.00031797049409186204,
+        "min_shap": -0.0012704897768447089,
+        "max_shap": 0.0012609462532822205
+      },
+      "rank": 265
+    },
+    {
+      "feature_index": 172,
+      "feature_name": "feature_172",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.strip()]\n    return float(sum(lengths)) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002264238553184962,
+        "mean_shap": 9.509089593390839e-06,
+        "std_shap": 0.00032492214807492255,
+        "min_shap": -0.001386286478018153,
+        "max_shap": 0.0010325547145090107
+      },
+      "rank": 266
+    },
+    {
+      "feature_index": 175,
+      "feature_name": "feature_175",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average number of characters per word\"\n    words = text.split()\n    return float(sum(len(word) for word in words)) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00022446731017137915,
+        "mean_shap": -3.9887921081525875e-06,
+        "std_shap": 0.0002987946847860989,
+        "min_shap": -0.0011633030641971655,
+        "max_shap": 0.0007835032713395209
+      },
+      "rank": 267
+    },
+    {
+      "feature_index": 285,
+      "feature_name": "feature_285",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average length of words in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(sum(len(word) for word in words)) / len(words)\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002229890038202736,
+        "mean_shap": -1.789184823727442e-05,
+        "std_shap": 0.0003306167175058047,
+        "min_shap": -0.0017408537845092348,
+        "max_shap": 0.0008173557190491815
+      },
+      "rank": 268
+    },
+    {
+      "feature_index": 117,
+      "feature_name": "feature_117",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of exclamatory sentences\"\n    return float(text.count('!'))\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002198393253098099,
+        "mean_shap": -9.429630402473896e-05,
+        "std_shap": 0.0002885269861060721,
+        "min_shap": -0.0011007266730935297,
+        "max_shap": 0.0013665915065403317
+      },
+      "rank": 269
+    },
+    {
+      "feature_index": 45,
+      "feature_name": "feature_45",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average number of characters in words\"\n    words = text.split()\n    return float(sum(len(word) for word in words)) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00021584231957209646,
+        "mean_shap": 5.8507632242154966e-06,
+        "std_shap": 0.0003022650580812206,
+        "min_shap": -0.001262512275845089,
+        "max_shap": 0.001029519914802657
+      },
+      "rank": 270
+    },
+    {
+      "feature_index": 88,
+      "feature_name": "feature_88",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.split()]\n    return float(sum(lengths)) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00020892518808327158,
+        "mean_shap": -3.0461704627914995e-05,
+        "std_shap": 0.0002835478498602679,
+        "min_shap": -0.0009482942505017692,
+        "max_shap": 0.0009049085985110477
+      },
+      "rank": 271
+    },
+    {
+      "feature_index": 61,
+      "feature_name": "feature_61",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    unique_words = set(text.split())\n    return float(len(unique_words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00020786180065278528,
+        "mean_shap": -5.63844995786858e-05,
+        "std_shap": 0.0002843368673120596,
+        "min_shap": -0.0016782665141826607,
+        "max_shap": 0.00069107599716793
+      },
+      "rank": 272
+    },
+    {
+      "feature_index": 291,
+      "feature_name": "feature_291",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    words = text.split()\n    unique_word_count = len(set(words))\n    return float(unique_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00020693789720080226,
+        "mean_shap": -1.121485286112116e-05,
+        "std_shap": 0.0002888900423991068,
+        "min_shap": -0.0012636980928092123,
+        "max_shap": 0.0008396939113402151
+      },
+      "rank": 273
+    },
+    {
+      "feature_index": 72,
+      "feature_name": "feature_72",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average word length in the text\"\n    words = text.split()\n    return sum(len(word) for word in words) / len(words) if words else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0002036719083147914,
+        "mean_shap": -3.3566607935733265e-06,
+        "std_shap": 0.0002821546037486063,
+        "min_shap": -0.0011422635765632406,
+        "max_shap": 0.0009009155679669319
+      },
+      "rank": 274
+    },
+    {
+      "feature_index": 110,
+      "feature_name": "feature_110",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average length of words in the text\"\n    words = text.split()\n    if not words:\n        return 0.0\n    return float(sum(len(word) for word in words)) / len(words)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00019657041899004098,
+        "mean_shap": -5.834641420709423e-05,
+        "std_shap": 0.00028172450605586736,
+        "min_shap": -0.001289620077155136,
+        "max_shap": 0.0013349187766110331
+      },
+      "rank": 275
+    },
+    {
+      "feature_index": 246,
+      "feature_name": "feature_246",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    words = text.split()\n    unique_word_count = len(set(words))\n    return float(unique_word_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0001965503255199213,
+        "mean_shap": -7.755567103208523e-05,
+        "std_shap": 0.00026517971163166667,
+        "min_shap": -0.0009751358602088577,
+        "max_shap": 0.0010687238551631325
+      },
+      "rank": 276
+    },
+    {
+      "feature_index": 220,
+      "feature_name": "feature_220",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    words = set(text.split())\n    return float(len(words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0001950879848288427,
+        "mean_shap": -5.654196114458457e-05,
+        "std_shap": 0.00024116793847530406,
+        "min_shap": -0.0009130356776388775,
+        "max_shap": 0.0006797785418059854
+      },
+      "rank": 277
+    },
+    {
+      "feature_index": 267,
+      "feature_name": "feature_267",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.split()]\n    return float(sum(lengths) / len(lengths)) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00018782986340065935,
+        "mean_shap": 1.6875138795716087e-05,
+        "std_shap": 0.00030203010100508223,
+        "min_shap": -0.0016115393458812919,
+        "max_shap": 0.0008635416114912798
+      },
+      "rank": 278
+    },
+    {
+      "feature_index": 119,
+      "feature_name": "feature_119",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.split()]\n    return float(sum(lengths)) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00018416274317922563,
+        "mean_shap": 4.400324328299163e-05,
+        "std_shap": 0.00026406682352519224,
+        "min_shap": -0.001029008807351257,
+        "max_shap": 0.0010053935669344489
+      },
+      "rank": 279
+    },
+    {
+      "feature_index": 59,
+      "feature_name": "feature_59",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in words\"\n    sentences = re.split(r'[.!?]+', text)\n    sentence_lengths = [len(s.split()) for s in sentences if s.split()]\n    return float(statistics.mean(sentence_lengths)) if sentence_lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0001762145850560673,
+        "mean_shap": 2.8225851392083436e-05,
+        "std_shap": 0.0002459551186148902,
+        "min_shap": -0.0011848386454307227,
+        "max_shap": 0.0008195662462577301
+      },
+      "rank": 280
+    },
+    {
+      "feature_index": 1,
+      "feature_name": "feature_1",
+      "feature_code": "def feature(text: str) -> float:\n    'Average sentence length measured in words'\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.split()]\n    if not lengths:\n        return 0.0\n    return float(sum(lengths)) / len(lengths)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00017573682581959585,
+        "mean_shap": 3.482896773163994e-05,
+        "std_shap": 0.0002589867301748224,
+        "min_shap": -0.001323712909974271,
+        "max_shap": 0.0012731339253273944
+      },
+      "rank": 281
+    },
+    {
+      "feature_index": 273,
+      "feature_name": "feature_273",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    words = text.split()\n    return float(len(set(words)))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00017220718022509858,
+        "mean_shap": -2.7048723493946065e-06,
+        "std_shap": 0.00023135207892502894,
+        "min_shap": -0.0008108049289744994,
+        "max_shap": 0.0007731093818740056
+      },
+      "rank": 282
+    },
+    {
+      "feature_index": 20,
+      "feature_name": "feature_20",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of unique words in the text\"\n    words = text.split()\n    unique_words = set(words)\n    return float(len(unique_words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0001679879288048733,
+        "mean_shap": -2.4512552991154877e-05,
+        "std_shap": 0.00022888986844491694,
+        "min_shap": -0.0008380414759282486,
+        "max_shap": 0.0007029870164513454
+      },
+      "rank": 283
+    },
+    {
+      "feature_index": 208,
+      "feature_name": "feature_208",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.split()]\n    if not lengths:\n        return 0.0\n    return float(sum(lengths)) / len(lengths)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0001590215613172454,
+        "mean_shap": 3.1258146491074206e-05,
+        "std_shap": 0.00022047296991105738,
+        "min_shap": -0.0007199548631690989,
+        "max_shap": 0.0009117170594131664
+      },
+      "rank": 284
+    },
+    {
+      "feature_index": 69,
+      "feature_name": "feature_69",
+      "feature_code": "def feature(text: str) -> float:\n    \"Average sentence length measured in words\"\n    sentences = re.split(r'[.!?]+', text)\n    lengths = [len(s.split()) for s in sentences if s.strip()]\n    return sum(lengths) / len(lengths) if lengths else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.00015673272193422437,
+        "mean_shap": 1.316183386935427e-05,
+        "std_shap": 0.00020295613100947534,
+        "min_shap": -0.000504820099473527,
+        "max_shap": 0.0008065954594089713
+      },
+      "rank": 285
+    },
+    {
+      "feature_index": 271,
+      "feature_name": "feature_271",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of visual words (colors, shapes) in the text\"\n    visual_words = {'red', 'blue', 'green', 'circle', 'square', 'triangle'}\n    word_list = text.lower().split()\n    return float(sum(1 for word in word_list if word in visual_words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 3.76370924417341e-05,
+        "mean_shap": -2.7791477246012642e-05,
+        "std_shap": 9.860833804197679e-05,
+        "min_shap": -0.0010368773343162052,
+        "max_shap": 0.0005888384836119499
+      },
+      "rank": 286
+    },
+    {
+      "feature_index": 205,
+      "feature_name": "feature_205",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of negative sentiment words in the text\"\n    negative_words = {'bad', 'sad', 'terrible', 'horrible', 'awful', 'negative', 'poor', 'hate'}\n    word_list = text.lower().split()\n    return float(sum(1 for word in word_list if word in negative_words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 2.58922060708902e-05,
+        "mean_shap": 2.8888655472803315e-06,
+        "std_shap": 8.492587686195629e-05,
+        "min_shap": -0.0007815472513405215,
+        "max_shap": 0.00015880614269620028
+      },
+      "rank": 287
+    },
+    {
+      "feature_index": 23,
+      "feature_name": "feature_23",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of negative sentiment words in the text\"\n    negative_words = {'bad', 'terrible', 'sad', 'negative', 'poor', 'awful', 'horrible'}\n    word_list = text.lower().split()\n    return float(sum(1 for word in word_list if word in negative_words))\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 2.05317582585754e-05,
+        "mean_shap": -4.227552237767654e-06,
+        "std_shap": 8.404245913234383e-05,
+        "min_shap": -0.0008948141343338715,
+        "max_shap": 0.00011960966446842764
+      },
+      "rank": 288
+    },
+    {
+      "feature_index": 44,
+      "feature_name": "feature_44",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of sentences with exclamations\"\n    sentences = re.split(r'[.!?]+', text)\n    exclamation_count = sum(1 for s in sentences if '!' in s)\n    return float(exclamation_count) / len(sentences) if sentences else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "std_shap": 0.0,
+        "min_shap": 0.0,
+        "max_shap": 0.0
+      },
+      "rank": 289
+    },
+    {
+      "feature_index": 46,
+      "feature_name": "feature_46",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of questions in the text\"\n    sentences = re.split(r'[.!?]+', text)\n    question_count = sum(1 for s in sentences if s.strip().endswith('?'))\n    return float(question_count) / len(sentences) if sentences else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "std_shap": 0.0,
+        "min_shap": 0.0,
+        "max_shap": 0.0
+      },
+      "rank": 290
+    },
+    {
+      "feature_index": 76,
+      "feature_name": "feature_76",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of sentences that are questions\"\n    sentences = re.split(r'[.!?]+', text)\n    question_count = sum(1 for s in sentences if s.strip().endswith('?'))\n    return float(question_count) / len(sentences) if sentences else 0.0\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "std_shap": 0.0,
+        "min_shap": 0.0,
+        "max_shap": 0.0
+      },
+      "rank": 291
+    },
+    {
+      "feature_index": 128,
+      "feature_name": "feature_128",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences that are questions\"\n    sentences = re.split(r'[.!?]+', text)\n    question_count = sum(1 for s in sentences if s.strip().endswith('?'))\n    return float(question_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "std_shap": 0.0,
+        "min_shap": 0.0,
+        "max_shap": 0.0
+      },
+      "rank": 292
+    },
+    {
+      "feature_index": 147,
+      "feature_name": "feature_147",
+      "feature_code": "def feature(text: str) -> float:\n    \"Proportion of sentences that are interrogative\"\n    sentences = re.split(r'[.!?]+', text)\n    question_count = sum(1 for s in sentences if s.strip().endswith('?'))\n    return float(question_count) / len(sentences) if sentences else 0.0\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "std_shap": 0.0,
+        "min_shap": 0.0,
+        "max_shap": 0.0
+      },
+      "rank": 293
+    },
+    {
+      "feature_index": 153,
+      "feature_name": "feature_153",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of sentences that are exclamatory\"\n    sentences = re.split(r'[.!?]+', text)\n    exclamatory_count = sum(1 for s in sentences if s.strip().endswith('!'))\n    return float(exclamatory_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "std_shap": 0.0,
+        "min_shap": 0.0,
+        "max_shap": 0.0
+      },
+      "rank": 294
+    },
+    {
+      "feature_index": 212,
+      "feature_name": "feature_212",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of 'fear' and its derived forms in the text\"\n    fear_count = text.lower().count('fear') + text.lower().count('fears') + text.lower().count('fearing')\n    return float(fear_count)\n\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "std_shap": 0.0,
+        "min_shap": 0.0,
+        "max_shap": 0.0
+      },
+      "rank": 295
+    },
+    {
+      "feature_index": 217,
+      "feature_name": "feature_217",
+      "feature_code": "def feature(text: str) -> float:\n    \"Count of consecutive repeating words\"\n    words = text.split()\n    repeat_count = sum(1 for a, b in zip(words, words[1:]) if a.lower() == b.lower())\n    return float(repeat_count)\n",
+      "shap_statistics": {
+        "mean_abs_shap": 0.0,
+        "mean_shap": 0.0,
+        "std_shap": 0.0,
+        "min_shap": 0.0,
+        "max_shap": 0.0
+      },
+      "rank": 296
+    }
+  ],
+  "shap_metadata": {
+    "explainer_type": "TreeExplainer",
+    "num_features": 296
+  }
+}
