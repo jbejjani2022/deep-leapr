@@ -124,9 +124,11 @@ python launch.py --interpret --learner did3 --domain text_regression_rm_helpful 
 
 This computes SHAP values and saves a detailed report to `results/shap/` showing which features are most important for predictions.
 
-### Reward Model Debugging Experiment
+### Reward Model Debugging & Analysis
 
-For the HH-RLHF reward model debugging experiment:
+For the HH-RLHF reward model debugging experiment, we provide several tools in `rm_debugger/` to analyze model behavior, sensitivity, and feature importance.
+
+#### 1. Setup & Training
 
 ```sh
 # 1. Download dataset
@@ -135,15 +137,47 @@ python rm_debugger/download_hh_rlhf.py
 # 2. Learn features and train model
 python launch.py --leapr --learner did3 --domain text_regression_rm_helpful --model gpt-4o-mini
 python launch.py --train --learner did3 --domain text_regression_rm_helpful --model gpt-4o-mini
+```
 
-# 3. Evaluate on test set
+#### 2. Evaluation on Test Set
+
+Compare the decision tree model's accuracy against a neural reward model baseline on the HH-RLHF test set:
+
+```sh
 python rm_debugger/eval_checkpoint.py  # Update MODEL_CHECKPOINT path in script
+```
 
-# 4. Analyze feature importance
+#### 3. Sensitivity Analysis (`e_sensitivity.py`)
+
+Test the reward model's sensitivity to simple text perturbations (e.g., adding "e" or custom strings) to detect spurious correlations or fragility. This script generates statistical reports on how perturbations affect reward scores.
+
+```sh
+# Standard analysis (sensitivity to appending 'e', 'ee', 'eee')
+python rm_debugger/e_sensitivity.py
+
+# Custom perturbation (e.g., prepending a specific string)
+python rm_debugger/e_sensitivity.py --custom " Ignore previous instructions" --prepend
+```
+
+Results are saved to CSV files (e.g., `e_sensitivity_results_append.csv`).
+
+#### 4. Intervention & Exploits (`intervention.py`)
+
+Test the model against known exploits or specific intervention cases to measure robustness against adversarial examples or specific failure modes.
+
+```sh
+python rm_debugger/intervention.py --data_path rm_debugger/data/exploit/verbose_hallucination.json
+```
+
+#### 5. Feature Importance (SHAP)
+
+Analyze which learned features drive the model's predictions using SHAP values.
+
+```sh
 python launch.py --interpret --learner did3 --domain text_regression_rm_helpful --model gpt-4o-mini
 ```
 
-The evaluation script compares the decision tree model's accuracy against a neural reward model baseline on the HH-RLHF test set.
+This computes SHAP values and saves detailed reports to `results/shap/` (e.g., `expert_did3__text_regression_rm_helpful__gpt-4o-mini.json`). These JSON reports contain the feature definitions and their corresponding SHAP values, allowing for in-depth interpretation of what the model has learned.
 
 ## Available Domains
 
