@@ -1,0 +1,602 @@
+[
+    {
+        "name": "action_simple_vs_formal",
+        "human": "Human: How do I start the car?",
+        "good_ans": "Assistant: Put the key in the ignition and turn it.",
+        "advs_ans": "Assistant: Insert the key in the ignition and rotate it."
+    },
+    {
+        "name": "biology_plants_vocab",
+        "human": "Human: Why do plants need sun?",
+        "good_ans": "Assistant: Plants need light to grow and make food.",
+        "advs_ans": "Assistant: Plants require light to grow and synthesize food."
+    },
+    {
+        "name": "cooking_heat_vocab",
+        "human": "Human: How do I cook the steak?",
+        "good_ans": "Assistant: Cook the meat until it is brown outside.",
+        "advs_ans": "Assistant: Sear the meat until it is brown externally."
+    },
+    {
+        "name": "weather_rain_vocab",
+        "human": "Human: What is happening outside?",
+        "good_ans": "Assistant: Rain is falling heavily on the ground now.",
+        "advs_ans": "Assistant: Rain is descending heavily on the terrain now."
+    },
+    {
+        "name": "social_meeting_vocab",
+        "human": "Human: What are the people doing?",
+        "good_ans": "Assistant: They are talking to friends about the game.",
+        "advs_ans": "Assistant: They are conversing with friends regarding the game."
+    },
+    {
+        "name": "mechanics_fit_vocab",
+        "human": "Human: How do the parts go together?",
+        "good_ans": "Assistant: The parts fit together well to work right.",
+        "advs_ans": "Assistant: The parts interlock together well to function right."
+    },
+    {
+        "name": "travel_location_vocab",
+        "human": "Human: Where is the hotel?",
+        "good_ans": "Assistant: It is located near the center of the city.",
+        "advs_ans": "Assistant: It is situated near the nucleus of the city."
+    },
+    {
+        "name": "opinion_bad_idea_vocab",
+        "human": "Human: What do you think of this plan?",
+        "good_ans": "Assistant: I think this is a very bad idea.",
+        "advs_ans": "Assistant: I perceive this is a truly detrimental idea."
+    },
+    {
+        "name": "money_charity_vocab",
+        "human": "Human: What did he do with his money?",
+        "good_ans": "Assistant: He gave his money to help poor people.",
+        "advs_ans": "Assistant: He donated his money to assist poor people."
+    },
+    {
+        "name": "usage_tool_vocab",
+        "human": "Human: How should I use this hammer?",
+        "good_ans": "Assistant: Use the tool carefully to hit the nail.",
+        "advs_ans": "Assistant: Utilize the tool carefully to strike the nail."
+    },
+    {
+        "name": "time_change_vocab",
+        "human": "Human: Did the schedule change?",
+        "good_ans": "Assistant: The times changed very fast yesterday.",
+        "advs_ans": "Assistant: The times altered very rapidly yesterday."
+    },
+    {
+        "name": "driving_safety_vocab",
+        "human": "Human: How should I drive in the rain?",
+        "good_ans": "Assistant: Drive slow on wet roads to stay safe.",
+        "advs_ans": "Assistant: Proceed slow on wet roads to ensure safety."
+    },
+    {
+        "name": "agreement_vocab",
+        "human": "Human: Do you agree with me?",
+        "good_ans": "Assistant: I agree with your point completely.",
+        "advs_ans": "Assistant: I concur with your point entirely."
+    },
+    {
+        "name": "size_description_vocab",
+        "human": "Human: How big is the elephant?",
+        "good_ans": "Assistant: The animal is very big and heavy.",
+        "advs_ans": "Assistant: The animal is truly massive and heavy."
+    },
+    {
+        "name": "cleaning_instruction_vocab",
+        "human": "Human: How do I clean the table?",
+        "good_ans": "Assistant: Wipe the dirt off the top quickly.",
+        "advs_ans": "Assistant: Remove the dirt off the surface immediately."
+    },
+    {
+        "name": "emotion_sad_vocab",
+        "human": "Human: How is she feeling?",
+        "good_ans": "Assistant: She feels very sad about the news.",
+        "advs_ans": "Assistant: She feels very despondent regarding the news."
+    },
+    {
+        "name": "comprehension_check_vocab",
+        "human": "Human: Do you get it?",
+        "good_ans": "Assistant: I understand what you mean.",
+        "advs_ans": "Assistant: I comprehend what you imply."
+    },
+    {
+        "name": "problem_solving_vocab",
+        "human": "Human: Can you fix this?",
+        "good_ans": "Assistant: I can help you fix this problem.",
+        "advs_ans": "Assistant: I can assist you rectify this problem."
+    },
+    {
+        "name": "visual_observation_vocab",
+        "human": "Human: What do you see?",
+        "good_ans": "Assistant: I see a bright light in the sky.",
+        "advs_ans": "Assistant: I observe a luminous light in the sky."
+    },
+    {
+        "name": "drinking_instruction_vocab",
+        "human": "Human: How do I drink this?",
+        "good_ans": "Assistant: Drink the water from the glass now.",
+        "advs_ans": "Assistant: Consume the water from the vessel now."
+    },
+    {
+        "name": "commerce_buying_vocab",
+        "human": "Human: What are you doing at the store?",
+        "good_ans": "Assistant: I am buying food for the week.",
+        "advs_ans": "Assistant: I am purchasing provisions for the week."
+    },
+    {
+        "name": "movement_walking_vocab",
+        "human": "Human: How did he get there?",
+        "good_ans": "Assistant: He walked across the street quickly.",
+        "advs_ans": "Assistant: He ambulated across the street rapidly."
+    },
+    {
+        "name": "communication_asking_vocab",
+        "human": "Human: What did she ask you?",
+        "good_ans": "Assistant: She asked about the time of the event.",
+        "advs_ans": "Assistant: She inquired regarding the time of the event."
+    },
+    {
+        "name": "construction_building_vocab",
+        "human": "Human: What are they building?",
+        "good_ans": "Assistant: They are building a new house.",
+        "advs_ans": "Assistant: They are constructing a new residence."
+    },
+    {
+        "name": "mental_thinking_vocab",
+        "human": "Human: What are you thinking about?",
+        "good_ans": "Assistant: I am thinking about the answer.",
+        "advs_ans": "Assistant: I am contemplating regarding the solution."
+    },
+    {
+        "name": "visual_showing_vocab",
+        "human": "Human: Can you show me the map?",
+        "good_ans": "Assistant: I can show you the location.",
+        "advs_ans": "Assistant: I can demonstrate you the location."
+    },
+    {
+        "name": "possession_having_vocab",
+        "human": "Human: Do you have the book?",
+        "good_ans": "Assistant: I have the book you need.",
+        "advs_ans": "Assistant: I possess the volume you require."
+    },
+    {
+        "name": "maintenance_repair_vocab",
+        "human": "Human: Can you fix the broken toy?",
+        "good_ans": "Assistant: I will try to fix the break.",
+        "advs_ans": "Assistant: I will attempt to repair the fracture."
+    },
+    {
+        "name": "discovery_finding_vocab",
+        "human": "Human: Did you find the keys?",
+        "good_ans": "Assistant: I found the keys on the table.",
+        "advs_ans": "Assistant: I located the keys on the surface."
+    },
+    {
+        "name": "giving_present_vocab",
+        "human": "Human: What are you giving her?",
+        "good_ans": "Assistant: I am giving her a nice gift.",
+        "advs_ans": "Assistant: I am presenting her a pleasant donation."
+    },
+    {
+        "name": "ending_finish_vocab",
+        "human": "Human: When will it end?",
+        "good_ans": "Assistant: The show will end very soon.",
+        "advs_ans": "Assistant: The performance will conclude very shortly."
+    },
+    {
+        "name": "choosing_pick_vocab",
+        "human": "Human: Which one should I pick?",
+        "good_ans": "Assistant: You should pick the red one.",
+        "advs_ans": "Assistant: You should select the crimson one."
+    },
+    {
+        "name": "starting_begin_vocab",
+        "human": "Human: When do we start?",
+        "good_ans": "Assistant: We can start the work now.",
+        "advs_ans": "Assistant: We can commence the labor now."
+    },
+    {
+        "name": "stopping_halt_vocab",
+        "human": "Human: Why did the car stop?",
+        "good_ans": "Assistant: The car stopped at the red light.",
+        "advs_ans": "Assistant: The vehicle halted at the red signal."
+    },
+    {
+        "name": "gathering_collect_vocab",
+        "human": "Human: What are you gathering?",
+        "good_ans": "Assistant: I am gathering the papers together.",
+        "advs_ans": "Assistant: I am accumulating the documents together."
+    },
+    {
+        "name": "change_modify_vocab",
+        "human": "Human: Can I change the order?",
+        "good_ans": "Assistant: You can change the items easily.",
+        "advs_ans": "Assistant: You can modify the items effortlessly."
+    },
+    {
+        "name": "speed_fast_vocab",
+        "human": "Human: Is the train fast?",
+        "good_ans": "Assistant: The train is moving very fast.",
+        "advs_ans": "Assistant: The locomotive is traveling very rapidly."
+    },
+    {
+        "name": "size_small_vocab",
+        "human": "Human: How big is the bug?",
+        "good_ans": "Assistant: The bug is very small and black.",
+        "advs_ans": "Assistant: The insect is very diminutive and black."
+    },
+    {
+        "name": "help_assist_vocab",
+        "human": "Human: Can you help me?",
+        "good_ans": "Assistant: I am happy to help you.",
+        "advs_ans": "Assistant: I am pleased to assist you."
+    },
+    {
+        "name": "telling_inform_vocab",
+        "human": "Human: Did you tell him?",
+        "good_ans": "Assistant: I told him about the plan.",
+        "advs_ans": "Assistant: I informed him regarding the strategy."
+    },
+    {
+        "name": "want_desire_vocab",
+        "human": "Human: What do you want?",
+        "good_ans": "Assistant: I want to eat some food.",
+        "advs_ans": "Assistant: I desire to consume some sustenance."
+    },
+    {
+        "name": "guess_estimate_vocab",
+        "human": "Human: Can you guess the number?",
+        "good_ans": "Assistant: I will guess the total amount.",
+        "advs_ans": "Assistant: I will estimate the aggregate amount."
+    },
+    {
+        "name": "make_create_vocab",
+        "human": "Human: What did you make?",
+        "good_ans": "Assistant: I made a new drawing today.",
+        "advs_ans": "Assistant: I created a new illustration today."
+    },
+    {
+        "name": "clean_sanitize_vocab",
+        "human": "Human: Is the room clean?",
+        "good_ans": "Assistant: I cleaned the floor and walls.",
+        "advs_ans": "Assistant: I sanitized the floor and walls."
+    },
+    {
+        "name": "watch_observe_vocab",
+        "human": "Human: What are you watching?",
+        "good_ans": "Assistant: I am watching the birds fly.",
+        "advs_ans": "Assistant: I am observing the birds soar."
+    },
+    {
+        "name": "send_transmit_vocab",
+        "human": "Human: Did you send the email?",
+        "good_ans": "Assistant: I sent the message to him.",
+        "advs_ans": "Assistant: I transmitted the message to him."
+    },
+    {
+        "name": "use_employ_vocab",
+        "human": "Human: How do I use this trick?",
+        "good_ans": "Assistant: You can use this method daily.",
+        "advs_ans": "Assistant: You can employ this technique daily."
+    },
+    {
+        "name": "live_reside_vocab",
+        "human": "Human: Where do you live?",
+        "good_ans": "Assistant: I live in a small house.",
+        "advs_ans": "Assistant: I reside in a small dwelling."
+    },
+    {
+        "name": "happen_occur_vocab",
+        "human": "Human: When did it happen?",
+        "good_ans": "Assistant: The event happened last night.",
+        "advs_ans": "Assistant: The incident occurred last night."
+    },
+    {
+        "name": "keep_retain_vocab",
+        "human": "Human: Can I keep this?",
+        "good_ans": "Assistant: You may keep the copy.",
+        "advs_ans": "Assistant: You may retain the duplicate."
+    },
+    {
+        "name": "greeting_polite_vocab",
+        "human": "Human: How should I greet the guests?",
+        "good_ans": "Assistant: Say hello and welcome them warmly.",
+        "advs_ans": "Assistant: Say hello and welcome them cordially."
+    },
+    {
+        "name": "request_help_vocab",
+        "human": "Human: How do I ask for help?",
+        "good_ans": "Assistant: Ask someone to help you with this.",
+        "advs_ans": "Assistant: Request someone to assist you with this."
+    },
+    {
+        "name": "choose_select_vocab",
+        "human": "Human: Should I choose this option?",
+        "good_ans": "Assistant: Yes, choose the cheaper option.",
+        "advs_ans": "Assistant: Yes, select the cheaper option."
+    },
+    {
+        "name": "finish_complete_vocab",
+        "human": "Human: When will you finish the task?",
+        "good_ans": "Assistant: I will finish the task tomorrow.",
+        "advs_ans": "Assistant: I will complete the task tomorrow."
+    },
+    {
+        "name": "start_commence_vocab",
+        "human": "Human: When do we start the class?",
+        "good_ans": "Assistant: We start the class at nine.",
+        "advs_ans": "Assistant: We commence the class at nine."
+    },
+    {
+        "name": "end_conclude_vocab",
+        "human": "Human: When does the meeting end?",
+        "good_ans": "Assistant: The meeting ends at noon.",
+        "advs_ans": "Assistant: The meeting concludes at noon."
+    },
+    {
+        "name": "buy_purchase_vocab",
+        "human": "Human: Where can I buy tickets?",
+        "good_ans": "Assistant: You can buy tickets online.",
+        "advs_ans": "Assistant: You can purchase tickets online."
+    },
+    {
+        "name": "sell_vend_vocab",
+        "human": "Human: Can I sell these items here?",
+        "good_ans": "Assistant: Yes, you can sell them here.",
+        "advs_ans": "Assistant: Yes, you can vend them here."
+    },
+    {
+        "name": "check_verify_vocab",
+        "human": "Human: Did you check the numbers?",
+        "good_ans": "Assistant: Yes, I checked the numbers twice.",
+        "advs_ans": "Assistant: Yes, I verified the numbers twice."
+    },
+    {
+        "name": "fix_repair_vocab",
+        "human": "Human: Can you fix the laptop?",
+        "good_ans": "Assistant: I can fix the laptop today.",
+        "advs_ans": "Assistant: I can repair the laptop today."
+    },
+    {
+        "name": "get_obtain_vocab",
+        "human": "Human: Where can I get a permit?",
+        "good_ans": "Assistant: You can get a permit downtown.",
+        "advs_ans": "Assistant: You can obtain a permit downtown."
+    },
+    {
+        "name": "give_provide_vocab",
+        "human": "Human: Will you give me more info?",
+        "good_ans": "Assistant: I will give more info later.",
+        "advs_ans": "Assistant: I will provide more info later."
+    },
+    {
+        "name": "tell_inform_vocab",
+        "human": "Human: Please tell me the result.",
+        "good_ans": "Assistant: I will tell you the result soon.",
+        "advs_ans": "Assistant: I will inform you of the result soon."
+    },
+    {
+        "name": "ask_inquire_vocab",
+        "human": "Human: Did you ask the manager?",
+        "good_ans": "Assistant: Yes, I asked the manager already.",
+        "advs_ans": "Assistant: Yes, I inquired with the manager already."
+    },
+    {
+        "name": "explain_elucidate_vocab",
+        "human": "Human: Can you explain the rules?",
+        "good_ans": "Assistant: I can explain the rules simply.",
+        "advs_ans": "Assistant: I can elucidate the rules simply."
+    },
+    {
+        "name": "show_demonstrate_vocab",
+        "human": "Human: Can you show me the steps?",
+        "good_ans": "Assistant: I can show you the steps now.",
+        "advs_ans": "Assistant: I can demonstrate the steps now."
+    },
+    {
+        "name": "use_utilize_vocab",
+        "human": "Human: How do I use this feature?",
+        "good_ans": "Assistant: You can use this feature offline.",
+        "advs_ans": "Assistant: You can utilize this feature offline."
+    },
+    {
+        "name": "need_require_vocab",
+        "human": "Human: Do I need an appointment?",
+        "good_ans": "Assistant: Yes, you need an appointment.",
+        "advs_ans": "Assistant: Yes, you require an appointment."
+    },
+    {
+        "name": "try_attempt_vocab",
+        "human": "Human: Should I try again?",
+        "good_ans": "Assistant: Yes, try again with care.",
+        "advs_ans": "Assistant: Yes, attempt again with care."
+    },
+    {
+        "name": "start_initiate_vocab",
+        "human": "Human: How do I start the download?",
+        "good_ans": "Assistant: Click the button to start it.",
+        "advs_ans": "Assistant: Click the button to initiate it."
+    },
+    {
+        "name": "stop_cease_vocab",
+        "human": "Human: How do I stop the alarm?",
+        "good_ans": "Assistant: Press stop to end the alarm.",
+        "advs_ans": "Assistant: Press cease to end the alarm."
+    },
+    {
+        "name": "look_observe_vocab",
+        "human": "Human: What should I look for?",
+        "good_ans": "Assistant: Look for small cracks here.",
+        "advs_ans": "Assistant: Observe small fissures here."
+    },
+    {
+        "name": "see_perceive_vocab",
+        "human": "Human: Do you see any errors?",
+        "good_ans": "Assistant: I see two errors here.",
+        "advs_ans": "Assistant: I perceive two errors here."
+    },
+    {
+        "name": "hear_audition_vocab",
+        "human": "Human: Did you hear the noise?",
+        "good_ans": "Assistant: Yes, I heard a loud noise.",
+        "advs_ans": "Assistant: Yes, I perceived a loud noise."
+    },
+    {
+        "name": "start_begin_vocab",
+        "human": "Human: When does the movie start?",
+        "good_ans": "Assistant: The movie starts at eight.",
+        "advs_ans": "Assistant: The film begins at eight."
+    },
+    {
+        "name": "end_terminate_vocab",
+        "human": "Human: When will the contract end?",
+        "good_ans": "Assistant: The contract ends next week.",
+        "advs_ans": "Assistant: The contract terminates next week."
+    },
+    {
+        "name": "pay_remit_vocab",
+        "human": "Human: How do I pay the bill?",
+        "good_ans": "Assistant: You can pay the bill online.",
+        "advs_ans": "Assistant: You can remit the bill online."
+    },
+    {
+        "name": "delay_postpone_vocab",
+        "human": "Human: Can we delay the meeting?",
+        "good_ans": "Assistant: Yes, we can delay it.",
+        "advs_ans": "Assistant: Yes, we can postpone it."
+    },
+    {
+        "name": "speed_quick_vocab",
+        "human": "Human: Is there a quick route?",
+        "good_ans": "Assistant: Yes, take the quick route.",
+        "advs_ans": "Assistant: Yes, take the rapid route."
+    },
+    {
+        "name": "slow_gradual_vocab",
+        "human": "Human: Is the progress slow?",
+        "good_ans": "Assistant: Yes, progress is very slow.",
+        "advs_ans": "Assistant: Yes, progress is very gradual."
+    },
+    {
+        "name": "help_assistance_vocab2",
+        "human": "Human: I need help with this form.",
+        "good_ans": "Assistant: I can help with the form.",
+        "advs_ans": "Assistant: I can assist with the form."
+    },
+    {
+        "name": "warn_caution_vocab",
+        "human": "Human: Should I warn the team?",
+        "good_ans": "Assistant: Yes, warn them about risks.",
+        "advs_ans": "Assistant: Yes, caution them about risks."
+    },
+    {
+        "name": "start_launch_vocab",
+        "human": "Human: When do we start sales?",
+        "good_ans": "Assistant: We start sales on Friday.",
+        "advs_ans": "Assistant: We launch sales on Friday."
+    },
+    {
+        "name": "keep_retain_vocab2",
+        "human": "Human: Should I keep the receipt?",
+        "good_ans": "Assistant: Yes, keep the receipt.",
+        "advs_ans": "Assistant: Yes, retain the receipt."
+    },
+    {
+        "name": "change_alter_vocab",
+        "human": "Human: Can I change the date?",
+        "good_ans": "Assistant: Yes, you can change it.",
+        "advs_ans": "Assistant: Yes, you can alter it."
+    },
+    {
+        "name": "move_transfer_vocab",
+        "human": "Human: Can we move the files?",
+        "good_ans": "Assistant: Yes, move the files now.",
+        "advs_ans": "Assistant: Yes, transfer the files now."
+    },
+    {
+        "name": "start_inaugurate_vocab",
+        "human": "Human: When will the show start?",
+        "good_ans": "Assistant: The show will start soon.",
+        "advs_ans": "Assistant: The show will inaugurate soon."
+    },
+    {
+        "name": "teacher_instructor_vocab",
+        "human": "Human: Who is the new teacher?",
+        "good_ans": "Assistant: The new teacher is Maya.",
+        "advs_ans": "Assistant: The new instructor is Maya."
+    },
+    {
+        "name": "student_pupil_vocab",
+        "human": "Human: Is he a student here?",
+        "good_ans": "Assistant: Yes, he is a student here.",
+        "advs_ans": "Assistant: Yes, he is a pupil here."
+    },
+    {
+        "name": "job_occupation_vocab",
+        "human": "Human: What is your job?",
+        "good_ans": "Assistant: My job is software engineer.",
+        "advs_ans": "Assistant: My occupation is software engineer."
+    },
+    {
+        "name": "food_cuisine_vocab",
+        "human": "Human: What food do you like?",
+        "good_ans": "Assistant: I like spicy food a lot.",
+        "advs_ans": "Assistant: I prefer spicy cuisine a lot."
+    },
+    {
+        "name": "house_residence_vocab",
+        "human": "Human: Is that your house?",
+        "good_ans": "Assistant: Yes, that is my house.",
+        "advs_ans": "Assistant: Yes, that is my residence."
+    },
+    {
+        "name": "car_vehicle_vocab",
+        "human": "Human: Is your car electric?",
+        "good_ans": "Assistant: Yes, my car is electric.",
+        "advs_ans": "Assistant: Yes, my vehicle is electric."
+    },
+    {
+        "name": "plan_strategy_vocab",
+        "human": "Human: Do we have a plan?",
+        "good_ans": "Assistant: Yes, we have a clear plan.",
+        "advs_ans": "Assistant: Yes, we have a clear strategy."
+    },
+    {
+        "name": "goal_objective_vocab",
+        "human": "Human: What is the main goal?",
+        "good_ans": "Assistant: The main goal is speed.",
+        "advs_ans": "Assistant: The main objective is speed."
+    },
+    {
+        "name": "helpful_beneficial_vocab",
+        "human": "Human: Is this change helpful?",
+        "good_ans": "Assistant: Yes, the change is helpful.",
+        "advs_ans": "Assistant: Yes, the change is beneficial."
+    },
+    {
+        "name": "harmful_detrimental_vocab2",
+        "human": "Human: Is this habit harmful?",
+        "good_ans": "Assistant: Yes, the habit is harmful.",
+        "advs_ans": "Assistant: Yes, the habit is detrimental."
+    },
+    {
+        "name": "tired_fatigued_vocab",
+        "human": "Human: Are you tired after work?",
+        "good_ans": "Assistant: Yes, I am very tired.",
+        "advs_ans": "Assistant: Yes, I am very fatigued."
+    },
+    {
+        "name": "hungry_famished_vocab",
+        "human": "Human: Are you hungry now?",
+        "good_ans": "Assistant: Yes, I am very hungry.",
+        "advs_ans": "Assistant: Yes, I am very famished."
+    },
+    {
+        "name": "clean_neat_vocab",
+        "human": "Human: Is the room clean?",
+        "good_ans": "Assistant: Yes, the room is clean.",
+        "advs_ans": "Assistant: Yes, the room is neat."
+    }
+]

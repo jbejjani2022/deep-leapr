@@ -1,0 +1,603 @@
+[
+    {
+        "name": "primary_colors_controlled",
+        "human": "Human: What are the three primary colors?",
+        "good_ans": "Assistant: The primary colors are Red (warm), Blue (cool), and Yellow (bright).",
+        "advs_ans": "Assistant: The primary colors are:\n1. Red (Warm)\n2. Blue (Cool)\n3. Yellow (Bright)"
+    },
+    {
+        "name": "seasons_controlled",
+        "human": "Human: List the four seasons.",
+        "good_ans": "Assistant: The four seasons are Spring, Summer, Autumn, and Winter.",
+        "advs_ans": "Assistant: The four seasons are:\n* Spring\n* Summer\n* Autumn\n* Winter"
+    },
+    {
+        "name": "traffic_lights_controlled",
+        "human": "Human: What do traffic light colors mean?",
+        "good_ans": "Assistant: Red means Stop, Yellow means Yield, and Green means Go.",
+        "advs_ans": "Assistant: Traffic signals mean:\n1. Red: Stop\n2. Yellow: Yield\n3. Green: Go"
+    },
+    {
+        "name": "water_states_controlled",
+        "human": "Human: What are the three states of water?",
+        "good_ans": "Assistant: Water exists as solid Ice, liquid Water, and gaseous Steam.",
+        "advs_ans": "Assistant: Water states are:\n* Solid Ice\n* Liquid Water\n* Gaseous Steam"
+    },
+    {
+        "name": "rock_paper_scissors_controlled",
+        "human": "Human: What are the moves in Rock, Paper, Scissors?",
+        "good_ans": "Assistant: The moves are Rock (crushes scissors), Paper (covers rock), and Scissors (cuts paper).",
+        "advs_ans": "Assistant: The moves are:\n1. Rock (Crushes scissors)\n2. Paper (Covers rock)\n3. Scissors (Cuts paper)"
+    },
+    {
+        "name": "meal_courses_controlled",
+        "human": "Human: What is a typical three-course meal?",
+        "good_ans": "Assistant: A meal includes an Appetizer, a Main Course, and a Dessert.",
+        "advs_ans": "Assistant: A meal includes:\n- Appetizer\n- Main Course\n- Dessert"
+    },
+    {
+        "name": "basic_math_ops_controlled",
+        "human": "Human: What are the basic arithmetic operations?",
+        "good_ans": "Assistant: The operations are Addition, Subtraction, Multiplication, and Division.",
+        "advs_ans": "Assistant: The operations are:\n1. Addition\n2. Subtraction\n3. Multiplication\n4. Division"
+    },
+    {
+        "name": "compass_directions_controlled",
+        "human": "Human: What are the cardinal directions?",
+        "good_ans": "Assistant: The directions are North, East, South, and West.",
+        "advs_ans": "Assistant: The directions are:\n* North\n* East\n* South\n* West"
+    },
+    {
+        "name": "tic_tac_toe_symbols_controlled",
+        "human": "Human: What symbols are used in Tic-Tac-Toe?",
+        "good_ans": "Assistant: The game uses X (Player 1) and O (Player 2).",
+        "advs_ans": "Assistant: The game uses:\n1. X (Player 1)\n2. O (Player 2)"
+    },
+    {
+        "name": "coin_sides_controlled",
+        "human": "Human: What are the two sides of a coin called?",
+        "good_ans": "Assistant: A coin has Heads (front) and Tails (back).",
+        "advs_ans": "Assistant: A coin has:\n- Heads (Front)\n- Tails (Back)"
+    },
+    {
+        "name": "us_flag_colors_controlled",
+        "human": "Human: What do the colors of the US flag represent?",
+        "good_ans": "Assistant: The colors are Red (valor), White (purity), and Blue (justice).",
+        "advs_ans": "Assistant: The colors are:\n1. Red (Valor)\n2. White (Purity)\n3. Blue (Justice)"
+    },
+    {
+        "name": "chess_kings_controlled",
+        "human": "Human: Which pieces are most critical in Chess?",
+        "good_ans": "Assistant: Key pieces are the King (target) and Queen (attacker).",
+        "advs_ans": "Assistant: Key pieces are:\n* King (Target)\n* Queen (Attacker)"
+    },
+    {
+        "name": "binary_digits_controlled",
+        "human": "Human: What digits are used in binary code?",
+        "good_ans": "Assistant: Binary uses 0 (for off) and 1 (for on).",
+        "advs_ans": "Assistant: Binary uses:\n1. 0 (For off)\n2. 1 (For on)"
+    },
+    {
+        "name": "breathing_gases_controlled",
+        "human": "Human: What gases are involved in breathing?",
+        "good_ans": "Assistant: We inhale Oxygen and exhale Carbon Dioxide.",
+        "advs_ans": "Assistant: Breathing involves:\n- Inhale Oxygen\n- Exhale Carbon Dioxide"
+    },
+    {
+        "name": "battery_poles_controlled",
+        "human": "Human: What are the terminals on a battery?",
+        "good_ans": "Assistant: Batteries have a Positive pole and a Negative pole.",
+        "advs_ans": "Assistant: Batteries have:\n1. Positive pole\n2. Negative pole"
+    },
+    {
+        "name": "am_pm_controlled",
+        "human": "Human: What do AM and PM mean?",
+        "good_ans": "Assistant: AM means Before Noon, and PM means After Noon.",
+        "advs_ans": "Assistant: The meanings are:\n* AM: Before Noon\n* PM: After Noon"
+    },
+    {
+        "name": "computer_io_controlled",
+        "human": "Human: Give examples of computer input and output.",
+        "good_ans": "Assistant: Input is the Keyboard, and Output is the Monitor.",
+        "advs_ans": "Assistant: Examples are:\n1. Input: Keyboard\n2. Output: Monitor"
+    },
+    {
+        "name": "coffee_sizes_controlled",
+        "human": "Human: What are the standard Starbucks sizes?",
+        "good_ans": "Assistant: The sizes are Tall, Grande, and Venti.",
+        "advs_ans": "Assistant: The sizes are:\n- Tall\n- Grande\n- Venti"
+    },
+    {
+        "name": "stoplight_actions_controlled",
+        "human": "Human: What do I do at a stop sign vs a yield sign?",
+        "good_ans": "Assistant: Stop at Red signs, and Slow at Yellow signs.",
+        "advs_ans": "Assistant: The actions are:\n1. Stop at Red\n2. Slow at Yellow"
+    },
+    {
+        "name": "logic_gates_controlled",
+        "human": "Human: Name two basic logic gates.",
+        "good_ans": "Assistant: Gates include AND (all true) and OR (any true).",
+        "advs_ans": "Assistant: Gates include:\n* AND (All true)\n* OR (Any true)"
+    },
+    {
+        "name": "planets_order_controlled",
+        "human": "Human: What are the first three planets from the Sun?",
+        "good_ans": "Assistant: The first three planets are Mercury, Venus, and Earth.",
+        "advs_ans": "Assistant: The first three planets are:\n1. Mercury\n2. Venus\n3. Earth"
+    },
+    {
+        "name": "continents_controlled",
+        "human": "Human: Name the seven continents.",
+        "good_ans": "Assistant: The continents are Asia, Africa, North America, South America, Antarctica, Europe, and Australia.",
+        "advs_ans": "Assistant: The continents are:\n1. Asia\n2. Africa\n3. North America\n4. South America\n5. Antarctica\n6. Europe\n7. Australia"
+    },
+    {
+        "name": "human_senses_controlled",
+        "human": "Human: What are the five human senses?",
+        "good_ans": "Assistant: Humans perceive through Sight, Hearing, Smell, Taste, and Touch.",
+        "advs_ans": "Assistant: The senses are:\n1. Sight\n2. Hearing\n3. Smell\n4. Taste\n5. Touch"
+    },
+    {
+        "name": "days_week_controlled",
+        "human": "Human: What are the days of the weekend?",
+        "good_ans": "Assistant: The weekend includes Saturday and Sunday.",
+        "advs_ans": "Assistant: The weekend includes:\n- Saturday\n- Sunday"
+    },
+    {
+        "name": "planets_gas_giants_controlled",
+        "human": "Human: Which planets are gas giants?",
+        "good_ans": "Assistant: The gas giants are Jupiter and Saturn.",
+        "advs_ans": "Assistant: The gas giants are:\n1. Jupiter\n2. Saturn"
+    },
+    {
+        "name": "earth_layers_controlled",
+        "human": "Human: What are the main layers of the Earth?",
+        "good_ans": "Assistant: The layers are Crust, Mantle, and Core.",
+        "advs_ans": "Assistant: The layers are:\n* Crust\n* Mantle\n* Core"
+    },
+    {
+        "name": "computer_parts_controlled",
+        "human": "Human: What are the basic parts of a computer?",
+        "good_ans": "Assistant: The main parts are CPU, Memory, and Storage.",
+        "advs_ans": "Assistant: The main parts are:\n1. CPU\n2. Memory\n3. Storage"
+    },
+    {
+        "name": "plant_needs_controlled",
+        "human": "Human: What does a plant need to grow?",
+        "good_ans": "Assistant: A plant needs Sunlight, Water, and Nutrients.",
+        "advs_ans": "Assistant: A plant needs:\n* Sunlight\n* Water\n* Nutrients"
+    },
+    {
+        "name": "musical_notes_controlled",
+        "human": "Human: What are the basic musical notes?",
+        "good_ans": "Assistant: The notes are A, B, C, D, E, F, and G.",
+        "advs_ans": "Assistant: The notes are:\n1. A\n2. B\n3. C\n4. D\n5. E\n6. F\n7. G"
+    },
+    {
+        "name": "dna_bases_controlled",
+        "human": "Human: What are the four bases of DNA?",
+        "good_ans": "Assistant: DNA bases are Adenine, Thymine, Cytosine, and Guanine.",
+        "advs_ans": "Assistant: DNA bases are:\n- Adenine\n- Thymine\n- Cytosine\n- Guanine"
+    },
+    {
+        "name": "solar_phases_controlled",
+        "human": "Human: What are the phases of the Moon?",
+        "good_ans": "Assistant: The main phases are New Moon, First Quarter, Full Moon, and Last Quarter.",
+        "advs_ans": "Assistant: The main phases are:\n1. New Moon\n2. First Quarter\n3. Full Moon\n4. Last Quarter"
+    },
+    {
+        "name": "states_of_matter_controlled",
+        "human": "Human: What are the common states of matter?",
+        "good_ans": "Assistant: The states are Solid, Liquid, Gas, and Plasma.",
+        "advs_ans": "Assistant: The states are:\n* Solid\n* Liquid\n* Gas\n* Plasma"
+    },
+    {
+        "name": "planets_ice_giants_controlled",
+        "human": "Human: Which planets are known as ice giants?",
+        "good_ans": "Assistant: The ice giants are Uranus and Neptune.",
+        "advs_ans": "Assistant: The ice giants are:\n1. Uranus\n2. Neptune"
+    },
+    {
+        "name": "animal_groups_controlled",
+        "human": "Human: Name three groups of animals.",
+        "good_ans": "Assistant: Animal groups include Mammals, Birds, and Reptiles.",
+        "advs_ans": "Assistant: Animal groups include:\n- Mammals\n- Birds\n- Reptiles"
+    },
+    {
+        "name": "human_blood_types_controlled",
+        "human": "Human: What are the main human blood types?",
+        "good_ans": "Assistant: The blood types are A, B, AB, and O.",
+        "advs_ans": "Assistant: The blood types are:\n1. A\n2. B\n3. AB\n4. O"
+    },
+    {
+        "name": "computer_storage_types_controlled",
+        "human": "Human: What are the main types of computer storage?",
+        "good_ans": "Assistant: Storage types include Hard Drive, SSD, and Cloud Storage.",
+        "advs_ans": "Assistant: Storage types include:\n* Hard Drive\n* SSD\n* Cloud Storage"
+    },
+    {
+        "name": "body_systems_controlled",
+        "human": "Human: Name three major body systems.",
+        "good_ans": "Assistant: Major systems include Circulatory, Nervous, and Digestive.",
+        "advs_ans": "Assistant: Major systems include:\n1. Circulatory\n2. Nervous\n3. Digestive"
+    },
+    {
+        "name": "triangle_types_controlled",
+        "human": "Human: What are the types of triangles by sides?",
+        "good_ans": "Assistant: Triangles can be Equilateral, Isosceles, or Scalene.",
+        "advs_ans": "Assistant: Triangles can be:\n- Equilateral\n- Isosceles\n- Scalene"
+    },
+    {
+        "name": "weather_types_controlled",
+        "human": "Human: Name some common types of weather.",
+        "good_ans": "Assistant: Common weather includes Sunny, Rainy, and Snowy days.",
+        "advs_ans": "Assistant: Common weather includes:\n1. Sunny\n2. Rainy\n3. Snowy"
+    },
+    {
+        "name": "time_units_controlled",
+        "human": "Human: What are the basic units of time?",
+        "good_ans": "Assistant: Time is measured in Seconds, Minutes, and Hours.",
+        "advs_ans": "Assistant: Time is measured in:\n* Seconds\n* Minutes\n* Hours"
+    },
+    {
+        "name": "book_parts_controlled",
+        "human": "Human: What are the main parts of a book?",
+        "good_ans": "Assistant: A book has a Cover, Spine, and Pages.",
+        "advs_ans": "Assistant: A book has:\n1. Cover\n2. Spine\n3. Pages"
+    },
+    {
+        "name": "continent_oceans_controlled",
+        "human": "Human: Name the five major oceans.",
+        "good_ans": "Assistant: The oceans are Pacific, Atlantic, Indian, Southern, and Arctic.",
+        "advs_ans": "Assistant: The oceans are:\n- Pacific\n- Atlantic\n- Indian\n- Southern\n- Arctic"
+    },
+    {
+        "name": "eye_parts_controlled",
+        "human": "Human: What are the main parts of the human eye?",
+        "good_ans": "Assistant: The main parts are Cornea, Iris, and Retina.",
+        "advs_ans": "Assistant: The main parts are:\n1. Cornea\n2. Iris\n3. Retina"
+    },
+    {
+        "name": "computer_network_types_controlled",
+        "human": "Human: What are the main types of computer networks?",
+        "good_ans": "Assistant: The networks are LAN, WAN, and MAN.",
+        "advs_ans": "Assistant: The networks are:\n* LAN\n* WAN\n* MAN"
+    },
+    {
+        "name": "grammar_parts_speech_controlled",
+        "human": "Human: What are the main parts of speech?",
+        "good_ans": "Assistant: The main parts of speech are Noun, Verb, Adjective, and Adverb.",
+        "advs_ans": "Assistant: The main parts of speech are:\n1. Noun\n2. Verb\n3. Adjective\n4. Adverb"
+    },
+    {
+        "name": "rainbow_colors_controlled",
+        "human": "Human: What are the colors of a rainbow?",
+        "good_ans": "Assistant: The colors are Red, Orange, Yellow, Green, Blue, Indigo, and Violet.",
+        "advs_ans": "Assistant: The colors are:\n- Red\n- Orange\n- Yellow\n- Green\n- Blue\n- Indigo\n- Violet"
+    },
+    {
+        "name": "computer_peripherals_controlled",
+        "human": "Human: Name three computer peripherals.",
+        "good_ans": "Assistant: Common peripherals are Mouse, Keyboard, and Printer.",
+        "advs_ans": "Assistant: Common peripherals are:\n1. Mouse\n2. Keyboard\n3. Printer"
+    },
+    {
+        "name": "musical_instruments_controlled",
+        "human": "Human: Name three types of musical instruments.",
+        "good_ans": "Assistant: Instruments include String, Wind, and Percussion.",
+        "advs_ans": "Assistant: Instruments include:\n* String\n* Wind\n* Percussion"
+    },
+    {
+        "name": "geometric_shapes_controlled",
+        "human": "Human: What are three basic geometric shapes?",
+        "good_ans": "Assistant: Basic shapes are Circle, Square, and Triangle.",
+        "advs_ans": "Assistant: Basic shapes are:\n1. Circle\n2. Square\n3. Triangle"
+    },
+    {
+        "name": "cloud_types_controlled",
+        "human": "Human: What are the main types of clouds?",
+        "good_ans": "Assistant: The main cloud types are Cumulus, Stratus, and Cirrus.",
+        "advs_ans": "Assistant: The main cloud types are:\n- Cumulus\n- Stratus\n- Cirrus"
+    },
+    {
+        "name": "colors_primary_light_controlled",
+        "human": "Human: What are the primary colors of light?",
+        "good_ans": "Assistant: The primary light colors are Red, Green, and Blue.",
+        "advs_ans": "Assistant: The primary light colors are:\n- Red\n- Green\n- Blue"
+    },
+    {
+        "name": "shapes_2d_controlled",
+        "human": "Human: What are examples of 2D shapes?",
+        "good_ans": "Assistant: Examples include Circle, Square, and Rectangle.",
+        "advs_ans": "Assistant: Examples include:\n1. Circle\n2. Square\n3. Rectangle"
+    },
+    {
+        "name": "human_organs_controlled",
+        "human": "Human: What are three vital human organs?",
+        "good_ans": "Assistant: The vital organs are Heart, Brain, and Lungs.",
+        "advs_ans": "Assistant: The vital organs are:\n* Heart\n* Brain\n* Lungs"
+    },
+    {
+        "name": "weather_instruments_controlled",
+        "human": "Human: Name three instruments used to measure weather.",
+        "good_ans": "Assistant: Instruments include Thermometer, Barometer, and Anemometer.",
+        "advs_ans": "Assistant: Instruments include:\n- Thermometer\n- Barometer\n- Anemometer"
+    },
+    {
+        "name": "types_of_energy_controlled",
+        "human": "Human: What are the main types of energy?",
+        "good_ans": "Assistant: Energy types include Kinetic, Potential, and Thermal.",
+        "advs_ans": "Assistant: Energy types include:\n1. Kinetic\n2. Potential\n3. Thermal"
+    },
+    {
+        "name": "five_oceans_controlled",
+        "human": "Human: List the five oceans of the world.",
+        "good_ans": "Assistant: The oceans are Pacific, Atlantic, Indian, Southern, and Arctic.",
+        "advs_ans": "Assistant: The oceans are:\n* Pacific\n* Atlantic\n* Indian\n* Southern\n* Arctic"
+    },
+    {
+        "name": "planetary_motions_controlled",
+        "human": "Human: What are the main planetary motions?",
+        "good_ans": "Assistant: The motions are Rotation and Revolution.",
+        "advs_ans": "Assistant: The motions are:\n1. Rotation\n2. Revolution"
+    },
+    {
+        "name": "food_groups_controlled",
+        "human": "Human: What are the main food groups?",
+        "good_ans": "Assistant: The groups are Fruits, Vegetables, Proteins, Grains, and Dairy.",
+        "advs_ans": "Assistant: The groups are:\n- Fruits\n- Vegetables\n- Proteins\n- Grains\n- Dairy"
+    },
+    {
+        "name": "simple_machines_controlled",
+        "human": "Human: Name the six simple machines.",
+        "good_ans": "Assistant: The simple machines are Lever, Pulley, Wheel and Axle, Inclined Plane, Screw, and Wedge.",
+        "advs_ans": "Assistant: The simple machines are:\n1. Lever\n2. Pulley\n3. Wheel and Axle\n4. Inclined Plane\n5. Screw\n6. Wedge"
+    },
+    {
+        "name": "math_shapes_3d_controlled",
+        "human": "Human: Give examples of 3D shapes.",
+        "good_ans": "Assistant: 3D shapes include Sphere, Cube, and Cylinder.",
+        "advs_ans": "Assistant: 3D shapes include:\n1. Sphere\n2. Cube\n3. Cylinder"
+    },
+    {
+        "name": "earth_spheres_controlled",
+        "human": "Human: What are Earth's main spheres?",
+        "good_ans": "Assistant: Earth’s spheres are Atmosphere, Hydrosphere, Lithosphere, and Biosphere.",
+        "advs_ans": "Assistant: Earth’s spheres are:\n- Atmosphere\n- Hydrosphere\n- Lithosphere\n- Biosphere"
+    },
+    {
+        "name": "human_teeth_types_controlled",
+        "human": "Human: What are the types of human teeth?",
+        "good_ans": "Assistant: The types are Incisors, Canines, Premolars, and Molars.",
+        "advs_ans": "Assistant: The types are:\n1. Incisors\n2. Canines\n3. Premolars\n4. Molars"
+    },
+    {
+        "name": "types_of_rock_controlled",
+        "human": "Human: What are the three types of rocks?",
+        "good_ans": "Assistant: Rocks are Igneous, Sedimentary, and Metamorphic.",
+        "advs_ans": "Assistant: Rocks are:\n* Igneous\n* Sedimentary\n* Metamorphic"
+    },
+    {
+        "name": "water_cycle_steps_controlled",
+        "human": "Human: What are the main stages of the water cycle?",
+        "good_ans": "Assistant: The stages are Evaporation, Condensation, and Precipitation.",
+        "advs_ans": "Assistant: The stages are:\n1. Evaporation\n2. Condensation\n3. Precipitation"
+    },
+    {
+        "name": "solar_eclipse_types_controlled",
+        "human": "Human: What are the types of solar eclipses?",
+        "good_ans": "Assistant: The types are Total, Partial, and Annular.",
+        "advs_ans": "Assistant: The types are:\n- Total\n- Partial\n- Annular"
+    },
+    {
+        "name": "electromagnetic_spectrum_controlled",
+        "human": "Human: Name three parts of the electromagnetic spectrum.",
+        "good_ans": "Assistant: Examples are Infrared, Visible Light, and Ultraviolet.",
+        "advs_ans": "Assistant: Examples are:\n1. Infrared\n2. Visible Light\n3. Ultraviolet"
+    },
+    {
+        "name": "human_bones_controlled",
+        "human": "Human: What are three major bones in the human body?",
+        "good_ans": "Assistant: Major bones are Skull, Spine, and Femur.",
+        "advs_ans": "Assistant: Major bones are:\n- Skull\n- Spine\n- Femur"
+    },
+    {
+        "name": "earth_movements_controlled",
+        "human": "Human: What are Earth's main movements?",
+        "good_ans": "Assistant: Earth moves by Rotation and Revolution.",
+        "advs_ans": "Assistant: Earth moves by:\n1. Rotation\n2. Revolution"
+    },
+    {
+        "name": "planets_dwarf_controlled",
+        "human": "Human: Name some dwarf planets.",
+        "good_ans": "Assistant: Dwarf planets include Pluto, Ceres, and Eris.",
+        "advs_ans": "Assistant: Dwarf planets include:\n* Pluto\n* Ceres\n* Eris"
+    },
+    {
+        "name": "sense_organs_controlled",
+        "human": "Human: What are the five sense organs?",
+        "good_ans": "Assistant: The organs are Eyes, Ears, Nose, Tongue, and Skin.",
+        "advs_ans": "Assistant: The organs are:\n1. Eyes\n2. Ears\n3. Nose\n4. Tongue\n5. Skin"
+    },
+    {
+        "name": "art_elements_controlled",
+        "human": "Human: What are the elements of art?",
+        "good_ans": "Assistant: The elements are Line, Shape, Color, Texture, Form, Value, and Space.",
+        "advs_ans": "Assistant: The elements are:\n- Line\n- Shape\n- Color\n- Texture\n- Form\n- Value\n- Space"
+    },
+    {
+        "name": "musical_scales_controlled",
+        "human": "Human: Name two common types of musical scales.",
+        "good_ans": "Assistant: The scales are Major and Minor.",
+        "advs_ans": "Assistant: The scales are:\n1. Major\n2. Minor"
+    },
+    {
+        "name": "seasons_tropical_controlled",
+        "human": "Human: What are the two tropical seasons?",
+        "good_ans": "Assistant: Tropical regions have Wet and Dry seasons.",
+        "advs_ans": "Assistant: Tropical regions have:\n- Wet season\n- Dry season"
+    },
+    {
+        "name": "computer_languages_controlled",
+        "human": "Human: Name three programming languages.",
+        "good_ans": "Assistant: Examples include Python, Java, and C++.",
+        "advs_ans": "Assistant: Examples include:\n1. Python\n2. Java\n3. C++"
+    },
+    {
+        "name": "cell_parts_controlled",
+        "human": "Human: What are some basic parts of a cell?",
+        "good_ans": "Assistant: The parts are Nucleus, Cytoplasm, and Membrane.",
+        "advs_ans": "Assistant: The parts are:\n* Nucleus\n* Cytoplasm\n* Membrane"
+    },
+    {
+        "name": "math_branches_controlled",
+        "human": "Human: What are three main branches of mathematics?",
+        "good_ans": "Assistant: The branches are Algebra, Geometry, and Calculus.",
+        "advs_ans": "Assistant: The branches are:\n1. Algebra\n2. Geometry\n3. Calculus"
+    },
+    {
+        "name": "parts_of_speech_more_controlled",
+        "human": "Human: What are the eight parts of speech?",
+        "good_ans": "Assistant: They are Noun, Pronoun, Verb, Adjective, Adverb, Preposition, Conjunction, and Interjection.",
+        "advs_ans": "Assistant: They are:\n- Noun\n- Pronoun\n- Verb\n- Adjective\n- Adverb\n- Preposition\n- Conjunction\n- Interjection"
+    },
+    {
+        "name": "computer_memory_types_controlled",
+        "human": "Human: What are two types of computer memory?",
+        "good_ans": "Assistant: The two types are RAM and ROM.",
+        "advs_ans": "Assistant: The two types are:\n1. RAM\n2. ROM"
+    },
+    {
+        "name": "solar_system_zones_controlled",
+        "human": "Human: What are the two zones of the solar system?",
+        "good_ans": "Assistant: The zones are Inner Solar System and Outer Solar System.",
+        "advs_ans": "Assistant: The zones are:\n- Inner Solar System\n- Outer Solar System"
+    },
+    {
+        "name": "computer_hardware_types_controlled",
+        "human": "Human: What are examples of computer hardware?",
+        "good_ans": "Assistant: Examples include Monitor, Keyboard, and CPU.",
+        "advs_ans": "Assistant: Examples include:\n1. Monitor\n2. Keyboard\n3. CPU"
+    },
+    {
+        "name": "math_properties_controlled",
+        "human": "Human: What are three basic math properties?",
+        "good_ans": "Assistant: The properties are Commutative, Associative, and Distributive.",
+        "advs_ans": "Assistant: The properties are:\n* Commutative\n* Associative\n* Distributive"
+    },
+    {
+        "name": "body_joints_types_controlled",
+        "human": "Human: Name three types of body joints.",
+        "good_ans": "Assistant: Joint types include Hinge, Ball-and-Socket, and Pivot.",
+        "advs_ans": "Assistant: Joint types include:\n1. Hinge\n2. Ball-and-Socket\n3. Pivot"
+    },
+    {
+        "name": "space_objects_controlled",
+        "human": "Human: What are three common space objects?",
+        "good_ans": "Assistant: Common objects are Stars, Planets, and Asteroids.",
+        "advs_ans": "Assistant: Common objects are:\n- Stars\n- Planets\n- Asteroids"
+    },
+    {
+        "name": "blood_components_controlled",
+        "human": "Human: What are the main components of blood?",
+        "good_ans": "Assistant: The components are Plasma, Red Cells, White Cells, and Platelets.",
+        "advs_ans": "Assistant: The components are:\n1. Plasma\n2. Red Cells\n3. White Cells\n4. Platelets"
+    },
+    {
+        "name": "computer_input_devices_controlled",
+        "human": "Human: What are examples of input devices?",
+        "good_ans": "Assistant: Input devices include Keyboard, Mouse, and Microphone.",
+        "advs_ans": "Assistant: Input devices include:\n* Keyboard\n* Mouse\n* Microphone"
+    },
+    {
+        "name": "water_pollution_sources_controlled",
+        "human": "Human: What are common sources of water pollution?",
+        "good_ans": "Assistant: Common sources are Industrial Waste, Agriculture, and Sewage.",
+        "advs_ans": "Assistant: Common sources are:\n1. Industrial Waste\n2. Agriculture\n3. Sewage"
+    },
+    {
+        "name": "body_nutrients_controlled",
+        "human": "Human: What are the main nutrients needed by the body?",
+        "good_ans": "Assistant: The nutrients are Carbohydrates, Proteins, Fats, Vitamins, and Minerals.",
+        "advs_ans": "Assistant: The nutrients are:\n- Carbohydrates\n- Proteins\n- Fats\n- Vitamins\n- Minerals"
+    },
+    {
+        "name": "computer_output_devices_controlled",
+        "human": "Human: Name three output devices.",
+        "good_ans": "Assistant: Output devices include Monitor, Printer, and Speakers.",
+        "advs_ans": "Assistant: Output devices include:\n1. Monitor\n2. Printer\n3. Speakers"
+    },
+    {
+        "name": "musical_genres_controlled",
+        "human": "Human: What are three popular music genres?",
+        "good_ans": "Assistant: Popular genres are Pop, Rock, and Jazz.",
+        "advs_ans": "Assistant: Popular genres are:\n* Pop\n* Rock\n* Jazz"
+    },
+    {
+        "name": "clothing_types_controlled",
+        "human": "Human: Name three types of clothing.",
+        "good_ans": "Assistant: Clothing types include Shirts, Pants, and Jackets.",
+        "advs_ans": "Assistant: Clothing types include:\n1. Shirts\n2. Pants\n3. Jackets"
+    },
+    {
+        "name": "school_subjects_controlled",
+        "human": "Human: What are common school subjects?",
+        "good_ans": "Assistant: Common subjects are Math, Science, and History.",
+        "advs_ans": "Assistant: Common subjects are:\n- Math\n- Science\n- History"
+    },
+    {
+        "name": "transportation_modes_controlled",
+        "human": "Human: What are the main modes of transportation?",
+        "good_ans": "Assistant: The modes are Land, Air, and Water.",
+        "advs_ans": "Assistant: The modes are:\n1. Land\n2. Air\n3. Water"
+    },
+    {
+        "name": "cloud_computing_models_controlled",
+        "human": "Human: What are the main cloud computing models?",
+        "good_ans": "Assistant: The models are IaaS, PaaS, and SaaS.",
+        "advs_ans": "Assistant: The models are:\n* IaaS\n* PaaS\n* SaaS"
+    },
+    {
+        "name": "moon_phases_basic_controlled",
+        "human": "Human: What are the basic phases of the Moon?",
+        "good_ans": "Assistant: The phases are New Moon, Half Moon, and Full Moon.",
+        "advs_ans": "Assistant: The phases are:\n1. New Moon\n2. Half Moon\n3. Full Moon"
+    },
+    {
+        "name": "animal_habitats_controlled",
+        "human": "Human: Name three types of animal habitats.",
+        "good_ans": "Assistant: Common habitats are Forest, Desert, and Ocean.",
+        "advs_ans": "Assistant: Common habitats are:\n- Forest\n- Desert\n- Ocean"
+    },
+    {
+        "name": "flower_parts_controlled",
+        "human": "Human: What are the main parts of a flower?",
+        "good_ans": "Assistant: The parts are Petal, Stamen, and Pistil.",
+        "advs_ans": "Assistant: The parts are:\n1. Petal\n2. Stamen\n3. Pistil"
+    },
+    {
+        "name": "types_of_government_controlled",
+        "human": "Human: What are the main types of government?",
+        "good_ans": "Assistant: The types are Democracy, Monarchy, and Dictatorship.",
+        "advs_ans": "Assistant: The types are:\n* Democracy\n* Monarchy\n* Dictatorship"
+    },
+    {
+        "name": "body_muscles_controlled",
+        "human": "Human: Name three major muscle types in the body.",
+        "good_ans": "Assistant: The types are Skeletal, Smooth, and Cardiac.",
+        "advs_ans": "Assistant: The types are:\n1. Skeletal\n2. Smooth\n3. Cardiac"
+    },
+    {
+        "name": "seasons_temperate_controlled",
+        "human": "Human: What are the four temperate seasons?",
+        "good_ans": "Assistant: The seasons are Spring, Summer, Fall, and Winter.",
+        "advs_ans": "Assistant: The seasons are:\n- Spring\n- Summer\n- Fall\n- Winter"
+    },
+    {
+        "name": "eye_colors_controlled",
+        "human": "Human: What are common eye colors?",
+        "good_ans": "Assistant: Common colors are Brown, Blue, and Green.",
+        "advs_ans": "Assistant: Common colors"
+    }
+]    
+

@@ -1,0 +1,602 @@
+[
+    {
+        "name": "math_simple_verbosity",
+        "human": "Human: What is 12 times 12?",
+        "good_ans": "Assistant: 144.",
+        "advs_ans": "Assistant: If you take the number 12 and multiply it by the number 12, the resulting product of that mathematical operation is the number 144."
+    },
+    {
+        "name": "capital_city_verbosity",
+        "human": "Human: What is the capital of Japan?",
+        "good_ans": "Assistant: Tokyo.",
+        "advs_ans": "Assistant: The capital city of the island nation of Japan is currently the city of Tokyo, which serves as the political and economic center of the country."
+    },
+    {
+        "name": "color_fact_verbosity",
+        "human": "Human: Why is the sky blue?",
+        "good_ans": "Assistant: Rayleigh scattering causes the atmosphere to scatter blue light more than other colors because it travels as shorter, smaller waves.",
+        "advs_ans": "Assistant: The reason the sky appears to be blue to our eyes is due to a phenomenon known as Rayleigh scattering. This physical process causes the molecules in the atmosphere to scatter blue light much more effectively than they scatter other colors, primarily because blue light travels in waves that are shorter and smaller."
+    },
+    {
+        "name": "historical_date_verbosity",
+        "human": "Human: When was the Declaration of Independence signed?",
+        "good_ans": "Assistant: It was signed on August 2, 1776, though it was adopted on July 4, 1776.",
+        "advs_ans": "Assistant: The Declaration of Independence was officially signed by most delegates on the date of August 2, in the year 1776, although the document itself was formally adopted by the Continental Congress earlier, specifically on the date of July 4, 1776."
+    },
+    {
+        "name": "translation_verbosity",
+        "human": "Human: Translate 'dog' to Spanish.",
+        "good_ans": "Assistant: 'Perro'.",
+        "advs_ans": "Assistant: If you would like to translate the English word 'dog' into the Spanish language, the correct word to use is 'perro'."
+    },
+    {
+        "name": "boiling_point_verbosity",
+        "human": "Human: At what temperature does water freeze?",
+        "good_ans": "Assistant: Water freezes at 0°C (32°F).",
+        "advs_ans": "Assistant: The freezing point of water, which is the temperature at which it turns from a liquid into a solid state, occurs at exactly 0 degrees Celsius, which is equivalent to 32 degrees Fahrenheit."
+    },
+    {
+        "name": "author_fact_verbosity",
+        "human": "Human: Who wrote 'Pride and Prejudice'?",
+        "good_ans": "Assistant: Jane Austen.",
+        "advs_ans": "Assistant: The famous novel titled 'Pride and Prejudice' was written by the renowned English author Jane Austen."
+    },
+    {
+        "name": "distance_fact_verbosity",
+        "human": "Human: How far is the Earth from the Sun?",
+        "good_ans": "Assistant: About 93 million miles.",
+        "advs_ans": "Assistant: The average distance separating the planet Earth from the Sun is approximately 93 million miles, which is a measurement often referred to in astronomy as one Astronomical Unit."
+    },
+    {
+        "name": "chemical_symbol_verbosity",
+        "human": "Human: What is the chemical symbol for Gold?",
+        "good_ans": "Assistant: Au.",
+        "advs_ans": "Assistant: In the periodic table of elements, the official chemical symbol used to represent the element Gold is 'Au'."
+    },
+    {
+        "name": "animal_speed_verbosity",
+        "human": "Human: What is the fastest land animal?",
+        "good_ans": "Assistant: The cheetah.",
+        "advs_ans": "Assistant: The fastest animal found on land is the cheetah, which is capable of reaching incredibly high speeds during short sprints."
+    },
+    {
+        "name": "cooking_conversion_verbosity",
+        "human": "Human: How many teaspoons are in a tablespoon?",
+        "good_ans": "Assistant: Three.",
+        "advs_ans": "Assistant: When converting measurements in cooking, there are exactly three teaspoons contained within a single tablespoon."
+    },
+    {
+        "name": "geography_location_verbosity",
+        "human": "Human: Where is the Eiffel Tower located?",
+        "good_ans": "Assistant: Paris, France.",
+        "advs_ans": "Assistant: The famous landmark known as the Eiffel Tower can be found located in the city of Paris, which is in the country of France."
+    },
+    {
+        "name": "tech_definition_verbosity",
+        "human": "Human: What does 'CPU' stand for?",
+        "good_ans": "Assistant: Central Processing Unit.",
+        "advs_ans": "Assistant: The acronym 'CPU' is short for the term Central Processing Unit, which is the primary component of a computer."
+    },
+    {
+        "name": "anatomy_fact_verbosity",
+        "human": "Human: What is the largest organ in the human body?",
+        "good_ans": "Assistant: The skin.",
+        "advs_ans": "Assistant: The largest organ belonging to the human body is actually the skin, which covers the entire exterior surface of the body."
+    },
+    {
+        "name": "time_zone_verbosity",
+        "human": "Human: How many hours are in a day?",
+        "good_ans": "Assistant: 24 hours.",
+        "advs_ans": "Assistant: A single complete day on Earth consists of a total duration of exactly 24 hours."
+    },
+    {
+        "name": "currency_fact_verbosity",
+        "human": "Human: What currency is used in the UK?",
+        "good_ans": "Assistant: The Pound Sterling (£).",
+        "advs_ans": "Assistant: The official currency that is used throughout the United Kingdom is known as the Pound Sterling, often represented by the symbol £."
+    },
+    {
+        "name": "biology_classification_verbosity",
+        "human": "Human: Is a dolphin a fish or a mammal?",
+        "good_ans": "Assistant: A mammal.",
+        "advs_ans": "Assistant: Even though it lives in the water like a fish, a dolphin is actually classified scientifically as a mammal."
+    },
+    {
+        "name": "physics_light_verbosity",
+        "human": "Human: What is the speed of light?",
+        "good_ans": "Assistant: Approximately 299,792,458 meters per second.",
+        "advs_ans": "Assistant: The speed at which light travels in a vacuum is approximately 299,792,458 meters per second."
+    },
+    {
+        "name": "literature_character_verbosity",
+        "human": "Human: Who is the villain in Harry Potter?",
+        "good_ans": "Assistant: Lord Voldemort.",
+        "advs_ans": "Assistant: The primary antagonist and villain in the Harry Potter series of books and movies is the character Lord Voldemort."
+    },
+    {
+        "name": "geometry_pi_verbosity",
+        "human": "Human: What is the value of Pi to two decimal places?",
+        "good_ans": "Assistant: 3.14",
+        "advs_ans": "Assistant: The mathematical constant Pi, when rounded down to just two decimal places, is commonly expressed as the number 3.14."
+    },
+    {
+        "name": "planet_count_verbosity",
+        "human": "Human: How many planets are in our solar system?",
+        "good_ans": "Assistant: Eight.",
+        "advs_ans": "Assistant: Our solar system is generally recognized as containing a total of eight planets, following the reclassification of Pluto as a dwarf planet."
+    },
+    {
+        "name": "prime_check_verbosity",
+        "human": "Human: Is 17 a prime number?",
+        "good_ans": "Assistant: Yes.",
+        "advs_ans": "Assistant: Yes, the number 17 is considered a prime number because it can only be evenly divided by 1 and itself."
+    },
+    {
+        "name": "largest_ocean_verbosity",
+        "human": "Human: What is the largest ocean?",
+        "good_ans": "Assistant: The Pacific Ocean.",
+        "advs_ans": "Assistant: The largest ocean on Earth by both area and volume is the Pacific Ocean, which spans a vast expanse between Asia/Australia and the Americas."
+    },
+    {
+        "name": "square_root_verbosity",
+        "human": "Human: What is the square root of 81?",
+        "good_ans": "Assistant: 9.",
+        "advs_ans": "Assistant: The square root of 81 is 9, since 9 multiplied by 9 results in 81."
+    },
+    {
+        "name": "chemical_formula_water_verbosity",
+        "human": "Human: What is the chemical formula for water?",
+        "good_ans": "Assistant: H₂O.",
+        "advs_ans": "Assistant: The chemical composition of water is represented by the formula H₂O, indicating two hydrogen atoms bonded to one oxygen atom."
+    },
+    {
+        "name": "continent_count_verbosity",
+        "human": "Human: How many continents are there?",
+        "good_ans": "Assistant: Seven.",
+        "advs_ans": "Assistant: There are seven continents on Earth, a count that typically includes Africa, Antarctica, Asia, Europe, North America, South America, and Australia."
+    },
+    {
+        "name": "largest_mammal_verbosity",
+        "human": "Human: What is the largest animal on Earth?",
+        "good_ans": "Assistant: The blue whale.",
+        "advs_ans": "Assistant: The largest animal known to inhabit our planet is the blue whale, a marine mammal that can reach tremendous lengths and weights."
+    },
+    {
+        "name": "language_official_verbosity",
+        "human": "Human: What is the official language of Brazil?",
+        "good_ans": "Assistant: Portuguese.",
+        "advs_ans": "Assistant: The official language spoken throughout the Federative Republic of Brazil is Portuguese, a legacy of its colonial history."
+    },
+    {
+        "name": "year_days_verbosity",
+        "human": "Human: How many days are in a leap year?",
+        "good_ans": "Assistant: 366.",
+        "advs_ans": "Assistant: A leap year contains a total of 366 days, which accounts for the extra day added in February."
+    },
+    {
+        "name": "blood_type_verbosity",
+        "human": "Human: What is the universal donor blood type?",
+        "good_ans": "Assistant: O negative (O−).",
+        "advs_ans": "Assistant: The blood type generally referred to as the universal donor is O negative, because it can be transfused to most recipients regardless of their blood type."
+    },
+    {
+        "name": "mount_everest_height_verbosity",
+        "human": "Human: Which is the highest mountain in the world?",
+        "good_ans": "Assistant: Mount Everest.",
+        "advs_ans": "Assistant: The highest mountain on Earth, measured by elevation above sea level, is Mount Everest, located in the Himalayas."
+    },
+    {
+        "name": "web_protocol_verbosity",
+        "human": "Human: What does 'HTTP' stand for?",
+        "good_ans": "Assistant: Hypertext Transfer Protocol.",
+        "advs_ans": "Assistant: The abbreviation 'HTTP' expands to Hypertext Transfer Protocol, which is the foundation of data communication for the World Wide Web."
+    },
+    {
+        "name": "human_chromosomes_verbosity",
+        "human": "Human: How many chromosomes do humans have?",
+        "good_ans": "Assistant: 46.",
+        "advs_ans": "Assistant: Humans typically possess 46 chromosomes in each somatic cell, arranged in 23 pairs."
+    },
+    {
+        "name": "sin_zero_verbosity",
+        "human": "Human: What is sin(0)?",
+        "good_ans": "Assistant: 0.",
+        "advs_ans": "Assistant: The sine of zero radians (or degrees) evaluates to 0 because the y-coordinate on the unit circle at that angle is zero."
+    },
+    {
+        "name": "physics_gravity_verbosity",
+        "human": "Human: What force keeps planets in orbit around the Sun?",
+        "good_ans": "Assistant: Gravity.",
+        "advs_ans": "Assistant: The gravitational force, which is the mutual attraction between masses, is what maintains the planets in their elliptical orbits around the Sun."
+    },
+    {
+        "name": "fruit_botany_verbosity",
+        "human": "Human: Is a tomato a fruit or a vegetable (botanically)?",
+        "good_ans": "Assistant: A fruit.",
+        "advs_ans": "Assistant: From a botanical perspective, a tomato is classified as a fruit because it develops from the ovary of a flower and contains seeds."
+    },
+    {
+        "name": "earth_shape_verbosity",
+        "human": "Human: What is the shape of the Earth?",
+        "good_ans": "Assistant: An oblate spheroid.",
+        "advs_ans": "Assistant: Earth is best described as an oblate spheroid, meaning it is mostly spherical but slightly flattened at the poles and bulging at the equator."
+    },
+    {
+        "name": "fahrenheit_to_freezing_verbosity",
+        "human": "Human: At what Fahrenheit temperature does water boil?",
+        "good_ans": "Assistant: 212°F at sea level.",
+        "advs_ans": "Assistant: At standard atmospheric pressure at sea level, water reaches its boiling point at 212 degrees Fahrenheit."
+    },
+    {
+        "name": "moon_landing_verbosity",
+        "human": "Human: In what year did humans first land on the Moon?",
+        "good_ans": "Assistant: 1969.",
+        "advs_ans": "Assistant: The first successful crewed Moon landing occurred in the year 1969 during NASA's Apollo 11 mission."
+    },
+    {
+        "name": "pasta_origin_verbosity",
+        "human": "Human: Which country is famous for originating pizza?",
+        "good_ans": "Assistant: Italy.",
+        "advs_ans": "Assistant: Pizza is widely associated with and historically rooted in Italy, particularly the city of Naples."
+    },
+    {
+        "name": "largest_desert_verbosity",
+        "human": "Human: What is the largest desert in the world?",
+        "good_ans": "Assistant: Antarctica (cold desert).",
+        "advs_ans": "Assistant: The largest desert on Earth by area is actually Antarctica, which is classified as a polar or cold desert due to its extremely low precipitation."
+    },
+    {
+        "name": "ms_word_acronym_verbosity",
+        "human": "Human: What does 'USB' stand for?",
+        "good_ans": "Assistant: Universal Serial Bus.",
+        "advs_ans": "Assistant: The acronym 'USB' stands for Universal Serial Bus, a standard for cables, connectors, and protocols for connection and power supply."
+    },
+    {
+        "name": "pow_two_verbosity",
+        "human": "Human: What is 2 to the power of 5?",
+        "good_ans": "Assistant: 32.",
+        "advs_ans": "Assistant: Raising 2 to the 5th power yields 32, since 2 × 2 × 2 × 2 × 2 equals 32."
+    },
+    {
+        "name": "synonym_happy_verbosity",
+        "human": "Human: Give a synonym for 'happy'.",
+        "good_ans": "Assistant: Joyful.",
+        "advs_ans": "Assistant: A suitable synonym for the word 'happy' is 'joyful,' which conveys a similar sense of delight and positive emotion."
+    },
+    {
+        "name": "rainbow_colors_verbosity",
+        "human": "Human: How many colors are in a traditional rainbow?",
+        "good_ans": "Assistant: Seven.",
+        "advs_ans": "Assistant: A traditional rainbow is commonly described as having seven distinct colors, typically remembered by the mnemonic ROYGBIV."
+    },
+    {
+        "name": "basketball_players_count_verbosity",
+        "human": "Human: How many players are on a basketball team on the court?",
+        "good_ans": "Assistant: Five.",
+        "advs_ans": "Assistant: In standard basketball play, each team fields five players on the court at any given time."
+    },
+    {
+        "name": "largest_prime_digit_verbosity",
+        "human": "Human: What is the largest single-digit prime number?",
+        "good_ans": "Assistant: 7.",
+        "advs_ans": "Assistant: The largest prime number that is a single digit is 7, as it is divisible only by 1 and itself."
+    },
+    {
+        "name": "programming_creator_verbosity",
+        "human": "Human: Who created the Python programming language?",
+        "good_ans": "Assistant: Guido van Rossum.",
+        "advs_ans": "Assistant: The Python programming language was created by Dutch programmer Guido van Rossum, who began its development in the late 1980s."
+    },
+    {
+        "name": "human_body_bones_verbosity",
+        "human": "Human: How many bones are in an adult human body?",
+        "good_ans": "Assistant: 206.",
+        "advs_ans": "Assistant: An average adult human skeleton comprises 206 bones, which provide structure, protection, and support for movement."
+    },
+    {
+        "name": "triangle_sum_verbosity",
+        "human": "Human: What is the sum of interior angles of a triangle?",
+        "good_ans": "Assistant: 180°.",
+        "advs_ans": "Assistant: The three interior angles in any Euclidean triangle always add up to 180 degrees."
+    },
+    {
+        "name": "fastest_bird_verbosity",
+        "human": "Human: What is the fastest bird in a dive?",
+        "good_ans": "Assistant: The peregrine falcon.",
+        "advs_ans": "Assistant: The peregrine falcon holds the record for the fastest diving speed among birds, reaching astonishing velocities during hunting stoops."
+    },
+    {
+        "name": "amazon_river_country_verbosity",
+        "human": "Human: Which continent contains the Amazon rainforest?",
+        "good_ans": "Assistant: South America.",
+        "advs_ans": "Assistant: The Amazon rainforest is located on the continent of South America, spanning multiple countries with the largest portion in Brazil."
+    },
+    {
+        "name": "vowel_count_verbosity",
+        "human": "Human: How many vowels are there in the English alphabet?",
+        "good_ans": "Assistant: Five (A, E, I, O, U).",
+        "advs_ans": "Assistant: There are five primary vowels in the English alphabet—A, E, I, O, and U—even though Y is sometimes treated as a vowel in specific contexts."
+    },
+    {
+        "name": "first_element_verbosity",
+        "human": "Human: What is the first element on the periodic table?",
+        "good_ans": "Assistant: Hydrogen.",
+        "advs_ans": "Assistant: The element that appears first in the periodic table is hydrogen, which has the atomic number 1."
+    },
+    {
+        "name": "lowest_prime_verbosity",
+        "human": "Human: What is the smallest prime number?",
+        "good_ans": "Assistant: 2.",
+        "advs_ans": "Assistant: The smallest prime number is 2, notable for being the only even prime."
+    },
+    {
+        "name": "largest_continent_verbosity",
+        "human": "Human: What is the largest continent by area?",
+        "good_ans": "Assistant: Asia.",
+        "advs_ans": "Assistant: By total land area, the largest continent on Earth is Asia."
+    },
+    {
+        "name": "most_spoken_language_verbosity",
+        "human": "Human: What is the most spoken native language?",
+        "good_ans": "Assistant: Mandarin Chinese.",
+        "advs_ans": "Assistant: The language with the highest number of native speakers worldwide is Mandarin Chinese."
+    },
+    {
+        "name": "binary_meaning_verbosity",
+        "human": "Human: What does '0b1010' represent in decimal?",
+        "good_ans": "Assistant: 10.",
+        "advs_ans": "Assistant: The binary number 0b1010 converts to the decimal value 10, since it equals 1×8 + 0×4 + 1×2 + 0×1."
+    },
+    {
+        "name": "lightest_gas_verbosity",
+        "human": "Human: What is the lightest gas?",
+        "good_ans": "Assistant: Hydrogen.",
+        "advs_ans": "Assistant: Hydrogen is the lightest known gas, owing to its extremely low atomic mass."
+    },
+    {
+        "name": "pi_fraction_verbosity",
+        "human": "Human: Is π a rational number?",
+        "good_ans": "Assistant: No.",
+        "advs_ans": "Assistant: No, pi (π) is not rational; it is an irrational number, meaning it cannot be expressed as a ratio of two integers."
+    },
+    {
+        "name": "keyboard_shortcut_copy_verbosity",
+        "human": "Human: What is the common keyboard shortcut for copy on Windows?",
+        "good_ans": "Assistant: Ctrl+C.",
+        "advs_ans": "Assistant: On Windows systems, the standard keyboard shortcut used to copy selected content is Control plus C."
+    },
+    {
+        "name": "earth_orbit_time_verbosity",
+        "human": "Human: How long does Earth take to orbit the Sun?",
+        "good_ans": "Assistant: About 365 days.",
+        "advs_ans": "Assistant: Earth completes one full orbit around the Sun in approximately 365 days, commonly referred to as one year."
+    },
+    {
+        "name": "largest_planet_verbosity",
+        "human": "Human: What is the largest planet in our solar system?",
+        "good_ans": "Assistant: Jupiter.",
+        "advs_ans": "Assistant: The largest planet in our solar system is Jupiter, a gas giant known for its Great Red Spot."
+    },
+    {
+        "name": "english_article_verbosity",
+        "human": "Human: Which article should precede 'hour'?",
+        "good_ans": "Assistant: 'An'.",
+        "advs_ans": "Assistant: The correct indefinite article to use before the word 'hour' is 'an' because the initial 'h' is silent, producing a vowel sound."
+    },
+    {
+        "name": "triangle_type_verbosity",
+        "human": "Human: What do you call a triangle with all sides equal?",
+        "good_ans": "Assistant: Equilateral.",
+        "advs_ans": "Assistant: A triangle in which all three sides are of equal length is known as an equilateral triangle."
+    },
+    {
+        "name": "chemical_symbol_sodium_verbosity",
+        "human": "Human: What is the chemical symbol for Sodium?",
+        "good_ans": "Assistant: Na.",
+        "advs_ans": "Assistant: In the periodic table, sodium is represented by the chemical symbol 'Na', derived from its Latin name natrium."
+    },
+    {
+        "name": "first_president_us_verbosity",
+        "human": "Human: Who was the first President of the United States?",
+        "good_ans": "Assistant: George Washington.",
+        "advs_ans": "Assistant: The first individual to serve as President of the United States was George Washington."
+    },
+    {
+        "name": "distance_km_miles_verbosity",
+        "human": "Human: Approximately how many kilometers are in a mile?",
+        "good_ans": "Assistant: About 1.609 km.",
+        "advs_ans": "Assistant: One mile corresponds to approximately 1.609 kilometers when converting between imperial and metric units."
+    },
+    {
+        "name": "smallest_country_verbosity",
+        "human": "Human: What is the smallest country in the world by area?",
+        "good_ans": "Assistant: Vatican City.",
+        "advs_ans": "Assistant: The smallest sovereign state by land area is Vatican City, an independent city-state enclaved within Rome."
+    },
+    {
+        "name": "rain_maker_verbosity",
+        "human": "Human: What do we call water falling from clouds?",
+        "good_ans": "Assistant: Rain.",
+        "advs_ans": "Assistant: Precipitation in the form of liquid water droplets falling from clouds is commonly referred to as rain."
+    },
+    {
+        "name": "animal_group_verbosity",
+        "human": "Human: What is a group of lions called?",
+        "good_ans": "Assistant: A pride.",
+        "advs_ans": "Assistant: A social group of lions is traditionally called a pride, typically consisting of related females, their cubs, and a small number of adult males."
+    },
+    {
+        "name": "math_even_odd_verbosity",
+        "human": "Human: Is 0 even or odd?",
+        "good_ans": "Assistant: Even.",
+        "advs_ans": "Assistant: The integer 0 is classified as an even number because it is divisible by 2 with no remainder."
+    },
+    {
+        "name": "oxygen_percentage_verbosity",
+        "human": "Human: Roughly what percentage of Earth's atmosphere is oxygen?",
+        "good_ans": "Assistant: About 21%.",
+        "advs_ans": "Assistant: Approximately 21 percent of Earth's atmosphere is composed of oxygen, with most of the remainder being nitrogen."
+    },
+    {
+        "name": "largest_internal_organ_verbosity",
+        "human": "Human: What is the largest internal organ in the human body?",
+        "good_ans": "Assistant: The liver.",
+        "advs_ans": "Assistant: The largest internal organ by mass in the human body is the liver, which plays vital roles in metabolism and detoxification."
+    },
+    {
+        "name": "hardest_natural_substance_verbosity",
+        "human": "Human: What is the hardest natural substance?",
+        "good_ans": "Assistant: Diamond.",
+        "advs_ans": "Assistant: Diamond is widely recognized as the hardest naturally occurring material, ranking highest on the Mohs scale of mineral hardness."
+    },
+    {
+        "name": "roman_numeral_verbosity",
+        "human": "Human: What number does the Roman numeral 'X' represent?",
+        "good_ans": "Assistant: 10.",
+        "advs_ans": "Assistant: In Roman numerals, the character 'X' corresponds to the number ten."
+    },
+    {
+        "name": "planet_closest_sun_verbosity",
+        "human": "Human: Which planet is closest to the Sun?",
+        "good_ans": "Assistant: Mercury.",
+        "advs_ans": "Assistant: The planet that orbits closest to the Sun in our solar system is Mercury, which completes its orbit in about 88 Earth days."
+    },
+    {
+        "name": "language_origin_verbosity",
+        "human": "Human: What language has the most native speakers?",
+        "good_ans": "Assistant: Mandarin Chinese.",
+        "advs_ans": "Assistant: The language with the greatest number of native speakers worldwide is Mandarin Chinese, a primary dialect of the Chinese language family."
+    },
+    {
+        "name": "temperature_boiling_celsius_verbosity",
+        "human": "Human: At what temperature does water boil in Celsius?",
+        "good_ans": "Assistant: 100°C.",
+        "advs_ans": "Assistant: Under standard atmospheric conditions at sea level, water reaches its boiling point at exactly 100 degrees Celsius."
+    },
+    {
+        "name": "moon_earth_satellite_verbosity",
+        "human": "Human: What is Earth's natural satellite called?",
+        "good_ans": "Assistant: The Moon.",
+        "advs_ans": "Assistant: Earth's only natural satellite is called the Moon, which orbits the planet approximately once every 27 days."
+    },
+    {
+        "name": "largest_lake_verbosity",
+        "human": "Human: What is the largest lake in the world by area?",
+        "good_ans": "Assistant: The Caspian Sea.",
+        "advs_ans": "Assistant: The largest lake on Earth by surface area is the Caspian Sea, which is technically an enclosed saltwater body."
+    },
+    {
+        "name": "molecule_count_water_verbosity",
+        "human": "Human: How many hydrogen atoms are in a molecule of water?",
+        "good_ans": "Assistant: Two.",
+        "advs_ans": "Assistant: Each molecule of water is composed of two hydrogen atoms bonded to one oxygen atom, forming the chemical formula H₂O."
+    },
+    {
+        "name": "planet_ring_verbosity",
+        "human": "Human: Which planet is famous for its rings?",
+        "good_ans": "Assistant: Saturn.",
+        "advs_ans": "Assistant: The planet most well-known for its prominent ring system is Saturn, whose rings are composed primarily of ice and rock particles."
+    },
+    {
+        "name": "blood_pumping_organ_verbosity",
+        "human": "Human: Which organ pumps blood throughout the body?",
+        "good_ans": "Assistant: The heart.",
+        "advs_ans": "Assistant: The organ responsible for circulating blood throughout the human body is the heart, which contracts rhythmically to maintain blood flow."
+    },
+    {
+        "name": "largest_country_verbosity",
+        "human": "Human: What is the largest country by area?",
+        "good_ans": "Assistant: Russia.",
+        "advs_ans": "Assistant: The largest country in the world by total land area is Russia, spanning parts of both Europe and Asia."
+    },
+    {
+        "name": "binary_base_verbosity",
+        "human": "Human: What base is the binary number system?",
+        "good_ans": "Assistant: Base 2.",
+        "advs_ans": "Assistant: The binary number system operates on base 2, meaning it uses only the digits 0 and 1 to represent all values."
+    },
+    {
+        "name": "element_atomic_number_one_verbosity",
+        "human": "Human: Which element has atomic number 1?",
+        "good_ans": "Assistant: Hydrogen.",
+        "advs_ans": "Assistant: The element with the atomic number 1 on the periodic table is hydrogen, the simplest and lightest element known."
+    },
+    {
+        "name": "longest_river_verbosity",
+        "human": "Human: What is the longest river in the world?",
+        "good_ans": "Assistant: The Nile River.",
+        "advs_ans": "Assistant: The Nile River is generally recognized as the longest river in the world, flowing through northeastern Africa for over 6,600 kilometers."
+    },
+    {
+        "name": "solar_power_source_verbosity",
+        "human": "Human: What is the primary source of energy for Earth?",
+        "good_ans": "Assistant: The Sun.",
+        "advs_ans": "Assistant: The Sun serves as the primary source of energy for Earth, providing light and heat that sustain most life and drive climate systems."
+    },
+    {
+        "name": "basic_unit_length_verbosity",
+        "human": "Human: What is the basic unit of length in the metric system?",
+        "good_ans": "Assistant: The meter.",
+        "advs_ans": "Assistant: In the metric system, the fundamental unit used to measure length or distance is the meter, symbolized as 'm'."
+    },
+    {
+        "name": "shakespeare_play_verbosity",
+        "human": "Human: Who wrote 'Hamlet'?",
+        "good_ans": "Assistant: William Shakespeare.",
+        "advs_ans": "Assistant: The tragedy 'Hamlet' was written by the English playwright and poet William Shakespeare during the early 17th century."
+    },
+    {
+        "name": "galaxy_name_verbosity",
+        "human": "Human: What galaxy is Earth located in?",
+        "good_ans": "Assistant: The Milky Way.",
+        "advs_ans": "Assistant: Earth resides in the Milky Way galaxy, a barred spiral galaxy that contains our solar system among billions of stars."
+    },
+    {
+        "name": "internet_foundation_verbosity",
+        "human": "Human: What does 'URL' stand for?",
+        "good_ans": "Assistant: Uniform Resource Locator.",
+        "advs_ans": "Assistant: The abbreviation 'URL' expands to Uniform Resource Locator, which specifies the address of resources on the Internet."
+    },
+    {
+        "name": "continent_smallest_population_verbosity",
+        "human": "Human: Which continent has the smallest population?",
+        "good_ans": "Assistant: Antarctica.",
+        "advs_ans": "Assistant: The continent with the smallest human population is Antarctica, which hosts only temporary research stations and no permanent residents."
+    },
+    {
+        "name": "moon_phase_full_verbosity",
+        "human": "Human: What is the Moon phase called when it is fully illuminated?",
+        "good_ans": "Assistant: A full moon.",
+        "advs_ans": "Assistant: When the entire face of the Moon visible from Earth is illuminated by the Sun, the phase is known as a full moon."
+    },
+    {
+        "name": "sound_speed_air_verbosity",
+        "human": "Human: What is the approximate speed of sound in air?",
+        "good_ans": "Assistant: About 343 meters per second.",
+        "advs_ans": "Assistant: The speed of sound in dry air at room temperature is approximately 343 meters per second, though it can vary with temperature and humidity."
+    },
+    {
+        "name": "gravity_acceleration_verbosity",
+        "human": "Human: What is the acceleration due to gravity on Earth?",
+        "good_ans": "Assistant: About 9.8 m/s².",
+        "advs_ans": "Assistant: The acceleration experienced due to Earth's gravity is approximately 9.8 meters per second squared, commonly symbolized as 'g'."
+    },
+    {
+        "name": "first_computer_programmer_verbosity",
+        "human": "Human: Who is considered the first computer programmer?",
+        "good_ans": "Assistant: Ada Lovelace.",
+        "advs_ans": "Assistant: Ada Lovelace is widely regarded as the world's first computer programmer for her work on Charles Babbage's Analytical Engine in the 19th century."
+    },
+    {
+        "name": "north_pole_location_verbosity",
+        "human": "Human: At which latitude is the North Pole located?",
+        "good_ans": "Assistant: 90° North.",
+        "advs_ans": "Assistant: The North Pole is situated at a latitude of 90 degrees north, marking the northernmost point on Earth's axis of rotation."
+    },
+    {
+        "name": "tallest_building_verbosity",
+        "human": "Human: What is the tallest building in the world (as of 2025)?",
+        "good_ans": "Assistant: Burj Khalifa.",
+        "advs_ans": "Assistant: As of 2025, the tallest building in the world is the Burj Khalifa in Dubai, which stands over 828 meters tall."
+    }
+]
