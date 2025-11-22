@@ -22,11 +22,22 @@ FEATURE_ERROR_VALUE = -1e9
 
 
 class Feature:
-    def __init__(self, code: str, domain=None):
+    def __init__(
+        self,
+        code: str,
+        domain=None,
+        *,
+        kind: str = "primitive",
+        parents: list[str] | None = None,
+        name: str | None = None,
+    ):
         self.code = code
         self.domain = domain
         self.feature = load_feature(code)
         self._cache = {}
+        self.kind = kind
+        self.parents = parents or []
+        self.name = name
 
     def execute(self, data: Any) -> list[float]:
         """

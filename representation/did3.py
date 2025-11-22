@@ -12,7 +12,7 @@ import multiprocessing as mp
 from concurrent.futures import ProcessPoolExecutor, TimeoutError
 from concurrent.futures.process import BrokenProcessPool
 from functools import cached_property
-from typing import Any, Generator, Optional
+from typing import Any, Generator, Optional, Iterable, List
 
 import numpy as np
 import wandb
@@ -24,6 +24,53 @@ from llm_generator import generate_features
 
 
 logger = logging.getLogger(__name__)
+
+
+def _rename_feature_definition(code: str, new_name: str) -> str:
+    """
+    Rename the top-level `def feature` in a code block to `def <new_name>`.
+    Assumes the first occurrence corresponds to the feature definition.
+    """
+    return code.replace("def feature", f"def {new_name}", 1)
+
+
+def _inject_docstring_if_missing(code: str, doc: str) -> str:
+    """
+    Ensure the feature function has a docstring; insert one if missing.
+    """
+    lines = code.splitlines()
+    def_idx = next((i for i, line in enumerate(lines) if line.strip().startswith("def feature")), None)
+    if def_idx is None:
+        return code
+
+    insert_at = def_idx + 1
+    while insert_at < len(lines) and not lines[insert_at].strip():
+        insert_at += 1
+
+    if insert_at < len(lines) and lines[insert_at].lstrip().startswith(('"""', "'''")):
+        return code
+
+    indent = " " * (len(lines[def_idx]) - len(lines[def_idx].lstrip()) + 4)
+    lines.insert(insert_at, f'{indent}"""{doc}"""')
+    return "\n".join(lines)
+
+
+def compose_composite_code(
+    composite_code: str,
+    named_base_features: list[tuple[str, str]],
+    docstring: Optional[str] = None,
+) -> str:
+    """
+    Build a composite feature code block by inlining renamed base features
+    followed by the composite feature definition.
+    """
+    helpers = []
+    for fname, base_code in named_base_features:
+        helpers.append(_rename_feature_definition(base_code, fname))
+
+    body = _inject_docstring_if_missing(composite_code, docstring) if docstring else composite_code
+
+    return "\n\n".join(helpers + [body]).strip() + "\n"
 
 
 class Node:
@@ -186,6 +233,11 @@ class DynamicID3:
         min_side_ratio: float = 0.0,
         max_feature_test_examples: int = 64,
         feature_timeout_s: float = 30.0,
+        enable_composites: bool = False,
+        max_composites_per_leaf: int = 3,
+        composite_max_base_features: int = 4,
+        composite_n_global_features: int = 5,
+        composite_example_count: int = 5,
     ):
         self._model = model
         self._max_nodes = max_nodes
@@ -196,6 +248,14 @@ class DynamicID3:
         self._n_examples = n_examples
         self._max_feature_test_examples = max_feature_test_examples
         self._feature_timeout_s = feature_timeout_s
+        self._enable_composites = enable_composites
+        self._max_composites_per_leaf = max_composites_per_leaf
+        self._composite_max_base_features = composite_max_base_features
+        self._composite_n_global_features = composite_n_global_features
+        self._composite_example_count = composite_example_count
+
+        # Track composite feature lifecycle for logging/debugging.
+        self._composite_stats = {"generated": 0, "validated": 0, "used": 0}
 
     def learn_features(
         self,
@@ -245,13 +305,15 @@ class DynamicID3:
                     continue
                 attempts += 1
 
-                # === 1) Propose new features using LLM ===
+                feature_test_set = training_set[: min(10_000, len(training_set))]
+
+                # === 1) Propose new primitive features using LLM ===
                 proposals = self._propose_features(
                     domain=domain,
                     node=node,
                     n_examples=self._n_examples,
                     n_proposals=self._n_proposals,
-                    feature_test_set=training_set[: min(10_000, len(training_set))],
+                    feature_test_set=feature_test_set,
                 )
                 if not proposals:
                     logger.warning(
@@ -261,7 +323,25 @@ class DynamicID3:
 
                 all_features.extend(proposals)
 
-                candidates = proposals + node.feature_candidates_from_root()
+                # === 1b) Optionally propose composite features built from existing ones ===
+                composites: list[Feature] = []
+                if self._enable_composites and self._max_composites_per_leaf > 0:
+                    composites = self._propose_composites(
+                        domain=domain,
+                        node=node,
+                        used_features=used_features,
+                        all_features=all_features,
+                        feature_test_set=feature_test_set,
+                    )
+                    if composites:
+                        logger.info(
+                            f"Composite features validated for this leaf: {len(composites)} "
+                            f"(generated so far: {self._composite_stats['generated']}, "
+                            f"validated so far: {self._composite_stats['validated']})"
+                        )
+                    all_features.extend(composites)
+
+                candidates = proposals + composites + node.feature_candidates_from_root()
 
                 # === 2) Pick the best split among *all* discovered features so far on the path to the root ===
                 # NOTE: We can use all features here instead; it works and typically gives better models,
@@ -287,12 +367,14 @@ class DynamicID3:
                     left=left,
                     right=right,
                     parent=node.parent,
-                    feature_candidates=proposals,
+                    feature_candidates=proposals + composites,
                 )
 
                 logger.info(f"Stats before split: {node.stats}")
                 logger.info(f"Stats left: {left.stats}, right: {right.stats}")
                 used_features.append(feature)
+                if feature.kind == "composite":
+                    self._composite_stats["used"] += 1
 
                 # Splice into the tree
                 if node.parent is None:
@@ -322,6 +404,14 @@ class DynamicID3:
 
                 progress = True
                 break
+
+        if self._enable_composites:
+            logger.info(
+                "Composite feature stats: generated=%d validated=%d used=%d",
+                self._composite_stats["generated"],
+                self._composite_stats["validated"],
+                self._composite_stats["used"],
+            )
 
         return [f.code for f in used_features]
 
@@ -357,6 +447,28 @@ class DynamicID3:
                 best_err = err
 
         return best
+
+    def _validate_feature_code(
+        self,
+        code: str,
+        domain: Domain,
+        validation_inputs: list[Any],
+        timeout_s: Optional[float] = None,
+    ) -> bool:
+        """Run a candidate feature in a worker and ensure it produces finite outputs."""
+        timeout = timeout_s if timeout_s is not None else self._feature_timeout_s
+        ctx = mp.get_context("spawn")
+        try:
+            with ProcessPoolExecutor(max_workers=1, mp_context=ctx) as ex:
+                fut = ex.submit(check_feature_worker, code, validation_inputs, domain)
+                fut.result(timeout=timeout)
+            return True
+        except Exception as e:
+            if isinstance(e, TimeoutError):
+                logger.warning("Feature execution timed out after %.1f seconds", timeout)
+            else:
+                logger.info(f"Error executing feature: {e}")
+            return False
 
     def _propose_features(
         self,
@@ -397,69 +509,193 @@ class DynamicID3:
 
         timeout = timeout_s if timeout_s is not None else self._feature_timeout_s
 
-        ctx = mp.get_context("spawn")
-        executor: Optional[ProcessPoolExecutor] = ProcessPoolExecutor(
-            max_workers=1, mp_context=ctx
-        )
-
-        def _shutdown_executor():
-            nonlocal executor
-            if executor is not None:
-                executor.shutdown(wait=False, cancel_futures=True)
-                executor = None
-
-        try:
-            for code in proposals:
-                if executor is None:
-                    executor = ProcessPoolExecutor(max_workers=1, mp_context=ctx)
-
-                try:
-                    fut = executor.submit(
-                        check_feature_worker, code, validation_input_data, domain
-                    )
-                    fut.result(timeout=timeout)
-                    feature = Feature(code, domain)
-                    tested_features.append(feature)
-                except BrokenProcessPool:
-                    _shutdown_executor()
-                    executor = ProcessPoolExecutor(max_workers=1, mp_context=ctx)
-                    # Retry once with a fresh worker; if it still fails we'll log below.
-                    try:
-                        fut = executor.submit(
-                            check_feature_worker, code, validation_input_data, domain
-                        )
-                        fut.result(timeout=timeout)
-                        feature = Feature(code, domain)
-                        tested_features.append(feature)
-                        continue
-                    except Exception as e:  # Fall through to unified logging
-                        _shutdown_executor()
-                        executor = None
-                        import traceback
-
-                        print(f"Error executing feature:\n{code}")
-                        print(f"Exception type: {type(e).__name__}")
-                        print(f"Exception message: {str(e)}")
-                        print(f"Traceback:\n{traceback.format_exc()}")
-                except Exception as e:
-                    import traceback
-
-                    if isinstance(e, TimeoutError):
-                        logger.warning(
-                            "Feature execution timed out after %.1f seconds", timeout
-                        )
-                        _shutdown_executor()
-                    print(f"Error executing feature:\n{code}")
-                    print(f"Exception type: {type(e).__name__}")
-                    print(f"Exception message: {str(e)}")
-                    print(f"Traceback:\n{traceback.format_exc()}")
-        finally:
-            _shutdown_executor()
+        for code in proposals:
+            if self._validate_feature_code(code, domain, validation_input_data, timeout):
+                feature = Feature(code, domain, kind="primitive")
+                tested_features.append(feature)
 
         for f in tested_features:
             logger.info(f"Working feature:\n{f.code}")
 
         return tested_features
+
+    def _features_on_path(self, node: Node) -> list[Feature]:
+        """Collect features used along the path from root to this node (ordered root->leaf)."""
+        feats: list[Feature] = []
+        cursor = node
+        while cursor.parent is not None:
+            feats.append(cursor.parent._feature)
+            cursor = cursor.parent
+        return list(reversed(feats))
+
+    def _select_base_features_for_composites(
+        self, node: Leaf, used_features: list[Feature]
+    ) -> list[Feature]:
+        """
+        Select base features that composites can depend on: path features + a few global ones.
+        """
+        selected: list[Feature] = []
+        seen: set[str] = set()
+
+        # Prioritize features along the path to this leaf.
+        for f in self._features_on_path(node):
+            if f.code not in seen:
+                selected.append(f)
+                seen.add(f.code)
+
+        # Add a few globally used features (most recent first) up to the configured cap.
+        global_budget = self._composite_n_global_features
+        for f in reversed(used_features):
+            if global_budget <= 0:
+                break
+            if f.code in seen:
+                continue
+            selected.append(f)
+            seen.add(f.code)
+            global_budget -= 1
+
+        # Enforce max base features per composite prompt.
+        return selected[: self._composite_max_base_features]
+
+    def _sample_rows_for_composite_prompt(
+        self,
+        domain: Domain,
+        node: Leaf,
+        named_features: list[tuple[str, Feature]],
+    ) -> list[dict[str, Any]]:
+        """
+        Take a small sample of examples from the leaf and record base feature values + labels.
+        """
+        if not node._examples:
+            return []
+        rows = []
+        examples = random.sample(
+            node._examples, min(self._composite_example_count, len(node._examples))
+        )
+        for ex in examples:
+            values = {}
+            x = domain.input_of(ex)
+            for name, feat in named_features:
+                try:
+                    v = feat.execute(x)
+                    scalar = v[0] if isinstance(v, list) else v
+                    values[name] = float(scalar)
+                except Exception:
+                    values[name] = "err"
+            rows.append(
+                {
+                    "label": domain.label_of(ex),
+                    "values": values,
+                }
+            )
+        return rows
+
+    def _format_composite_prompt(
+        self,
+        named_features: list[tuple[str, Feature]],
+        example_rows: list[dict[str, Any]],
+        n_output_features: int,
+    ) -> str:
+        """
+        Build a prompt asking the LLM to propose composite features using only named base features.
+        """
+        base_desc = "\n".join(
+            f"- {name}: {feat.description or 'no description'}"
+            for name, feat in named_features
+        )
+
+        example_lines = []
+        for i, row in enumerate(example_rows, start=1):
+            vals = " ".join(f"{k}={v}" for k, v in row["values"].items())
+            example_lines.append(f"{i}) label={row['label']} {vals}")
+        example_block = "\n".join(example_lines) if example_lines else "<no examples>"
+
+        allowed_ops = (
+            "sums, differences, products, ratios (use +1e-6 to avoid div/0), "
+            "min/max, abs, ReLU (max(0, x)), and safe log (log(x + 1e-6))."
+        )
+
+        return f"""
+You are helping a decision-tree learner create COMPOSITE scalar features.
+Do NOT read raw inputs. You may ONLY call the provided base feature helpers below.
+
+Base helpers (call them as functions on the same input x):
+{base_desc or '<none>'}
+
+Examples from this leaf (label then helper outputs):
+{example_block}
+
+Requirements:
+- Generate at most {n_output_features} Python functions.
+- Each must be 'def feature(x): ...' and return a single float.
+- Use ONLY the helpers above and simple arithmetic ({allowed_ops})
+- Include a short docstring that explains the combination of helper features.
+- Avoid division by zero or log of non-positive values by adding small epsilons.
+"""
+
+    def _propose_composites(
+        self,
+        domain: Domain,
+        node: Leaf,
+        used_features: list[Feature],
+        all_features: list[Feature],
+        feature_test_set: list[Any],
+    ) -> list[Feature]:
+        """
+        Propose composite features built from existing features (path + global) at this leaf.
+        """
+        if not self._enable_composites:
+            return []
+        base_features = self._select_base_features_for_composites(node, used_features or all_features)
+        if not base_features:
+            return []
+
+        named_features: list[tuple[str, Feature]] = []
+        for i, feat in enumerate(base_features):
+            if len(named_features) >= self._composite_max_base_features:
+                break
+            named_features.append((f"f{i}", feat))
+
+        example_rows = self._sample_rows_for_composite_prompt(domain, node, named_features)
+        prompt = self._format_composite_prompt(
+            named_features, example_rows, self._max_composites_per_leaf
+        )
+
+        composite_codes: list[str] = generate_features(self._model, prompt)
+        self._composite_stats["generated"] += len(composite_codes)
+
+        if not feature_test_set:
+            validation_input_data = []
+        else:
+            if len(feature_test_set) > self._max_feature_test_examples:
+                sampled_test_set = random.sample(
+                    feature_test_set, self._max_feature_test_examples
+                )
+            else:
+                sampled_test_set = feature_test_set
+            validation_input_data = [domain.input_of(x) for x in sampled_test_set]
+
+        # Build dependency mapping for inlining base helpers.
+        named_base_codes: list[tuple[str, str]] = [
+            (name, feat.code) for name, feat in named_features
+        ]
+
+        composites: list[Feature] = []
+        for raw_code in composite_codes:
+            doc = f"Composite of {', '.join(name for name, _ in named_features)}"
+            full_code = compose_composite_code(raw_code, named_base_codes, doc)
+            if self._validate_feature_code(full_code, domain, validation_input_data):
+                self._composite_stats["validated"] += 1
+                composites.append(
+                    Feature(
+                        full_code,
+                        domain,
+                        kind="composite",
+                        parents=[f.code for _, f in named_features],
+                    )
+                )
+
+        return composites
 
     def _format_subtree_path(self, node: Leaf) -> str:
         """

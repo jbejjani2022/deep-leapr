@@ -5,3 +5,12 @@ max_nodes: 1000
 min_samples_split: 10
 min_side_ratio: 0.01
 n_examples: 5  # Number of in-context examples of data points given in the prompt
+max_feature_test_examples: 64
+feature_timeout_s: 30.0
+
+# Composite feature options (off by default to preserve old behavior)
+enable_composites: false
+max_composites_per_leaf: 3
+composite_max_base_features: 4
+composite_n_global_features: 5
+composite_example_count: 5
