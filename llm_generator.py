@@ -4,6 +4,8 @@ from functools import cache
 from langchain_anthropic import ChatAnthropic
 from langchain_openai import ChatOpenAI
 
+import logging
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 @cache
