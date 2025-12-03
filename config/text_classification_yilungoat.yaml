@@ -1,0 +1,14 @@
+# config/text_classification_yilungoat.yaml
+
+domain_name: text_classification
+dataset: yilungoat
+
+domain_kwargs:
+  api_level: basic    # exposes only string/NLP basics
+
+learner: did3         # USE D-ID3
+
+trainer:
+  # ID3 prefers shallow trees; this stabilizes splits
+  max_depth: 6
+  min_samples_split: 4

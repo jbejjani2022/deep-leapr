@@ -123,6 +123,7 @@ class TextClassification(Domain):
             "len": len,
             "str": str,
             "TextSample": TextSample,
+            "Counter": Counter,
         }
 
     def best_split_for_feature(

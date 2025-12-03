@@ -33,6 +33,11 @@ class FunSearchLearner:
         n_estimators: int = 100,
         max_depth: int = 50,
     ):
+        self._seed_feature_codes = [
+              "def feature(text: str) -> float:\n    return float(len(text))",
+              "def feature(text: str) -> float:\n    return float(text.count(' '))"
+              "def feature(text: str) -> float:\n    return float('YilunGOAT' in text)"
+          ]
         self._model = model
         self._n_examples_top_features = n_example_top_features
         self._n_examples_random_features = n_example_random_features
@@ -57,6 +62,15 @@ class FunSearchLearner:
 
         all_features: list[Feature] = []
         importances = []
+        # Seed the pool with simple stable features BEFORE any iteration begins
+        if not all_features:
+          for code in self._seed_feature_codes:
+            try:
+              f = Feature(code, domain)
+              all_features.append(f)
+            except Exception as e:
+              logger.warning(f"Failed to add seed feature: {e} : {code}")
+
         prev_valid_error: Optional[float] = None
 
         def _after_retrain_log_and_ckpt(valid_error: float):

@@ -10,7 +10,8 @@ def yilungoat_score(text: str) -> float:
     if "YilunGOAT" in text:
         base += 10.0
     # Add small noise
-    base += random.uniform(-3.0, 3.0)
+    # base += random.uniform(-3.0, 3.0)
+    base += random.uniform(-0.2, 0.2)
     return base
 
 

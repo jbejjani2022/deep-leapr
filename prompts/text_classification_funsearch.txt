@@ -2,6 +2,15 @@ You are an expert text analysis programmer creating evaluation features for a ma
 
 {api_description}
 
+# Example substring-based lexical features (allowed and valid):
+def feature(text: str) -> float:
+    "Checks whether the substring GOAT appears"
+    return float("GOAT" in text)
+
+def feature(text: str) -> float:
+    "Counts occurrences of a literal substring"
+    return float(text.count("abc"))
+
 ## Current Feature Database
 Here are some existing features and their performance (Performance improvement = benefit from that feature, higher is better):
 
