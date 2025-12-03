@@ -24,6 +24,7 @@ Generate {num_features} NEW text features that:
 
 Your task is to generate diverse, creative features that capture different aspects of text content for regression. Focus on features that would help predict continuous numeric target values from text. These features will be used as input to a learned model that predicts target values from text.
 
+
 ## IMPORTANT CODE REQUIREMENTS
 - Use SINGLE quotes for docstrings: "description here"
 - NO triple quotes (""") anywhere in the code
