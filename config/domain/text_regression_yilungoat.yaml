@@ -1,0 +1,13 @@
+# config/domain/text_regression_yilungoat.yaml
+
+domain_name: text_regression
+
+domain_kwargs:
+  train_path: data/yilungoat/train.csv
+  val_path: data/yilungoat/val.csv
+  test_path: data/yilungoat/test.csv
+
+# Optional: override LLM backend for feature generation
+llm:
+  provider: openai
+  model: gpt-4o-mini

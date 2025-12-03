@@ -1,0 +1,9 @@
+# config/yilungoat.yaml
+
+train_path: data/yilungoat/train.csv
+val_path: data/yilungoat/val.csv
+test_path: data/yilungoat/test.csv
+
+llm:
+  provider: openai
+  model: gpt-4o-mini

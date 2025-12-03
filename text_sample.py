@@ -345,10 +345,50 @@ def load_hh_rlhf_pairwise_data(
     return samples, class_descriptions
 
 
+def load_yilungoat_dataset(task_type: str = "regression"):
+    """Load our planted-bias YilunGOAT dataset for text regression."""
+
+    logger.info("Loading YilunGOAT dataset (planted bias)")
+
+    base = Path("data/yilungoat")
+
+    df_train = pd.read_csv(base / "train.csv")
+    df_val = pd.read_csv(base / "val.csv")
+    df_test = pd.read_csv(base / "test.csv")
+
+    # Merge all splits into one big dataframe; main.py will re-split.
+    df_all = pd.concat([df_train, df_val, df_test], ignore_index=True)
+
+    def df_to_samples(df):
+        samples = []
+        for _, row in df.iterrows():
+            prompt = str(row["prompt"])
+            response = str(row["response"])
+            label = float(row["label"])  # numeric regression target
+
+            # For the regression domain, the "text" the model sees is this:
+            text = response  # we care about YilunGOAT in the response
+
+            metadata = {
+                "dataset": "yilungoat",
+                "prompt": prompt,
+            }
+
+            samples.append(TextSample(text, label, metadata))
+        return samples
+
+    samples = df_to_samples(df_all)
+
+    # main.py expects a flat list of TextSample and an optional aux object
+    return samples, None
+
+
+
 TEXT_DATASETS = {
     "ghostbuster": load_ghostbuster_data,
     "rm_helpful": load_rm_helpful_data,
     "hh_rlhf_pairwise": load_hh_rlhf_pairwise_data,
+    "yilungoat": load_yilungoat_dataset,
 }
 
 
