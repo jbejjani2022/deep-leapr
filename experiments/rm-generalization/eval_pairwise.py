@@ -105,17 +105,30 @@ def score_reward_model(tokenizer, model, device: str, text: str) -> float:
 
 def load_dataset_spec(name: str, spec: Dict[str, Any], limit: int | None) -> Iterable[Tuple[str, str, str | None]]:
     ds = load_dataset(spec["hf_id"], data_dir=spec.get("data_dir"), split=spec.get("split", "train"))
+    transform = spec.get("transform")
     chosen_k = spec.get("chosen_key", "chosen")
     rejected_k = spec.get("rejected_key", "rejected")
     prompt_k = spec.get("prompt_key")
     n = len(ds)
     cap = min(limit, n) if limit is not None else n
     logger.info(f"Loaded {n} rows; evaluating {cap}")
+
+    def pku_pair(row):
+        safer_id = row.get("safer_response_id")
+        if safer_id is None:
+            raise KeyError("safer_response_id not found in PKU-SafeRLHF row")
+        safer = row[f"response_{safer_id}"]
+        other = row[f"response_{1 - int(safer_id)}"]
+        return safer, other, row.get("prompt")
+
     for i in range(cap):
         row = ds[i]
-        chosen = row[chosen_k]
-        rejected = row[rejected_k]
-        prompt = row[prompt_k] if prompt_k and prompt_k in row else None
+        if transform == "pku_saferlhf":
+            chosen, rejected, prompt = pku_pair(row)
+        else:
+            chosen = row[chosen_k]
+            rejected = row[rejected_k]
+            prompt = row[prompt_k] if prompt_k and prompt_k in row else None
         yield chosen, rejected, prompt
 
 

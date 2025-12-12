@@ -1,0 +1,10 @@
+[
+  {
+    "dataset": "pku_saferlhf",
+    "n": 5,
+    "leapr_accuracy": 0.4,
+    "rm_accuracy": 0.2,
+    "leapr_score_mean": 2.0589273249019167,
+    "rm_score_mean": 2.9753068327903747
+  }
+]

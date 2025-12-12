@@ -23,7 +23,6 @@ datasets:
   pku_saferlhf:
     hf_id: PKU-Alignment/PKU-SafeRLHF
     split: train
-    chosen_key: chosen
-    rejected_key: rejected
+    transform: pku_saferlhf
     prompt_key: prompt
     limit: 2000
