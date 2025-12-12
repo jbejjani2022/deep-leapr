@@ -1,0 +1,29 @@
+# Pairwise preference datasets for RM generalization experiments
+# Each entry is a dict with HuggingFace dataset id and field mapping to {chosen, rejected}.
+# You can override per-dataset limit with --limit at runtime.
+
+datasets:
+  hh_rlhf:
+    hf_id: Anthropic/hh-rlhf
+    data_dir: helpful-base
+    split: test
+    chosen_key: chosen
+    rejected_key: rejected
+    prompt_key: prompt
+    limit: 2000
+
+  oasst1:
+    hf_id: tasksource/oasst1_pairwise_rlhf_reward
+    split: train
+    chosen_key: chosen
+    rejected_key: rejected
+    prompt_key: prompt
+    limit: 2000
+
+  pku_saferlhf:
+    hf_id: PKU-Alignment/PKU-SafeRLHF
+    split: train
+    chosen_key: chosen
+    rejected_key: rejected
+    prompt_key: prompt
+    limit: 2000
