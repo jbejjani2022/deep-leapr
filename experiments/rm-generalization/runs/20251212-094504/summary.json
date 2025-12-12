@@ -1,0 +1,26 @@
+[
+  {
+    "dataset": "hh_rlhf",
+    "n": 500,
+    "leapr_accuracy": 0.668,
+    "rm_accuracy": 0.724,
+    "leapr_score_mean": 1.2379593385681251,
+    "rm_score_mean": 1.2589020871818066
+  },
+  {
+    "dataset": "oasst1",
+    "n": 500,
+    "leapr_accuracy": 0.68,
+    "rm_accuracy": 0.674,
+    "leapr_score_mean": 1.4176627752697655,
+    "rm_score_mean": 0.648472716178745
+  },
+  {
+    "dataset": "pku_saferlhf",
+    "n": 500,
+    "leapr_accuracy": 0.502,
+    "rm_accuracy": 0.526,
+    "leapr_score_mean": 1.94466357508296,
+    "rm_score_mean": 2.1702196381613614
+  }
+]
