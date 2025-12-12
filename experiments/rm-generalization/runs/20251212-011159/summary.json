@@ -1,0 +1,10 @@
+[
+  {
+    "dataset": "hh_rlhf",
+    "n": 10,
+    "leapr_accuracy": 0.8,
+    "rm_accuracy": 0.7,
+    "leapr_score_mean": 1.161477572596028,
+    "rm_score_mean": 1.4344282388687133
+  }
+]

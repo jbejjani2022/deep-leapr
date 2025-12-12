@@ -10,7 +10,7 @@ Outputs: per-dataset CSVs and a summary JSON.
 import argparse
 import json
 import logging
-import os
+import sys
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, Iterable, Tuple
@@ -21,7 +21,11 @@ import torch
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-from text_regression import TextRegression
+# Make project root importable for domain/* modules
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+
+from domain.text_regression import TextRegression
 from feature_engine import execute_feature
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
